@@ -1,0 +1,344 @@
+<html>
+<!-- Mirrored from 192.168.1.1/tcpiplan.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:46 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>LAN Interface Setup </title>
+<SCRIPT>
+selected=0;
+function resetClick()
+{
+document.tcpip.reset;
+}
+function saveChanges()
+{
+if (!checkIP(document.tcpip.ip))
+return false;
+if (!checkMaskSpecial(document.tcpip.mask))
+return false;
+if (document.tcpip.enable_ip2.checked) {
+if (!checkIP(document.tcpip.ip2))
+return false;
+if (!checkMaskSpecial(document.tcpip.mask2))
+return false;
+if (!Lan1NeqLan2(document.tcpip.ip, document.tcpip.mask, document.tcpip.ip2, document.tcpip.mask2)) {
+alert("The first IP and the second IP must belong to the different subnet!");
+document.tcpip.ip2.focus();
+return false;
+}
+}
+}
+var warningstr= "Allowed MAC address Table should not empty when enabled on interface(s)!"
+function macAcChanges()
+{
+if(document.delmacac.curTblNum.value == '0')
+{
+if(document.macac.lan1.checked == true)
+alert(warningstr);
+else if(document.macac.lan2.checked == true)
+alert(warningstr);
+else if(document.macac.lan3.checked == true)
+alert(warningstr);
+else if(document.macac.lan4.checked == true)
+alert(warningstr);
+else if(document.macac.wlan.checked == true)
+alert(warningstr);
+else{
+return true;
+}
+return false;
+}
+}
+function macAcDelFunc( form , dstmacaddr){
+form.MacEntryDel.value = dstmacaddr;
+form.submit();
+}
+function postEntry(port , linkmode)
+{
+document.linkmode.linkmode.value = linkmode;
+document.linkmode.lanport.value = port;
+selected = 1;
+}
+function modifyClick()
+{
+if (!selected) {
+alert("Please select an entry to modify!");
+return false;
+}
+}
+</SCRIPT>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Local Network";
+HelpItem="lancfg2";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">LAN Setting</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the LAN interface of your ADSL Router.
+Here you may change the setting for IP addresss, subnet mask, etc..</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2lansetup.cgi" method=POST name="tcpip">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>LAN Interface Settings</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_left>Interface Name:</td>
+<td class=form_label_right><b>e1</b></td>
+</tr>
+<tr>
+<td class=form_label_left>IP Address:</td>
+<td class=form_label_right><input type="text" name="ip" size="15" maxlength="15" value=
+192.168.1.1
+></td>
+</tr>
+<tr>
+<td class=form_label_left>Subnet Mask:</td>
+<td class=form_label_right><input type="text" name="mask" size="15" maxlength="15" value=
+255.255.255.0
+></td>
+</tr>
+</table>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+	<tr>
+		<td class="form_label_left">
+			<input type=checkbox name=enable_ip2 value=1 onClick=updateInput()>
+		</td>
+		<td class="form_label_enabled" style="text-align: left">Secondary IP</td>
+	</tr>
+</table>
+<div id="secondIP" style="display:none">
+	<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+		<tr>
+			<td class="form_label_left">IP Address:</td>
+			<td class="form_label_right"><input type=text name=ip2 size=15 maxlength=15 value="0.0.0.0"></td>
+		</tr>
+		<tr>
+			<td class="form_label_left">Subnet Mask:</td>
+			<td class="form_label_right"><input type=text name=mask2 size=15 maxlength=15 value="0.0.0.0"></td>
+		</tr>
+	</table>
+</div>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+	<tr>
+		<td class="form_label_left">IGMP Snooping:</td>
+		<td class="form_label_enabled" style="text-align: left">
+			<input type="radio" name=snoop value=0>Disable&nbsp;&nbsp;
+			<input type="radio" name=snoop value=1>Enable
+		</td>
+	</tr>
+</table>
+
+ </td>
+</tr>
+</table>
+<br>
+<script>
+document.tcpip.snoop[1].checked = true;
+function updateInput()
+{
+	if (document.tcpip.enable_ip2.checked == true) {
+		if (document.getElementById)  // DOM3 = IE5, NS6
+			document.getElementById('secondIP').style.display = 'block';
+			else {
+			if (document.layers == false) // IE4
+				document.all.secondIP.style.display = 'block';
+		}
+	} else {
+		if (document.getElementById)  // DOM3 = IE5, NS6
+			document.getElementById('secondIP').style.display = 'none';
+		else {
+			if (document.layers == false) // IE4
+				document.all.secondIP.style.display = 'none';
+		}
+	}
+}
+
+</script>
+<input type="submit" value="Apply Changes" onClick="return saveChanges()">
+<input type="hidden" value="Send" name="submit.htm?tcpiplan.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2lanlinkmode.cgi" method=POST name="linkmode">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>LAN Link Mode Settings</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_left>LAN Port:</td>
+<td class=form_label_right>
+<select size="1" name="lanport">
+<option value="4"></option>
+<option value="0">LAN1</option>
+<option value="1">LAN2</option>
+<option value="2">LAN3</option>
+<option value="3">LAN4</option>
+
+ </select>
+</td>
+</tr>
+<tr>
+<td class=form_label_left>Link Speed/Duplex Mode:</td>
+<td class=form_label_right>
+<select size="1" name="linkmode">
+<option value="5"></option>
+<option value="4">100Mbps/Full Duplex</option>
+<option value="3">100Mbps/Half Duplex</option>
+<option value="2">10Mbps/Full Duplex</option>
+<option value="1">10Mbps/Half Duplex</option>
+<option value="0">Auto Negotiation</option>
+
+ </select>
+</td>
+</tr>
+<br>
+<br>
+</table>
+<p align=center>
+<input type="submit" value="Modify" name="modify" onClick="return modifyClick()" >
+</p>
+</td>
+</tr>
+<tr>
+<td class=content align=center colspan=3>
+<table class=formlisting border=0 >
+<tr class=form_label_row>
+<td class=form_label_col colspan=3>
+ETHERNET Status Table:
+</td>
+</tr>
+<tr class=form_label_row>
+<td class=form_label_col>Select</td>
+<td class=form_label_col>Port</td>
+<td class=form_label_col>Link Mode</td>
+</tr>
+<tr><td align=center width="20%" bgcolor="#C0C0C0"><input type="radio" name="select" value="s0"  onClick="postEntry('0' , '0')"></td>
+<td align=center width="30%" bgcolor="#C0C0C0"><font size="2"><b>LAN1</b></font></td>
+<td align=center width="50%" bgcolor="#C0C0C0"><font size="2"><b>AUTO Negotiation</b></font></td></tr>
+<tr><td align=center width="20%" bgcolor="#C0C0C0"><input type="radio" name="select" value="s1"  onClick="postEntry('1' , '0')"></td>
+<td align=center width="30%" bgcolor="#C0C0C0"><font size="2"><b>LAN2</b></font></td>
+<td align=center width="50%" bgcolor="#C0C0C0"><font size="2"><b>AUTO Negotiation</b></font></td></tr>
+<tr><td align=center width="20%" bgcolor="#C0C0C0"><input type="radio" name="select" value="s2"  onClick="postEntry('2' , '0')"></td>
+<td align=center width="30%" bgcolor="#C0C0C0"><font size="2"><b>LAN3</b></font></td>
+<td align=center width="50%" bgcolor="#C0C0C0"><font size="2"><b>AUTO Negotiation</b></font></td></tr>
+<tr><td align=center width="20%" bgcolor="#C0C0C0"><input type="radio" name="select" value="s3"  onClick="postEntry('3' , '0')"></td>
+<td align=center width="30%" bgcolor="#C0C0C0"><font size="2"><b>LAN4</b></font></td>
+<td align=center width="50%" bgcolor="#C0C0C0"><font size="2"><b>AUTO Negotiation</b></font></td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" value="Send" name="submit.htm?tcpiplan.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2macac.cgi" method=POST name="macac">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>MAC Address Control Settings</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formarea border=0>
+<tr>
+<td class=form_label_left>MAC Address Control:</td>
+<td class=form_label_right>
+<input type="checkbox" name=lan1 value="1" >LAN1&nbsp;
+<input type="checkbox" name=lan2 value="1" >LAN2&nbsp;
+<input type="checkbox" name=lan3 value="1" >LAN3&nbsp;
+<input type="checkbox" name=lan4 value="1" >LAN4&nbsp;
+<input type="checkbox" name=wlan value="1" >WLAN&nbsp;
+
+ </td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Apply Changes" onClick="return macAcChanges()"><br><br>
+</p>
+</td>
+</tr>
+</table>
+<input type="hidden" value="Send" name="submit.htm?tcpiplan.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2macacadd.cgi" method=POST name="macacadd">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=content>
+<table class=formarea border=0>
+<tr>
+<td class=form_label_left>New MAC Address:</td>
+<td class=form_label_right>
+<input type="text" name=newmac size=17 maxlength=17 >
+<input type="submit" value="Add" onClick="return checkMac(document.macacadd.newmac)">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<input type="hidden" value="Send" name="submit.htm?tcpiplan.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2macacDel.cgi" method=POST name="delmacac">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current Allowed MAC Address Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row>
+<td class=form_label_col>MAC Addr</td>
+<td class=form_label_col>Action</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" name="MacEntryDel" value ="0">
+<input type="hidden" name="curTblNum" value=
+"0"
+;>
+<input type="hidden" value="Send" name="submit.htm?tcpiplan.htm">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/tcpiplan.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:46 GMT -->
+</html>
+
+

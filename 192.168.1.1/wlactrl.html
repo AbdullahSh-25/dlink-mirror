@@ -1,0 +1,194 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wlactrl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Wireless Access Control</title>
+<script>
+function skip () { this.blur(); }
+function addClick()
+{
+if (!checkMacWithoutColon(document.formWlAcAdd.mac, 1)) {
+alert("Invalid mac address!please input one valid unicast mac address!");
+return false;
+}
+return true;
+}
+function disableDelButton()
+{
+disableButton(document.formWlAcDel.deleteSelFilterMac);
+disableButton(document.formWlAcDel.deleteAllFilterMac);
+}
+function enableAc()
+{
+enableTextField(document.formWlAcAdd.mac);
+}
+function disableAc()
+{
+disableTextField(document.formWlAcAdd.mac);
+}
+function updateState()
+{
+if(wlanDisabled || wlanMode == 1 || wlanMode ==2){
+disableDelButton();
+disableButton(document.formWlAcAdd.reset);
+disableButton(document.formWlAcAdd.addFilterMac);
+disableTextField(document.formWlAcAdd.wlanAcEnabled);
+disableAc();
+}
+else{
+if (document.formWlAcAdd.wlanAcEnabled.selectedIndex) {
+enableButton(document.formWlAcAdd.reset);
+enableButton(document.formWlAcAdd.addFilterMac);
+enableAc();
+}
+else {
+disableButton(document.formWlAcAdd.reset);
+disableButton(document.formWlAcAdd.addFilterMac);
+disableAc();
+}
+}
+}
+function delEntryCheck()
+{
+if(document.formWlAcDel.select.length)
+{
+for(i=0;i<document.formWlAcDel.select.length;i++)
+{
+if(document.formWlAcDel.select[i].checked)
+return deleteClick();
+}
+}else
+{
+if(document.formWlAcDel.select.checked)
+return deleteClick();
+}
+alert("please select an entry to delete!");
+return false;
+}
+</script>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Advanced Wireless";
+HelpItem="wlacl";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<form action=http://admin:admin@192.168.1.1/form2WlAc.cgi method=POST name="formWlAcAdd">
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Wireless Access Control</td>
+</tr>
+<tr>
+<td class=content>
+<p> If you choose 'Allowed Listed', only those clients whose wireless MAC
+addresses are in the access control list will be able to connect to your
+Access Point. When 'Deny Listed' is selected, these wireless clients on
+the list will not be able to connect the Access Point.</p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Wireless Access Control Mode</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_40>Wireless Access Control Mode: &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td><select size="1" name="wlanAcEnabled" onclick="updateState()">
+<option value=0 >Disable</option>
+<option value=1 >Allow Listed</option>
+<option value=2 >Deny Listed</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Apply Changes" name="setFilterMode">&nbsp;&nbsp;
+</p>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Wireless Access Control Settings</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_40>MAC Address: &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td><input type="text" name="mac" size="15" maxlength="12">
+&nbsp;&nbsp;(ex. 00E086710502)
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Add" name="addFilterMac" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">&nbsp;&nbsp;&nbsp;
+<INPUT TYPE="hidden" NAME="submit.htm?wlactrl.htm" VALUE="Send">
+</p>
+</form>
+<br>
+<form action=http://admin:admin@192.168.1.1/form2WlAc.cgi method=POST name="formWlAcDel">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current Access Control List</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class="form_label_row"><td class="form_label_col"><b>MAC Address</b></td><td class="form_label_col"><b>Select</b></td></tr>
+<INPUT TYPE="HIDDEN" NAME="totalNum" VALUE="0">
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<p align="center">
+<input type="submit" value="Delete Selected" name="deleteSelFilterMac" onClick="return delEntryCheck()">&nbsp;&nbsp;
+<input type="submit" value="Delete All" name="deleteAllFilterMac" onClick="return deleteAllClick()">&nbsp;&nbsp;&nbsp;
+</p>
+<INPUT TYPE="hidden" NAME="submit.htm?wlactrl.htm" VALUE="Send">
+<script>
+disableDelButton();
+wlanDisabled=0;
+wlanMode=0;
+document.formWlAcAdd.wlanAcEnabled.selectedIndex=0;
+
+ updateState();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wlactrl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

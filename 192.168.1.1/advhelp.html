@@ -1,0 +1,258 @@
+if (HelpItem=='blockurl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of websites that you would like the devices on ' +
+'your network to be allowed or denied access to.<br><br>' +
+'Select a schedule for when the rule will be enabled. If you do not see the schedule ' +
+'you need in the list of schedules, go to the <a href="ipttime_sch.html">Advanced -> Schedules</a> ' +
+'screen and create a new schedule.<br><br> ' +
+'<a href="helpadv.html#Parental">More...</a>';
+} else if (HelpItem=='ddns'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'DDNS - This stands for Dynamic DNS.<br> ' +
+'By creating a static hostname, users will be able to point to this in order to access ' +
+'a dynamic IP address from anywhere in the world.<br><br>' +
+'To use this feature, you must first have a Dynamic DNS account ' +
+'from one of the providers in the drop down menu.<br><br> ' +
+'<b>Note:</b> In some cases DDNS service requires you to open the WAN http service in ' +
+'<a href="acl.html">ADVANCED -> Access Control List-> Access Control List</a>.<BR><BR>' +
+'<a href="helpadv.html#DDNS">More...</a>';
+} else if (HelpItem=='wladvanced'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'By default these options need not be changed for this router ' +
+'to operate with Wireless.<br><br>' +
+'<a href="helpadv.html#AdvancedWireless">More...</a>';
+}else if (HelpItem=='parentctrl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of websites that you would like the devices ' +
+'on your network to be denied access to<br><br> ' +
+'Select a schedule for when the rule will be enabled. ' +
+'If you do not see the schedule you need in the list of schedules, go to' +
+'<a href="schedule.html">Advanced -> Parent Control -> Schedules</a>.<BR><BR>' +
+'<a href="helpadv.html#Parental">More...</a>';
+}else if (HelpItem=='wlsecurity'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'If you enable Wireless Security, make sure you write down the ' +
+'<b><font color="rgb(108,169,213)">encryption key</font></b> ' +
+'that you have configured. You will need to enter this information ' +
+'on any wireless device that you connect to your wireless network. <br><br>' +
+'<a href="helpsetup.html#Wireless">More...</a>';
+} else if (HelpItem=='portforwarding'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Check the Usual Service Name drop down menu for a list of predefined applications.<br><br>' +
+' If you do not see your application listed you can still define a new service.<br><br> ' +
+'<a href="helpadv.html#PortForwarding">More...</a>';
+} else if (HelpItem=='porttriggering'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Use this feature if you are trying to execute one of the listed ' +
+'network applications and it is not communicating as expected.<br><br>' +
+'Check the Application Name drop down menu for a list of predefined applications.<br><br>' +
+'<a href="helpadv.html#PortTriggering">More...</a>';
+} else if (HelpItem=='dmz'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Enable the DMZ option only as a last resort. If you are having trouble ' +
+'using an application from a computer behind the router, first try opening ' +
+'ports associated with the application in the <a href="nat_portrigger.html">Advanced -> Port Trigger</a> section.<br><br>' +
+'<a href="helpadv.html#DMZ">More...</a>';
+} else if (HelpItem=='fw_ipport_filter'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Direction <b><font color="rgb(108,169,213)">Upstream (Downstream)</font></b> means packets outgoing(incoming) from(to) router,' +
+'The Source IP addresses are LAN-side(WAN-side) addresses and the Destination ' +
+'IP addresses are WAN-side(LAN-side) addresses.<br><br>' +
+'Click the <b><font color="rgb(108,169,213)">Apply Changes</font></b> button to store a finished rule in the Rules List.<br><br>' +
+'<a href="helpadv.html#Filtering">More...</a>';
+} else if (HelpItem=='outfilter'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Give each rule a <b><font color="rgb(108,169,213)">Name</font></b> that is meaningful to you.<br><br>' +
+'The Source IP addresses are LAN-side addresses and the Destination ' +
+'IP addresses are WAN-side addresses.<br><br>' +
+'Each rule can <b>Deny</b> outgoing traffic from the LAN.<br><br>' +
+'Select a schedule for when the rule will be enabled. If you do not see the schedule ' +
+'you need in the list of schedules, go to the <a href="ipttime_sch.html">Advanced -> Schedules</a> ' +
+'screen and create a new schedule.<br><br> ' +
+'Click the <b>Apply</b> button to store a finished rule in the Rules List.<br><br>' +
+'Click the <b>Remove</b> checkbox in the Rules List then click on the <b>Remove</b> button ' +
+'to permanently remove a rule.<br><br>' +
+'<a href="helpadv.html#Filtering">More...</a>';
+} else if (HelpItem=='fw_macfilter'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of MAC addresses that you would either like to allow or deny access to your ' +
+'network.<br><br>' +
+'<a href="helpadv.html#Filtering">More...</a>';
+} else if (HelpItem=='macfilteradd'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of MAC addresses that you would either like to allow or deny access to your ' +
+'network depending on the current <b><font color="rgb(108,169,213)">Global Policy</font></b>.<br><br>' +
+'<b>Note :</b> You must first create a <b>Bridged</b> connection to use <b>Bridge Filter</b>.<br><br>' +
+'You can create a <b>Bridged</b> connection by going to ' +
+'<a href="internet-2.html">Setup -> Internet Setup</a>.<BR><BR>' +
+'Select a schedule for when the rule will be enabled. If you do not see the schedule ' +
+'you need in the list of schedules, go to the <a href="ipttime_sch.html">Advanced -> Schedules</a> ' +
+'screen and create a new schedule.<br><br> ' +
+'<a href="helpadv.html#Filter">More...</a>';
+} else if (HelpItem=='wlmacfilter'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of MAC addresses that you would either like to allow or deny users access to '+
+'the wireless router. Click on Remove if you want to take out a MAC address from the MAC filter list.<br><br>' +
+'<a href="helpadv.html#AdvancedWireless">More...</a>';
+} else if (HelpItem=='wlacl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Create a list of MAC addresses that you would either like to allow or deny users access to '+
+'the wireless router.<br><br>' +
+'<a href="helpadv.html#AdvancedWireless">More...</a>';
+} else if (HelpItem=='wlbridge'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Selecting Acess Point enables access point functionality. Wireless bridge functionality ' +
+'will still be available and wireless stations will be able to associate to the AP.<br><br> ' +
+'Select Disabled in Bridge Restrict which disables wireless bridge restriction. <br><br>' +
+'Any wireless bridge will be granted access. Selecting Enabled or Enabled(Scan) enables ' +
+'wireless bridge restriction. Only those bridges selected in Remote Bridges will be granted access.<br><br>' +
+'<a href="helpadv.html#WirelessAdv">More...</a>';
+} else if (HelpItem=='wlqos'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can give multimedia applications a higher quality of service and priority ' +
+'in a wireless network so applications such as videos will be of higher quality. <br><br>' +
+'Enabling WMM may delay the network traffic of other lower assigned quality applications.<br><br>' +
+'<a href="helpadv.html#WirelessAdv">More...</a>';
+} else if (HelpItem=='wlqosadd'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Give each rule a name that is meaningful to you. <br><br>' +
+'<a href="helpadv.html#WirelessAdv">More...</a>';
+} else if (HelpItem=='blockmac'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Give each rule a name that is meaningful to you. For example, a schedule for Monday ' +
+'through Friday from 3:00pm to 9:00pm, might be called "After School" and enter the MAC address ' +
+'that you want to deny access to the Internet.<br><br>' +
+'<a href="helpadv.html#Parental">More...</a>';
+} else if (HelpItem=='dns'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'If <b><font color="rgb(108,169,213)">Attain DNS Automatically</font></b> is selected, this router will accept ' +
+'the first received DNS assignment from one of the PPPoA, PPPoE or MER/DHCP enabled ' +
+'PVC(s) during the connection establishment. If <b><font color="rgb(108,169,213)">Set DNS Manually</font></b> is selected, enter the ' +
+'DNS server IP addresses. ' +
+'Only do so if you are having problems with your DNS servers.<br><br> ' +
+'<a href="helpadv.html#DNS">More...</a>';
+} else if (HelpItem=='portmap'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'To use this feature, mapping groups should be created. <br>' +
+'If you need to remove an entry, then click on the Del button.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='qosadd'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'QoS or Quality of service allows your Router to help prioritise the ' +
+'data packets that flow throughout your network. This is a very ' +
+'useful feature for sensitive applications such as VoIP whereby ' +
+'it will assist in preventing dropped calls. Large amounts of ' +
+'non-critical data can be scaled so that they do not affect sensitive ' +
+'real-time applications such as VoIP or Streaming. The main ' +
+'screen shows some pre-configured rules that are used with ' +
+'common applications such as VoIP, FTP and messaging ' +
+'programs.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='adsl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Do not change these settings unless directed by your ISP.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='snmp'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Provides a means to monitor status and performance as well as set configuration parameters.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='certificatelocal'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'A local certificate identifies your router over the network.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='certificateca'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Trusted certificate authority (CA) allows you to verify the certificates of your peers.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='staticRouting'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can click <b><font color="rgb(108,169,213)">Show Routes</font></b> to show Current IP Routing Table.<br><br>' +
+'<a href="helpadv.html#Routing">More...</a>';
+} else if (HelpItem=='dfltgateway'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'<b>NOTE</b>: If changing the Automatic Assigned Default Gateway from unselected to selected, ' +
+'You must reboot the router to get the automatic assigned default gateway.<br><br>' +
+'<a href="helpadv.html#Routing">More...</a>';
+} else if (HelpItem=='dos'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'If <b><font color="rgb(108,169,213)">Enable DoS Prevention </font></b> checkbox is selected,the router will detect some attacks. ' +
+'<a href="helpadv.html#DOS">More...</a>';
+} else if (HelpItem=='tr069'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Provides a means to monitor status and performance as well as set configuration parameters ' +
+'from WAN side.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='rip'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Enabling RIP provides a protocol that determines the best path to a target by estimating ' +
+'the distance in number of hops or intermediate routers.<br><br>' +
+'<a href="helpadv.html#Routing">More...</a>';
+} else if (HelpItem=='igmproxy'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'IGMP (Internet Group Management Protocol, join/leave) is a communications protocol used ' +
+'to manage the membership of Internet Protocol multicast groups. "IGMP proxy (multicast)" feature ' +
+'needs to be enabled for the device (L2 switch) to support multimedia ' +
+'applications (transmitter /media server & receivers /IPSTBs) w/ multicast ' +
+'capability, i.e. IPTV, on-line gaming etc.<BR><BR> '+
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='portmapping'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can map PVC1 to port 1~3 to create a network (broadcast domain) for PCs toward Internet, ' +
+'and map PVC2 to port 4 to create another network (broadcast domain) for IPTV service(devices).<BR><BR> ' +
+'Note that the selected interfaces will be removed from their existing groups and added ' +
+'to the new group.<br><br>' +
+'IMPORTANT: If a vendor ID is configured for a specific client device, ' +
+'please REBOOT the client device attached to the modem to allow it to ' +
+'obtain an appropriate IP address.<BR><BR>' +
+'<a href="helpadv.html#Tools">More...</a>';
+} else if (HelpItem=='schedule'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Schedules are used with a number of other features to define when those features are in effect.<br><br> ' +
+'Give each schedule a name that is meaningful to you. For example, a schedule for Monday through ' +
+'Friday from 3:00pm to 9:00pm, might be called "After School". <br><br>' +
+'NOTE: <a href="time.html">Setup -> Time and Date</a> must be set for schedule to work properly.<BR><BR>' +
+'<a href="helpadv.html#Schedules">More...</a>';
+}else if (HelpItem=='UPnP'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'UPnP helps other UPnP LAN hosts interoperate with the router. Leave the UPnP option ' +
+'enabled as long as the LAN has other UPnP applications.<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+}
+else if (HelpItem=='VirtualSer'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'By config Virtual Server, others can access the server through the Gateway from WAN-side.' +
+'<br><br>' +
+'<a href="helpadv.html#NAT">More...</a>';
+}
+else if (HelpItem=='natipmapping'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'NAT IP Mapping are used for advanced network address translation.' +
+'<br><br>' +
+'<a href="helpadv.html#NAT">More...</a>';
+}else if (HelpItem=='acl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'You can enable/disable specified service from LAN or WAN.' +
+'<br><br>' +
+'<a href="helpadv.html#ACL">More...</a>';
+}else if (HelpItem=='layer7'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'When Single IP is selected,IP 0.0.0.0 represent for any IP,'+
+'in this situation,all PCs connected to this router will deny the selected software.' +
+'<br><br>' +
+'<a href="helpadv.html#Tools">More...</a>';
+}else if (HelpItem=='schedulereboot'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'Dispaly scheduled reboot setting.' +
+'<br><br>' +
+'<a href="helpadv.html#ScheduleReboot">More...</a>';
+}else if (HelpItem=='IPv6Filter'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can configure IPv6 Filter on this page. <br><br>' +
+'<a href="helpadv.html#IPv6Filter">More...</a>';
+} else if (HelpItem=='IPv6Routing'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can configure IPv6 Static Route on this page. <br><br>' +
+'<a href="helpadv.html#IPv6Routing">More...</a>';
+}
+
+

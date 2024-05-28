@@ -1,0 +1,654 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wlwpa.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Wireless Security Setup</title>
+<SCRIPT language="JavaScript">
+var shouldHidden = 'no';
+
+</SCRIPT>
+<script>
+var wps2dotx=0;
+
+ var defPskLen, defPskFormat;
+function isValidWPAPasswd(str)
+{
+var patrn=/^[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~\x20]{6,61}[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}$/;   
+if (!patrn.exec(str)) return false ;
+if(str.indexOf("  ") != -1)
+return false;
+if(document.formEncrypt.pskValue.value.indexOf("  ",0)!=-1)
+return false;
+return true;
+}
+function disableRadioGroup (radioArrOrButton)
+{
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = true;
+for (var b = 0; b < radioArray.length; b++) {
+if (radioArray[b].checked) {
+radioArray.checkedElement = radioArray[b];
+break;
+}
+}
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = true;
+radioArray[b].checkedElement = radioArray.checkedElement;
+}
+}
+function enableRadioGroup (radioArrOrButton)
+{
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = false;
+radioArray.checkedElement = null;
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = false;
+radioArray[b].checkedElement = null;
+}
+}
+function skip () { this.blur(); }
+function preserve () { this.checked = this.storeChecked; }
+function disableCheckBox (checkBox) {
+if (!checkBox.disabled) {
+checkBox.disabled = true;
+if (!document.all && !document.getElementById) {
+checkBox.storeChecked = checkBox.checked;
+checkBox.oldOnClick = checkBox.onclick;
+checkBox.onclick = preserve;
+}
+}
+}
+function enableCheckBox (checkBox)
+{
+if (checkBox.disabled) {
+checkBox.disabled = false;
+if (!document.all && !document.getElementById)
+checkBox.onclick = checkBox.oldOnClick;
+}
+}
+function check_wepbutton_state()
+{
+if (document.formEncrypt.method.value==1)
+document.getElementById('wepKeySetting').style.display="";
+else
+document.getElementById('wepKeySetting').style.display="none";
+}
+function check_radius_state()
+{
+form = document.formEncrypt ;
+use1x = form.use1x;
+wpaAuth = form.wpaAuth;
+if ( (form.method.value<2 && use1x.checked) ) {
+enableTextField(form.radiusPort);
+enableTextField(form.radiusIP);
+enableTextField(form.radiusPass);
+}
+else if ( form.method.value<2 ){
+disableTextField(form.radiusPort);
+disableTextField(form.radiusIP);
+disableTextField(form.radiusPass);
+}
+if ( (form.method.value>=2 && wpaAuth[0].checked) ) {
+enableTextField(form.radiusPort);
+enableTextField(form.radiusIP);
+enableTextField(form.radiusPass);
+disableTextField(document.formEncrypt.pskFormat);
+disableTextField(document.formEncrypt.pskValue);
+}
+else if ( (form.method.value>=2 && wpaAuth[1].checked) ){
+disableTextField(form.radiusPort);
+disableTextField(form.radiusIP);
+disableTextField(form.radiusPass);
+enableTextField(document.formEncrypt.pskFormat);
+enableTextField(document.formEncrypt.pskValue);
+}
+}
+function check_nonWpaSupp_state()
+{
+check_radius_state();
+check_wepbutton_state();
+check_wepKeyLen_state();
+}
+function check_wepKeyLen_state()
+{
+form = document.formEncrypt ;
+use1x = form.use1x;
+if ((form.method.value==1 && use1x.checked) )
+enableRadioGroup(form.wepKeyLen);
+else
+disableRadioGroup(form.wepKeyLen);
+}
+function disable_wpa()
+{
+disableTextField(document.formEncrypt.pskFormat);
+disableTextField(document.formEncrypt.pskValue);
+enableCheckBox(document.formEncrypt.elements.use1x);
+disableRadioGroup(document.formEncrypt.elements.wpaAuth);
+check_nonWpaSupp_state();
+}
+function enable_wpa()
+{
+enableTextField(document.formEncrypt.pskFormat);
+enableTextField(document.formEncrypt.pskValue);
+disableCheckBox(document.formEncrypt.elements.use1x);
+enableRadioGroup(document.formEncrypt.elements.wpaAuth);
+check_nonWpaSupp_state();
+}
+function checkState()
+{
+if (document.formEncrypt.wlanDisabled.value == "ON") {
+disableTextField(document.formEncrypt.method);
+disableButton(document.formEncrypt.wepKey);
+disableTextField(document.formEncrypt.use1x);
+disableRadioGroup(document.formEncrypt.wepKeyLen);
+disableRadioGroup(document.formEncrypt.elements.wpaAuth);
+disableTextField(document.formEncrypt.pskFormat);
+disableTextField(document.formEncrypt.pskValue);
+disableTextField(document.formEncrypt.radiusPort);
+disableTextField(document.formEncrypt.radiusIP);
+disableTextField(document.formEncrypt.radiusPass);
+disableButton(document.formEncrypt.save);
+} else {
+if (document.formEncrypt.method.value>=2)
+enable_wpa();
+else
+disable_wpa();
+}
+}
+function validateKey(idx, str, len)
+{
+if (document.formEncrypt.defaultTxKeyId.selectedIndex==idx && str.length==0) {
+alert('The encryption key you selected as the \'Tx Default Key\' cannot be blank.');
+return 0;
+}
+if (str.length ==0)
+return 1;
+if ( str.length != len) {
+idx++;
+alert('Invalid length of Key ' + idx + ' value. It should be ' + len + ' characters.');
+return 0;
+}
+if ( str == "*****" ||
+str == "**********" ||
+str == "*************" ||
+str == "**************************" )
+return 1;
+if (document.formEncrypt.format.selectedIndex==0){
+var patrn=/^[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~\x20]*[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}$/;   
+if (!patrn.exec(str)) {
+alert("Invalid characters!please check your input! ");
+return 0 ;
+}
+if(str.indexOf("  ",0)!=-1){
+alert("There should not be more than one consecutive space in the key!");
+return 0;
+}
+return 1;
+}
+for (var i=0; i<str.length; i++) {
+if ( (str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+(str.charAt(i) >= 'a' && str.charAt(i) <= 'f') ||
+(str.charAt(i) >= 'A' && str.charAt(i) <= 'F') )
+continue;
+alert("Invalid key value. It should be in hex number (0-9 or a-f).");
+return 0;
+}
+return 1;
+}
+function lengthClick()
+{
+updateFormat();
+}
+function setDefaultKeyValue()
+{
+if (document.formEncrypt.length.selectedIndex == 0) {
+if ( document.formEncrypt.format.selectedIndex == 0) {
+document.formEncrypt.key1.maxLength = 5;
+document.formEncrypt.key2.maxLength = 5;
+document.formEncrypt.key3.maxLength = 5;
+document.formEncrypt.key4.maxLength = 5;
+document.formEncrypt.key1.value = "*****";
+document.formEncrypt.key2.value = "*****";
+document.formEncrypt.key3.value = "*****";
+document.formEncrypt.key4.value = "*****";
+}
+else {
+document.formEncrypt.key1.maxLength = 10;
+document.formEncrypt.key2.maxLength = 10;
+document.formEncrypt.key3.maxLength = 10;
+document.formEncrypt.key4.maxLength = 10;
+document.formEncrypt.key1.value = "**********";
+document.formEncrypt.key2.value = "**********";
+document.formEncrypt.key3.value = "**********";
+document.formEncrypt.key4.value = "**********";
+}
+}
+else {
+if ( document.formEncrypt.format.selectedIndex == 0) {
+document.formEncrypt.key1.maxLength = 13;
+document.formEncrypt.key2.maxLength = 13;
+document.formEncrypt.key3.maxLength = 13;
+document.formEncrypt.key4.maxLength = 13;
+document.formEncrypt.key1.value = "*************";
+document.formEncrypt.key2.value = "*************";
+document.formEncrypt.key3.value = "*************";
+document.formEncrypt.key4.value = "*************";
+}
+else {
+document.formEncrypt.key1.maxLength = 26;
+document.formEncrypt.key2.maxLength = 26;
+document.formEncrypt.key3.maxLength = 26;
+document.formEncrypt.key4.maxLength = 26;
+document.formEncrypt.key1.value = "**************************";
+document.formEncrypt.key2.value = "**************************";
+document.formEncrypt.key3.value = "**************************";
+document.formEncrypt.key4.value = "**************************";
+}
+}
+}
+function updateFormat()
+{
+if (document.formEncrypt.length.selectedIndex == 0) {
+document.formEncrypt.format.options[0].text = 'ASCII (5 characters)';
+document.formEncrypt.format.options[1].text = 'Hex (10 characters)';
+}
+else {
+document.formEncrypt.format.options[0].text = 'ASCII (13 characters)';
+document.formEncrypt.format.options[1].text = 'Hex (26 characters)';
+}
+setDefaultKeyValue();
+}
+function saveChanges()
+{
+if (document.formEncrypt.method.value>=2) {
+var str = document.formEncrypt.pskValue.value;
+if (document.formEncrypt.pskFormat.selectedIndex==1) {
+if (str.length != 64) {
+alert('Pre-Shared Key value should be 64 characters.');
+document.formEncrypt.pskValue.focus();
+return false;
+}
+takedef = 0;
+if (defPskFormat == 1 && defPskLen == 64) {
+for (var i=0; i<64; i++) {
+if ( str.charAt(i) != '*')
+break;
+}
+if (i == 64 )
+takedef = 1;
+}
+if (takedef == 0) {
+for (var i=0; i<str.length; i++) {
+if ( (str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+(str.charAt(i) >= 'a' && str.charAt(i) <= 'f') ||
+(str.charAt(i) >= 'A' && str.charAt(i) <= 'F') )
+continue;
+alert("Invalid Pre-Shared Key value. It should be in hex number (0-9 or a-f).");
+document.formEncrypt.pskValue.focus();
+return false;
+}
+}
+}
+else {
+if ( (document.formEncrypt.method.value>=2 && wpaAuth[1].checked) ) {
+if (str.length < 8) {
+alert('Pre-Shared Key value should be set at least 8 characters.');
+document.formEncrypt.pskValue.focus();
+return false;
+}
+if (str.length > 64) {
+alert('Pre-Shared Key value should be less than 64 characters.');
+document.formEncrypt.pskValue.focus();
+return false;
+}
+if(!isValidWPAPasswd(str))
+{
+alert('Pre-Shared Key value has illegal characters.');
+return false;
+}
+}
+}
+}
+if (document.formEncrypt.checkWPS2.value == 1){
+if (document.formEncrypt.method.selectedIndex == 1){
+var keyLen;
+if (document.formEncrypt.length.selectedIndex == 0) {
+if ( document.formEncrypt.format.selectedIndex == 0)
+keyLen = 5;
+else
+keyLen = 10;
+}
+else {
+if ( document.formEncrypt.format.selectedIndex == 0)
+keyLen = 13;
+else
+keyLen = 26;
+}
+if (validateKey(0,document.formEncrypt.key1.value, keyLen)==0) {
+document.formEncrypt.key1.focus();
+return false;
+}
+if (validateKey(1,document.formEncrypt.key2.value, keyLen)==0) {
+document.formEncrypt.key2.focus();
+return false;
+}
+if (validateKey(2,document.formEncrypt.key3.value, keyLen)==0) {
+document.formEncrypt.key3.focus();
+return false;
+}
+if (validateKey(3,document.formEncrypt.key4.value, keyLen)==0) {
+document.formEncrypt.key4.focus();
+return false;
+}
+}
+}
+var selectvalue = document.formEncrypt.method.value;
+var enable1x = document.formEncrypt.use1x.checked;
+var wpa_auth = 0;;
+if(document.formEncrypt.wpaAuth[0].checked)
+wpa_auth = 1;
+else
+wpa_auth = 2;
+if(enable1x == 1 || ((selectvalue>=2 && selectvalue <=5)&& wpa_auth==1))
+{
+if (!confirm("WPS can not support Radius Authentication.Do you want to disable WPS function?"))
+return false;
+}
+else if(wps2dotx == 1)
+{
+if(selectvalue == 1 && enable1x == 0)
+{
+if (!confirm("New WPS(2.0) can not support WEP authentication.Do you want to disable WPS function?"))
+return false;
+}
+else if(selectvalue == 2 && wpa_auth == 2)
+{
+if (!confirm("New WPS(2.0) can not support WPA(TKIP) Authentication.Do you want to disable WPS function?"))
+return false;
+}
+else if(selectvalue == 5 && wpa_auth == 2)
+{
+if (!confirm("New WPS(2.0) can not support WPA2(TKIP) Authentication.Do you want to disable WPS function?"))
+return false;
+}
+else if(ssidhidden == 1)
+{
+if (!confirm("New WPS(2.0) can not support SSID hidden.Do you want to disable WPS function?"))
+return false;
+}
+else if(acllimit == 1)
+{
+if (!confirm("New WPS(2.0) can not support ACL mode is set to Allow List and the list is empty.Do you want to disable WPS function?"))
+return false;
+}
+}
+return true;
+}
+function postSecurity(encrypt, enable1X, wep, wpaAuth, wpaPSKFormat, wpaPSK, rsPort, rsIpAddr, rsPassword, isWep64, wepKeyType, wepDefaultKey)
+{
+document.formEncrypt.method.value = encrypt;
+document.formEncrypt.pskFormat.value = wpaPSKFormat;
+document.formEncrypt.pskValue.value = wpaPSK;
+document.formEncrypt.radiusIP.value = rsIpAddr;
+document.formEncrypt.radiusPort.value = rsPort;
+document.formEncrypt.radiusPass.value = rsPassword;
+document.formEncrypt.length.value = isWep64;
+document.formEncrypt.format.value = wepKeyType;
+document.formEncrypt.defaultTxKeyId.value = wepDefaultKey;
+if ( wep != 0 )
+document.formEncrypt.wepKeyLen[wep-1].checked = true;
+if (enable1X==1)
+document.formEncrypt.use1x.checked = true;
+else
+document.formEncrypt.use1x.checked = false;
+document.formEncrypt.wpaAuth[wpaAuth-1].checked = true;
+checkState();
+defPskLen = document.formEncrypt.pskValue.value.length;
+defPskFormat = document.formEncrypt.pskFormat.selectedIndex;
+updateFormat();
+}
+</script>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Wireless Setup";
+HelpItem="wlsecurity";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<form action=http://admin:admin@192.168.1.1/form2WlEncrypt.cgi method=POST name="formEncrypt">
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Wireless Security Settings
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page allows you setup the wireless security. Turn on WEP or WPA by using
+Encryption Keys could prevent any unauthorized access to your wireless network.</p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>WIRELEES SECURITY SETTINGS
+</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<input type=hidden name="wlanDisabled"
+value="OFF"
+ >
+<tr>
+<td class=form_label_40>SSID TYPE:</td>
+<td><input type="radio" name="wpaSSID" value=0
+checked onClick="postSecurity(4, 0, 2, 2, 0, '*********', 1812, '', '', 2, 2, 1)"
+
+ >Root&nbsp;
+<input type="radio" name="wpaSSID" value=1
+onClick="postSecurity(0, 0, 0, 2, 0, '', 1812, '', '', 1, 1, 1)"
+
+ >VAP0&nbsp;
+<input type="radio" name="wpaSSID" value=2
+onClick="postSecurity(0, 0, 0, 2, 0, '', 1812, '', '', 1, 1, 1)"
+
+ >VAP1&nbsp;
+<script language="javascript">
+if (shouldHidden == "yes") {
+document.writeln('<div style="display:none">');
+}
+</script>
+<input type="radio" name="wpaSSID" value=3
+onClick="postSecurity(0, 0, 0, 2, 0, '', 1812, '', '', 1, 1, 1)"
+
+ >VAP2&nbsp;
+<input type="radio" name="wpaSSID" value=4
+onClick="postSecurity(0, 0, 0, 2, 0, '', 1812, '', '', 1, 1, 1)"
+
+ >VAP3
+<script language="javascript">
+if (shouldHidden == "yes") {
+document.writeln('</div>');
+}
+</script>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Encryption:&nbsp;</td>
+<td><select size="1" name="method" onChange="checkState()">
+<option value=0>None</option>
+<option value=1>WEP</option>
+<option value=2>WPA (TKIP)</option>
+<option value=3>WPA (AES)</option>
+<option value=4>WPA2(AES)</option>
+<option value=5>WPA2(TKIP)</option>
+<option value=6>WPA2 Mixed</option>
+
+ </select>
+</td>
+</tr>
+</table>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100% id="wepKeySetting" style="display:none;">
+<tr>
+<td class=form_label_40>Key Length</td>
+<td>
+<select size="1" name="length" ONCHANGE=lengthClick()>
+<option value=1>64-bit</option>
+<option value=2>128-bit</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Key Format:</td>
+<td>
+<select size="1" name="format" ONCHANGE=setDefaultKeyValue()>
+<option value=1>ASCII</option>
+<option value=2>Hex</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Default Tx Key:</td>
+<td>
+<select size="1" name="defaultTxKeyId">
+<option value="1">Key 1</option>
+<option value="2">Key 2</option>
+<option value="3">Key 3</option>
+<option value="4">Key 4</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Encryption Key 1:</td>
+<td>
+<input type="text" name="key1" size="26" maxlength="26">
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Encryption Key 2:</td>
+<td>
+<input type="text" name="key2" size="26" maxlength="26">
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Encryption Key 3:</td>
+<td>
+<input type="text" name="key3" size="26" maxlength="26">
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Encryption Key 4:</td>
+<td>
+<input type="text" name="key4" size="26" maxlength="26">
+</td>
+</tr>
+</table>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<tr>
+<td class=form_label_40 onClick="checkState()">
+<input type="checkbox" name="use1x" value="ON">&nbsp;&nbsp;Use 802.1x Authentication
+</td>
+<td>
+<input type="radio" name="wepKeyLen" value=1 >&nbsp;&nbsp;WEP 64bits&nbsp;
+<input type="radio" name="wepKeyLen" value=2 >&nbsp;&nbsp;WEP 128bits
+</td>
+</tr>
+<tr>
+<td class=form_label_40>WPA Authentication Mode:</td>
+<td>
+<input type="radio" name="wpaAuth" value=1 onClick="checkState()">Enterprise (RADIUS)&nbsp;
+<input type="radio" name="wpaAuth" value=2 onClick="checkState()">Personal (Pre-Shared Key)
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Pre-Shared Key Format:</td>
+<td>
+<select size="1" name="pskFormat">
+<option value=0 >Passphrase</option>
+<option value=1 >Hex (64 characters)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Pre-Shared Key:</td>
+<td>
+<input type="text" name="pskValue" size="32" maxlength="64" value=
+"*********"
+ >
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Authentication RADIUS Server:</td>
+<td>
+Port <input type="text" name="radiusPort" size="4" maxlength="5"
+value=1812
+ >&nbsp;&nbsp;
+IP address <input type="text" name="radiusIP" size="10"
+value="0.0.0.0"
+ >&nbsp;&nbsp;
+Password <input type="password" name="radiusPass" size="8" maxlength="64"
+value=""
+ >
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p><font color="red">Note: When encryption WEP is selected, you must set WEP key value.</font></p>
+<p align=center>
+<input type=submit value="Apply Changes" name=save onClick="return saveChanges()">&nbsp;
+</p>
+<INPUT TYPE="hidden" NAME="submit.htm?wlwpa.htm" VALUE="Send">
+<script>
+document.formEncrypt.method.value = 4;
+document.formEncrypt.pskFormat.value = 0;
+document.formEncrypt.wepKeyLen[1].checked = true;
+document.formEncrypt.wpaAuth[1].checked = true;
+
+ checkState();
+updateFormat();
+defPskLen = document.formEncrypt.pskValue.value.length;
+defPskFormat = document.formEncrypt.pskFormat.selectedIndex;
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wlwpa.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

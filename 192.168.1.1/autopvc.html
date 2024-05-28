@@ -1,0 +1,177 @@
+<html>
+<!-- Mirrored from 192.168.1.1/autopvc.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<script>
+function autopvcapplycheckclick()
+{
+if(document.autopvc.enableautopvc.checked == true ){
+if(!confirm("auto search pvc mode will have only one wan interface,really?")){
+document.autopvc.enableautopvc.checked = false;
+return false;
+}
+}
+}
+function autopvcprobeClick()
+{
+if(!confirm(" Wait a minute, probe pvc function spends a moment on searching wan pvc!")){
+return false;
+}
+}
+function autopvcCheckClick()
+{
+var dVPI,dVCI;
+{
+dVPI = getDigit(document.autopvc.autopvcvpi.value, 1);
+if ( validateKey(document.autopvc.autopvcvpi.value) == 0 ||
+(dVPI > 255 || dVPI < 0) ) {
+alert("Invalid VPI value! You should set a value between 0-255.");
+document.autopvc.autopvcvpi.focus();
+return false;
+}
+dVCI = getDigit(document.autopvc.autopvcvci.value, 1);
+if ( validateKey(document.autopvc.autopvcvci.value) == 0 ||
+(dVCI > 65535 || dVCI < 32) ) {
+alert("Invalid VCI value! You should set a value between 32-65535.");
+document.autopvc.autopvcvci.focus();
+return false;
+}
+if ( (dVPI == 0 && dVCI == 0) ) {
+alert("Invalid VPI/VCI value!");
+document.autopvc.autopvcvpi.focus();
+return false;
+}
+}
+}
+</script>
+</head>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Internet Setup";
+HelpItem="autopvc";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Auto PVC Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure pvc auto detect function. Here you can add/delete auto pvc search table.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2autopvc.cgi" method=POST name="autopvc">
+
+ <table>
+<tr>
+<td width="70%" colspan=2><font size=2><b>Probe WAN PVC</td>
+<td width="30%" colspan=2><font size=2><b>
+<input type="submit" name="autopvcprobe" value= "Probe" onClick="return autopvcprobeClick()">
+</td>
+</tr>
+</table>
+
+<br>
+<table>
+<tr>
+<td><font size=2><b>VPI: </b></font>
+<input type="text" name="autopvcvpi" size="4" maxlength="3" value = "">&nbsp;&nbsp;
+</td>
+<td><font size=2><b>VCI: </b></font>
+<input type="text" name="autopvcvci" size="6" maxlength="5" value = "">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td>
+<input type="submit" value="Add" name="autopvcadd" onClick="return autopvcCheckClick()">
+</td>
+<td>
+<input type="submit" value="Delete" name="autopvcdel" onClick="return autopvcCheckClick()">
+</td>
+</tr>
+</table>
+<br>
+<table id="body_header" border="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="topheader">Current Auto-PVC Table</td>
+</tr>
+<tr>
+<td class="content">
+<table class="formlisting" border="0">
+<tbody>
+<tr class="form_label_row">
+<td class="form_label_col" width="30%">PVC</td>
+<td class="form_label_col" width="35%">VPI</td>
+<td class="form_label_col" width="35%">VCI</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">0</td>
+<td class="form_label_col">0</td>
+<td class="form_label_col">35</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">1</td>
+<td class="form_label_col">8</td>
+<td class="form_label_col">35</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">2</td>
+<td class="form_label_col">0</td>
+<td class="form_label_col">43</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">3</td>
+<td class="form_label_col">0</td>
+<td class="form_label_col">51</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">4</td>
+<td class="form_label_col">0</td>
+<td class="form_label_col">59</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">5</td>
+<td class="form_label_col">8</td>
+<td class="form_label_col">43</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">6</td>
+<td class="form_label_col">8</td>
+<td class="form_label_col">51</td>
+</tr>
+<tr class="form_label_row"><td class="form_label_col">7</td>
+<td class="form_label_col">8</td>
+<td class="form_label_col">59</td>
+</tr>
+
+ </tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<input type="hidden" NAME="submit.htm?autopvc.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/autopvc.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

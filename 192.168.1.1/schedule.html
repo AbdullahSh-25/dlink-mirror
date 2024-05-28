@@ -1,0 +1,394 @@
+<html>
+<!-- Mirrored from 192.168.1.1/schedule.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Schedules</title>
+<SCRIPT>
+var maxitem = 64;
+
+function CheckTime()
+{
+if (document.url.alltime.checked)
+{
+document.url.startHour.value="00";
+document.url.startMin.value="00";
+document.url.endHour.value="23";
+document.url.endMin.value="59";
+document.getElementById("startHour").setAttribute("readOnly","true");
+document.getElementById("startMin").setAttribute("readOnly","true");
+document.getElementById("endHour").setAttribute("readOnly","true");
+document.getElementById("endMin").setAttribute("readOnly","true");
+}
+else
+{
+document.url.startHour.value="";
+document.url.startMin.value="";
+document.url.endHour.value="";
+document.url.endMin.value="";
+document.getElementById("startHour").removeAttribute("readOnly");
+document.getElementById("startMin").removeAttribute("readOnly");
+document.getElementById("endHour").removeAttribute("readOnly");
+document.getElementById("endMin").removeAttribute("readOnly");
+}
+}
+function CheckDay()
+{
+if(document.url.Everyday.checked)
+{
+document.url.Sun.checked=true;
+document.url.Mon.checked=true;
+document.url.Tue.checked=true;
+document.url.Wed.checked=true;
+document.url.Thu.checked=true;
+document.url.Fri.checked=true;
+document.url.Sat.checked=true;
+}
+else
+{
+document.url.Sun.checked=false;
+document.url.Mon.checked=false;
+document.url.Tue.checked=false;
+document.url.Wed.checked=false;
+document.url.Thu.checked=false;
+document.url.Fri.checked=false;
+document.url.Sat.checked=false;
+}
+}
+function addClick()
+{
+if(document.url.rulename.value=="")
+{
+alert("Please input rule name.");
+return false;
+}
+else
+{
+var tab = document.getElementById("schedule_table") ;
+var rows = tab.rows.length;
+if((rows-1)==maxitem)
+{
+alert("Max table item is "+maxitem);
+return false;
+}
+else
+{
+for(i=0;i<rows;i++)
+{
+if(document.all)
+var namestr=tab.rows[i].cells[1].innerText;
+else
+var namestr=tab.rows[i].cells[1].textContent;
+if(namestr == document.url.rulename.value)
+{
+alert("rule name has exist!")
+return false;
+}
+}
+}
+}
+if(!document.url.Sun.checked && !document.url.Mon.checked && !document.url.Tue.checked && !document.url.Wed.checked &&
+!document.url.Thu.checked && !document.url.Fri.checked && !document.url.Sat.checked)
+{
+alert("Invalid Day!");
+return false;
+}
+if(document.url.startHour.value=="" && document.url.startMin.value=="" &&
+document.url.endHour.value=="" && document.url.endMin.value=="")
+{
+alert("Invalid Time!");
+return false;
+}
+var str1=document.url.startHour.value;
+var i=0;
+if (str1!="") {
+if(str1.length != 2){
+alert("Invalid time format! correct format should be like: 09,15");
+document.url.startHour.focus();
+return false;
+}
+for (i=0; i<2; i++)
+{
+if (str1.charAt(i) < '0' || str1.charAt(i) > '9')
+{
+alert("Invalid start hour value!");
+document.url.startHour.focus();
+return false;
+}
+}
+if(str1.charAt(0) > '2' || (str1.charAt(0) == '2' && str1.charAt(1) > '3'))
+{
+alert("Invalid start hour value!");
+document.url.startHour.focus();
+return false;
+}
+}
+var str2=document.url.startMin.value;
+if (str2!="") {
+if(str2.length != 2){
+alert("Invalid time format! correct format should be like: 09,15");
+document.url.startMin.focus();
+return false;
+}
+for (i=0; i<2; i++)
+{
+if (str2.charAt(i) < '0' || str2.charAt(i) > '9')
+{
+alert("Invalid start minute value!");
+document.url.startMin.focus();
+return false;
+}
+}
+if(str2.charAt(0) > '5')
+{
+alert("Invalid start minute value!");
+document.url.startMin.focus();
+return false;
+}
+}
+var str3=document.url.endHour.value;
+if (str3!="") {
+if(str3.length != 2){
+alert("Invalid time format! correct format should be like: 09,15");
+document.url.endHour.focus();
+return false;
+}
+for (i=0; i<2; i++)
+{
+if (str3.charAt(i) < '0' || str3.charAt(i) > '9')
+{
+alert("Invalid end hour value!");
+document.url.endHour.focus();
+return false;
+}
+}
+if(str3.charAt(0) > '2' || (str3.charAt(0) == '2' && str3.charAt(1) > '3'))
+{
+alert("Invalid end hour value!");
+document.url.endHour.focus();
+return false;
+}
+}
+var str4=document.url.endMin.value;
+if (str4!="") {
+if(str4.length != 2){
+alert("Invalid time format! correct format should be like: 09,15");
+document.url.endMin.focus();
+return false;
+}
+for (i=0; i<2; i++)
+{
+if (str4.charAt(i) < '0' || str4.charAt(i) > '9')
+{
+alert("Invalid end minute value!");
+document.url.endMin.focus();
+return false;
+}
+}
+if(str4.charAt(0) > '5')
+{
+alert("Invalid end minute value!");
+document.url.endMin.focus();
+return false;
+}
+}
+if(!((str1=="" && str2=="" && str3=="" && str4=="") || (str1!="" && str2!="" && str3!="" && str4!=""))){
+alert("Please input full time setting!");
+return false;
+}
+if((str1.charAt(0) > str3.charAt(0)) || ((str1.charAt(0) == str3.charAt(0)) && (str1.charAt(1) > str3.charAt(1))) ||
+((str1.charAt(0) == str3.charAt(0)) && (str1.charAt(1) == str3.charAt(1)) && (str2.charAt(0) > str4.charAt(0))) ||
+((str1.charAt(0) == str3.charAt(0)) && (str1.charAt(1) == str3.charAt(1)) && (str2.charAt(0) == str4.charAt(0)) && (str2.charAt(1) > str4.charAt(1)))){
+alert("Start time is larger than end time!");
+return false;
+}
+if((str1.charAt(0)== str3.charAt(0)) && (str1.charAt(1)== str3.charAt(1))
+&& (str2.charAt(0)== str4.charAt(0)) && (str2.charAt(1)== str4.charAt(1)))
+{
+alert("Start time is equle end time!");
+return false;
+}
+return true;
+}
+function updateUrlText()
+{
+if (document.url.blockAny.checked) {
+disableTextField(document.url.urlFQDN);
+disableRadioGroup(document.url.filterMode);
+}
+else {
+enableTextField(document.url.urlFQDN);
+enableRadioGroup(document.url.filterMode);
+}
+}
+function addIPClick()
+{
+if (document.url.excludeIP.value=="") {
+alert("IP address cannot be empty! It should be filled with 4 digit numbers as xxx.xxx.xxx.xxx.");
+document.url.excludeIP.focus();
+return false;
+}
+if ( validateKey(document.url.excludeIP.value ) == 0 ) {
+alert("Invalid IP address value. It should be the decimal number (0-9).");
+document.url.excludeIP.focus();
+return false;
+}
+var str=document.url.excludeIP.value;
+var count=0;
+for (var i=0; i<str.length; i++)
+{
+if (str.charAt(i) == '.')
+{
+count++;
+}
+}
+if(count!=3)
+{
+alert("Invalid IP address. It should be filled with 4 digit numbers as xxx.xxx.xxx.xxx.");
+document.url.excludeIP.focus();
+return false;
+}
+if ( !checkDigitRange(document.url.excludeIP.value,1,1,223) ) {
+alert('Invalid IP address range in 1st digit. It should be 1-223.');
+document.url.excludeIP.focus();
+return false;
+}
+if( IsLoopBackIP(document.url.excludeIP.value))
+{
+alert('Invalid IP address.');
+document.url.excludeIP.focus();
+return false;
+}
+if ( !checkDigitRange(document.url.excludeIP.value,2,0,255) ) {
+alert('Invalid IP address range in 2nd digit. It should be 1-254.');
+document.url.excludeIP.focus();
+return false;
+}
+if ( !checkDigitRange(document.url.excludeIP.value,3,0,255) ) {
+alert('Invalid IP address range in 3rd digit. It should be 1-254.');
+document.url.excludeIP.focus();
+return false;
+}
+if ( !checkDigitRange(document.url.excludeIP.value,4,1,254) ) {
+alert('Invalid IP address range in 4th digit. It should be 1-254.');
+document.url.excludeIP.focus();
+return false;
+}
+return true;
+}
+function updateFilterMode()
+{
+if (document.url.filterMode[1].checked)
+disableCheckBox(document.url.blockAny);
+else
+enableCheckBox(document.url.blockAny);
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Parent Control";
+HelpItem="schedule";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Schedules</td>
+</tr>
+<tr>
+<td class="content">
+<p>Schedule allows you to create scheduling rules to be applied for URL block.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2parentctrl.cgi" method=POST name="url">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Add Schedule Rule</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Rule Name:</td>
+<td class="form_label_right"><input type="text" maxlength="15" size="15" name="rulename"></td>
+</tr>
+<tr>
+<td class="form_label_top">Days:</td>
+<td class="form_label_right">
+<input type=checkbox name="Everyday" value=0 onclick="CheckDay()">EveryDay<br>
+<input type=checkbox name="Sun" value=1 >Sun&nbsp;&nbsp;
+<input type=checkbox name="Mon" value=1 >Mon&nbsp;&nbsp;
+<input type=checkbox name="Tue" value=1 >Tue&nbsp;&nbsp;
+<input type=checkbox name="Wed" value=1 >Wed&nbsp;&nbsp;<br>
+<input type=checkbox name="Thu" value=1 >Thu&nbsp;&nbsp;
+<input type=checkbox name="Fri" value=1 >Fri&nbsp;&nbsp;
+<input type=checkbox name="Sat" value=1 >Sat&nbsp;&nbsp;
+</td>
+</tr>
+<tr>
+<td class="form_label_left">All day(24Hour):</td>
+<td class="form_label_right"><input type=checkbox name="alltime" value=0 onclick="CheckTime()"></td>
+</tr>
+<tr>
+<td class="form_label_left">Time:</td>
+<td class="form_label_right">From&nbsp;
+<input type="text" name="startHour" size="2" maxlength="2">:<input type="text" name="startMin" size="2" maxlength="2">
+To&nbsp;
+<input type="text" name="endHour" size="2" maxlength="2">:<input type="text" name="endMin" size="2" maxlength="2">&nbsp;<br>(e.g. From 09:21 To 18:30)
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add Rules" name="addFQDN" onClick="return addClick()">&nbsp;&nbsp;
+<table id="body_header" border="0" cellspacing="0">
+<tr><td class="topheader">Rules Table:</td></tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500" id="schedule_table">
+<tr class=\"form_label_row\">
+<td class=\"form_label_col\">Select</td>
+<td class=\"form_label_col\">Rule Name</td>	
+<td class=\"form_label_col\">Days</td>
+<td class=\"form_label_col\">Time</td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Delete Selected Rule" name="del_schedule">&nbsp;&nbsp;
+<input type="hidden" NAME="submit.htm?schedule.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/schedule.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

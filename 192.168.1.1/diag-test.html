@@ -1,0 +1,107 @@
+<html>
+<!-- Mirrored from 192.168.1.1/diag-test.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Diagnostic Tests</title>
+<script>
+var initInf;
+function itfSelected()
+{
+initInf = document.diagtest.wan_if.value;
+}
+function submitonce(theform)
+{
+if (document.all||document.getElementById)
+{
+for (i=0;i<theform.length;i++)
+{
+var tempobj=theform.elements[i]
+if(tempobj.type.toLowerCase()=="submit"||tempobj.type.toLowerCase()=="reset")
+tempobj.disabled=true;
+}
+}
+}
+</script>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="Diagnostics";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Diagnostic Test</td>
+</tr>
+<tr>
+<td class=content>
+<p>The DSL Router is capable of testing your DSL connection. The individual tests are listed below.
+If a test displays a fail status, click "Run Diagnostic Test" button again to make sure the fail status
+is consistent.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/formDiagTest.cgi" method=POST name="diagtest">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Select the Internet Connection</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row>
+<td class='form_label_col'>
+<select name="wan_if" onChange="itfSelected()">
+<OPTION VALUE="16" > pppoe2</OPTION>
+</OPTION>
+ </select>
+</td>
+<td class='form_label_col'>
+<input type=submit value="Run Diagnostic Test" name="start" onSubmit="javascript:submitonce(this)">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>
+
+<p>
+
+<p>
+
+<p>
+
+ <br>
+<input type="hidden" NAME="submit.htm?diag-test.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/diag-test.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

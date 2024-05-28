@@ -1,0 +1,173 @@
+<html>
+<!-- Mirrored from 192.168.1.1/traceroute.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Traceroute</title>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+<head>
+<script>
+function apply()
+{
+var digit;
+digit = getDigit(document.traceroute.numberoftries.value, 1);
+if ( validateKey(document.traceroute.numberoftries.value) == 0 ||
+(digit > 3 || digit < 1) ) {
+alert("Invalid numberoftries value! You should set a value between 1-3.");
+document.traceroute.numberoftries.focus();
+return false;
+}
+digit = getDigit(document.traceroute.timeout.value, 1);
+if ( validateKey(document.traceroute.timeout.value) == 0 ||
+(digit > 65535 || digit < 1) ) {
+alert("Invalid timeout value! You should set a value between 1-65535.");
+document.traceroute.timeout.focus();
+return false;
+}
+digit = getDigit(document.traceroute.datasize.value, 1);
+if ( validateKey(document.traceroute.datasize.value) == 0 ||
+(digit > 65535 || digit < 1) ) {
+alert("Invalid PCR value! You should set a value between 1-65535.");
+document.traceroute.datasize.focus();
+return false;
+}
+digit = getDigit(document.traceroute.dscp.value, 1);
+if ( validateKey(document.traceroute.dscp.value) == 0 ||
+(digit > 63 || digit < 0) ) {
+alert("Invalid dscp value! You should set a value between 0-63.");
+document.traceroute.dscp.focus();
+return false;
+}
+digit = getDigit(document.traceroute.maxhopcount.value, 1);
+if ( validateKey(document.traceroute.maxhopcount.value) == 0 ||
+(digit > 64 || digit < 1) ) {
+alert("Invalid maxhopcount value! You should set a value between 1-64.");
+document.traceroute.maxhopcount.focus();
+return false;
+}
+return true;
+}
+</script>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="Diagnostics";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Traceroute Diagnostic</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page is used to traceroute diagnostic.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2traceroute.cgi" method=POST name="traceroute" >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Traceroute</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' width=20%>
+Host
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="ipaddr" size="30" maxlength="30">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width=20%>
+NumberOfTries
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="numberoftries" size="1" maxlength="1" value="3">
+</td>
+<tr>
+<td class='form_label_left' width=20%>
+Timeout
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="timeout" size="5" maxlength="5" value="5000">ms
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width=20%>
+Datasize
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="datasize" size="5" maxlength="5" value="38">Bytes
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width=20%>
+DSCP
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="dscp" size="2" maxlength="2" value="0">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width=20%>
+MaxHopCount
+</td>
+<td class='form_label_right' align=left>
+<input type="text" name="maxhopcount" size="2" maxlength="2" value="30">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width=20%>
+Interface
+</td>
+<td class='form_label_right' align=left>
+
+<SELECT ID="trace_if" NAME="trace_if" WIDTH=30 >
+<OPTION VALUE="br0" > LAN</OPTION>
+<OPTION VALUE="pppoe2" > pppoe2</OPTION>
+<OPTION VALUE="any" SELECTED> any</OPTION>
+</SELECT>
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type='submit' value='traceroute' onClick='return apply()'> <input type='button' value='Show Result' name='showResult' disabled='true' onClick='window.location.replace("tracerouterlt.html")'>
+<INPUT TYPE="hidden" NAME="submit.htm?tracerouterlt.htm" VALUE="Send" >
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/traceroute.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

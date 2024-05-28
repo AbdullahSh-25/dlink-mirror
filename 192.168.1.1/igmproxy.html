@@ -1,0 +1,305 @@
+<html>
+<!-- Mirrored from 192.168.1.1/igmproxy.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>IGMP Proxy Configuration </title>
+<SCRIPT>
+function disableRadioGroup (radioArrOrButton)
+{
+if(!radioArrOrButton)
+return;
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = true;
+for (var b = 0; b < radioArray.length; b++) {
+if (radioArray[b].checked) {
+radioArray.checkedElement = radioArray[b];
+break;
+}
+}
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = true;
+radioArray[b].checkedElement = radioArray.checkedElement;
+}
+}
+function enableRadioGroup (radioArrOrButton)
+{
+if(!radioArrOrButton)
+return;
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = false;
+radioArray.checkedElement = null;
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = false;
+radioArray[b].checkedElement = null;
+}
+}
+function disableTextField (field) {
+if(!field)
+return;
+if (document.all || document.getElementById)
+field.disabled = true;
+else {
+field.oldOnFocus = field.onfocus;
+field.onfocus = skip;
+}
+}
+function enableTextField (field) {
+if(!field)
+return;
+if (document.all || document.getElementById)
+field.disabled = false;
+else {
+field.onfocus = field.oldOnFocus;
+}
+}
+function resetClick()
+{
+if (initIgmpDisable){
+disableRadioGroup(document.igmp.mcastAllowed);
+disableTextField(document.igmp.robustCount);
+disableTextField(document.igmp.queryIntvl);
+disableTextField(document.igmp.queryRespIntvl);
+disableTextField(document.igmp.LastQueryCnt);
+disableTextField(document.igmp.grpLeaveDelay);
+disableRadioGroup(document.igmp.igmppassthru);
+}
+else{
+enableRadioGroup(document.igmp.mcastAllowed);
+enableTextField(document.igmp.robustCount);
+enableTextField(document.igmp.queryIntvl);
+enableTextField(document.igmp.queryRespIntvl);
+enableTextField(document.igmp.LastQueryCnt);
+enableTextField(document.igmp.grpLeaveDelay);
+enableRadioGroup(document.igmp.igmppassthru);
+}
+}
+function proxySelection()
+{
+if (document.igmp.proxy[0].checked) {
+disableRadioGroup(document.igmp.mcastAllowed);
+disableTextField(document.igmp.robustCount);
+disableTextField(document.igmp.queryIntvl);
+disableTextField(document.igmp.queryRespIntvl);
+disableTextField(document.igmp.LastQueryCnt);
+disableTextField(document.igmp.grpLeaveDelay);
+disableRadioGroup(document.igmp.igmppassthru);
+}
+else {
+enableRadioGroup(document.igmp.mcastAllowed);
+enableTextField(document.igmp.robustCount);
+enableTextField(document.igmp.queryIntvl);
+enableTextField(document.igmp.queryRespIntvl);
+enableTextField(document.igmp.LastQueryCnt);
+enableTextField(document.igmp.grpLeaveDelay);
+enableRadioGroup(document.igmp.igmppassthru);
+}
+}
+function validateKey(str)
+{
+for (var i=0; i<str.length; i++) {
+if ( (str.charAt(i) >= '0' && str.charAt(i) <= '9') || (str.charAt(i) == '.' ) )
+continue;
+return 0;
+}
+return 1;
+}
+function checkPS(num)
+{
+if (num.value=="") {
+alert("It cannot be empty!");
+num.value = num.defaultValue;
+num.focus();
+return 0;
+}
+if ( validateKey( num.value ) == 0 ) {
+alert("Invalid value. It should be the decimal number (0-9).");
+num.value = num.defaultValue;
+num.focus();
+return 0;
+}
+return 1;
+}
+function checkRespInterval(str)
+{
+if(str.length < 3)
+return 1;
+if(str.length > 3)
+return 0;
+if(str.charAt(0) >2)
+return 0;
+else if(str.charAt(0) < 2)
+return 1;
+else{
+if(str.charAt(1) >5)
+return 0;
+else if(str.charAt(1) < 5)
+return 1;
+else{
+if(str.charAt(2) >5)
+return 0;
+else
+return 1;
+}
+}
+}
+function saveChanges()
+{
+if(!checkPS(document.igmp.robustCount))
+{
+return false;
+}
+if(!checkPS(document.igmp.queryIntvl))
+{
+return false;
+}
+if(!checkPS(document.igmp.queryRespIntvl))
+{
+return false;
+}else if(!checkRespInterval(document.igmp.queryRespIntvl.value)){
+alert("query response interval should less than 256!");
+document.igmp.queryRespIntvl.value = document.igmp.queryRespIntvl.defaultValue;
+document.igmp.queryRespIntvl.focus();
+return false;
+}
+if(!checkPS(document.igmp.LastQueryCnt))
+{
+return false;
+}
+if(!checkPS(document.igmp.grpLeaveDelay))
+{
+return false;
+}
+return true;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="igmproxy";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">IGMP Proxy Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>IGMP proxy enables the system to issue IGMP host messages on behalf of
+hosts that the system discovered through standard IGMP interfaces.
+The system acts as a proxy for its hosts when you enable it by doing
+the follows:
+<br>. Enable IGMP proxy on WAN interface (upstream), which connects to a router running IGMP.
+<br>. Enable IGMP on LAN interface (downstream), which connects to its hosts.
+</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2IgmpPrxy.cgi" method=POST name="igmp">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">IGMP Proxy Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">IGMP Proxy:</td>
+<td class="form_label_right">
+<input type="radio" value="0" name="proxy"
+
+ onClick="proxySelection()">Disable&nbsp;&nbsp;
+<input type="radio" value="1" name="proxy"
+checked
+ onClick="proxySelection()">Enable
+</td>
+</tr>
+<tr> 
+	<td class="form_label_left">Multicast Allowed:</td> 
+	<td class="form_label_right">
+		<input type="radio" value="0" name="mcastAllowed"   >Disable&nbsp;&nbsp; 
+		<input type="radio" value="1" name="mcastAllowed"  checked >Enable 
+	</td> 
+</tr> 
+
+<tr> 
+  <td class="form_label_left"><font size=2><b>Robust Count:</b></font></td> 
+  <td class="form_label_right"><input type="text" name="robustCount" size="6" maxlength="6" value=2> </td> 
+</tr> 
+
+<tr> 
+   <td class="form_label_left"><font size=2><b>Last Member Query Count:</b></font></td> 
+   <td class="form_label_right"><input type="text" name="LastQueryCnt" size="6" maxlength="6" value=2> </td> 
+</tr> 
+
+<tr> 
+    <td class="form_label_left"><font size=2><b>Query Interval:</b></font></td> 
+    <td class="form_label_right"><input type="text" name="queryIntvl" size="6" maxlength="6" value=60> (seconds)</td> 
+</tr> 
+
+<tr> 
+    <td class="form_label_left"><font size=2><b>Query Response Interval:</b></font></td> 
+    <td class="form_label_right"><input type="text" name="queryRespIntvl" size="6" maxlength="6" value=100> (*100ms)</td> 
+</tr> 
+
+<tr> 
+   <td class="form_label_left"><font size=2><b>Group Leave Delay:</b></font></td> 
+   <td class="form_label_right"><input type="text" name="grpLeaveDelay" size="6" maxlength="6" value=2000> (ms)</td> 
+</tr> 
+
+
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="hidden" NAME="submit.htm?igmproxy.htm" VALUE="Send">
+<input type="submit" value="Apply Changes" name="save"
+ onClick="return saveChanges()"
+>&nbsp;&nbsp;
+<input type="reset" value="Undo" name="reset" onClick="resetClick()">
+<script>
+initIgmpDisable = document.igmp.proxy[0].checked;
+proxySelection();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/igmproxy.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

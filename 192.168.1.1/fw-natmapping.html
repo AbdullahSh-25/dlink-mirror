@@ -1,0 +1,247 @@
+<html>
+<!-- Mirrored from 192.168.1.1/fw-natmapping.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>NAT IP MAPPING</title>
+<script>
+function checkIpRangeValid(lowipstr,highipstr)
+{
+if((getDigit(lowipstr,1)>getDigit(highipstr,1))) return -2;
+if((getDigit(lowipstr,2)>getDigit(highipstr,2))) return -2;
+if((getDigit(lowipstr,3)>getDigit(highipstr,3))) return -2;
+if((getDigit(lowipstr,4)>getDigit(highipstr,4))) return -2;
+return true;
+}
+function addClick()
+{
+with(document.formNatmappingSetting){
+if (lowip.value=="")return false;
+if(!checkIP(lowip)) return false;
+if(highip.value!=""){
+if(!checkIP(highip))return false;
+var checkre=checkIpRangeValid(lowip.value,highip.value);
+if(checkre==-2){
+alert("The high ip should be bigger than the low ip!");
+return false;
+}
+}
+if (mappinglowip.value=="")return false;
+if(!checkIP(mappinglowip)) return false;
+if(mappinghighip.value!=""){
+if(!checkIP(mappinghighip))return false;
+var checkre=checkIpRangeValid(mappinglowip.value,mappinghighip.value);
+if(checkre==-2){
+alert("The high ip should be bigger than the low ip!");
+return false;
+}
+}
+return true;
+}
+}
+function checkState()
+{
+if ( document.formNatmappingSetting.addressMapType.selectedIndex == 0 ) {
+enableTextField(document.formNatmappingSetting.lowip);
+disableTextField(document.formNatmappingSetting.highip);
+enableTextField(document.formNatmappingSetting.mappinglowip);
+disableTextField(document.formNatmappingSetting.mappinghighip);
+} else if ( document.formNatmappingSetting.addressMapType.selectedIndex == 1 ) {
+enableTextField(document.formNatmappingSetting.lowip);
+enableTextField(document.formNatmappingSetting.highip);
+enableTextField(document.formNatmappingSetting.mappinglowip);
+disableTextField(document.formNatmappingSetting.mappinghighip);
+} else if ( document.formNatmappingSetting.addressMapType.selectedIndex == 2 ) {
+enableTextField(document.formNatmappingSetting.lowip);
+enableTextField(document.formNatmappingSetting.highip);
+enableTextField(document.formNatmappingSetting.mappinglowip);
+enableTextField(document.formNatmappingSetting.mappinghighip);
+} else if ( document.formNatmappingSetting.addressMapType.selectedIndex == 3 ) {
+enableTextField(document.formNatmappingSetting.lowip);
+disableTextField(document.formNatmappingSetting.highip);
+enableTextField(document.formNatmappingSetting.mappinglowip);
+enableTextField(document.formNatmappingSetting.mappinghighip);
+}
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body onLoad="checkState();">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="NAT";
+HelpItem="natipmapping";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>NAT IP MAPPING</td>
+</tr>
+<tr>
+<td class=content>
+<p>Entries in this table allow you to config one IP pool for specified source ip address from lan,so
+one packet which's source ip is in range of the specified address will select one IP address from pool for NAT.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2natmapping.cgi" method=POST name="formNatmappingSetting">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left'>
+Type
+</td>
+<td class='form_label_right'>
+<select size="1" name="addressMapType" onChange="checkState()">
+<option value=1>One-to-One</option>
+<option value=2>Many-to-One</option>
+<option value=3>Many-to-Many</option>
+<option value=4>One-to-Many</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class='form_label_left'>
+Local Start IP
+</td>
+<td class='form_label_right'>
+<INPUT TYPE="TEXT" NAME="lowip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+<tr>
+<td class='form_label_left'>
+Local End IP
+</td>
+<td class='form_label_right'>
+<INPUT TYPE="TEXT" NAME="highip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+<tr>
+<td class='form_label_left'>
+Global Start IP
+</td>
+<td class='form_label_right'>
+<INPUT TYPE="TEXT" NAME="mappinglowip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+<tr>
+<td class='form_label_left'>
+Global End IP
+</td>
+<td class='form_label_right'>
+<INPUT TYPE="TEXT" NAME="mappinghighip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">&nbsp;&nbsp;
+<input type="hidden" name="submit.htm?fw-natmapping.htm" VALUE="Send">
+</form>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2natmappingdel.cgi" name="form2natmappingdel">
+<INPUT TYPE="HIDDEN" NAME="actiontype" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="state" VALUE="" >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current NAT IP MAPPING Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row >
+<td class='form_label_col' >
+Local Start IP
+</td>
+<td class='form_label_col' >
+Local End IP
+</td>
+<td class='form_label_col' >
+Global Start IP
+</td>
+<td class='form_label_col' >
+Global End IP
+</td>
+<td class='form_label_col' >
+Action
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="HIDDEN" NAME="deleteindex" VALUE="" >
+<input type="submit" value="Delete Selected" onClick="return deleteSelectClick()">
+<INPUT onClick="return deleteAllClick()" type=submit value="Delete All" name=deleteAllAddressMap>
+<INPUT TYPE="HIDDEN" NAME="submit.htm?fw-natmapping.htm" VALUE="Send" >
+</form>
+<script language="JavaScript">
+function deleteSelectClick()
+{
+with(document){
+var deleteindexobj=form2natmappingdel.deleteindex;
+var i=0;
+while(1){
+var objname='select'+i;
+if(!getElementById(objname))
+break;
+if(getElementById(objname).checked)
+{
+if(deleteindexobj.value.length)
+deleteindexobj.value=deleteindexobj.value+','+i;
+else
+deleteindexobj.value=i;
+}
+i++;
+}
+if (deleteindexobj.value==""){
+alert('No select any entry to deleted !!');
+return false;
+}
+}
+}
+function natActionFunc( form , actiontype, natcmd, state){
+form.elements[0].value=actiontype;
+form.elements[1].value=natcmd;
+form.elements[2].value=state;
+form.submit();
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/fw-natmapping.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

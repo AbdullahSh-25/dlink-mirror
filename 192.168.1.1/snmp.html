@@ -1,0 +1,195 @@
+<html>
+<!-- Mirrored from 192.168.1.1/snmp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>SNMP Protocol Configuration</title>
+<SCRIPT>
+function checkTextStr(str)
+{
+for (var i=0; i<str.length; i++)
+{
+if ( str.charAt(i) == '%' || str.charAt(i) =='&' ||str.charAt(i) =='\\' || str.charAt(i) =='?' || str.charAt(i)=='"')
+return false;
+}
+return true;
+}
+function saveChanges()
+{
+if(document.snmpTable.snmpEnabled.checked == false)
+{
+return true;
+}
+if (document.snmpTable.snmpTrapIpAddr.value=="") {
+return true;
+}
+if ( validateKey( document.snmpTable.snmpTrapIpAddr.value ) == 0 ) {
+alert("Invalid IP address value. It should be the decimal number (0-9).");
+document.snmpTable.snmpTrapIpAddr.value = document.snmpTable.snmpTrapIpAddr.defaultValue;
+document.snmpTable.snmpTrapIpAddr.focus();
+return false;
+}
+if ( !checkDigitRange(document.snmpTable.snmpTrapIpAddr.value,1,1,254) ) {
+alert('Invalid Trap IP address range in 1st digit. It should be 1-254.');
+document.snmpTable.snmpTrapIpAddr.value = document.snmpTable.snmpTrapIpAddr.defaultValue;
+document.snmpTable.snmpTrapIpAddr.focus();
+return false;
+}
+if ( !checkDigitRange(document.snmpTable.snmpTrapIpAddr.value,2,1,254) ) {
+alert('Invalid Trap IP address range in 2nd digit. It should be 1-254.');
+document.snmpTable.snmpTrapIpAddr.value = document.snmpTable.snmpTrapIpAddr.defaultValue;
+document.snmpTable.snmpTrapIpAddr.focus();
+return false;
+}
+if ( !checkDigitRange(document.snmpTable.snmpTrapIpAddr.value,3,1,254) ) {
+alert('Invalid Trap IP address range in 3rd digit. It should be 1-254.');
+document.snmpTable.snmpTrapIpAddr.value = document.snmpTable.snmpTrapIpAddr.defaultValue;
+document.snmpTable.snmpTrapIpAddr.focus();
+return false;
+}
+if ( !checkDigitRange(document.snmpTable.snmpTrapIpAddr.value,4,1,254) ) {
+alert('Invalid Trap IP address range in 4th digit. It should be 1-254.');
+document.snmpTable.snmpTrapIpAddr.value = document.snmpTable.snmpTrapIpAddr.defaultValue;
+document.snmpTable.snmpTrapIpAddr.focus();
+return false;
+}
+if(!checkTextStr(document.snmpTable.snmpSysContact.value))
+{
+alert("Invalid value in System Contact");
+document.snmpTable.snmpSysContact.focus();
+return false;
+}
+if(!checkTextStr(document.snmpTable.snmpSysLocation.value))
+{
+alert("Invalid value in System Location");
+document.snmpTable.snmpSysLocation.focus();
+return false;
+}
+return true;
+}
+function updateState()
+{
+if(document.snmpTable.snmpEnabled.checked == true)
+document.getElementById('snmpcontent').style.display = 'block';
+else
+document.getElementById('snmpcontent').style.display = 'none';
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body onLoad="updateState()">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="snmp";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">SNMP Protocol Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the SNMP protocol. Here you may change
+the setting for system description, trap ip address, community name, etc..</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Snmp.cgi" method=POST name="snmpTable">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">SNMP Protocol Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">
+<input type="checkbox" name="snmpEnabled"
+ value="OFF"
+ onclick="updateState()">
+</td>
+<td class="form_label_enable" style="text-align:left">Enable SNMP</td>
+</tr>
+</table>
+<div id="snmpcontent" style="display:none">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left"><font size=2><b>System Description</b></td>
+<td class="form_label_right">
+ADSL SoHo Router
+ </td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>System Contact</b></td>
+<td class="form_label_right"><input type="text" name="snmpSysContact" size="50" maxlength="64" value=
+""
+></td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>System Name</b></td>
+<td class="form_label_right"><input type="text" name="snmpSysName" size="50" maxlength="64" value=
+"AP"
+></td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>System Location</b></td>
+<td class="form_label_right"><input type="text" name="snmpSysLocation" size="50" maxlength="64" value=
+""
+></td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>Trap IP Address</b></td>
+<td class="form_label_right"><input type="text" name="snmpTrapIpAddr" size="15" maxlength="15" value=
+
+></td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>Community name (read-only)</b></td>
+<td class="form_label_right"><input type="text" name="snmpCommunityRO" size="50" maxlength="64" value=
+"public"
+></td>
+</tr>
+<tr>
+<td class="form_label_left"><font size=2><b>Community name (read-write)</b></td>
+<td class="form_label_right"><input type="text" name="snmpCommunityRW" size="50" maxlength="64" value=
+"private"
+></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="hidden" NAME="submit.htm?snmp.htm" VALUE="Send">
+<input type="submit" value="Apply Changes" name="save" onClick="return saveChanges()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/snmp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

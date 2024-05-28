@@ -1,0 +1,1011 @@
+<html>
+<!-- Mirrored from 192.168.1.1/ipqos.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>IP QoS</title>
+<script>
+function disableRules()
+{
+if (document.getElementById)
+{
+document.getElementById('qosPly').style.display = 'none';
+document.getElementById('qosRulestbl').style.display = 'none';
+document.getElementById('qosAddRule').style.display = 'none';
+} else {
+if (document.layers == false)
+{
+document.all.qosPly.style.display = 'none';
+document.all.qosRulestbl.style.display = 'none';
+document.all.qosAddRule.style.display = 'none';
+}
+}
+}
+function enableRules()
+{
+if (document.getElementById)
+{
+document.getElementById('qosPly').style.display = 'block';
+document.getElementById('qosRulestbl').style.display = 'block';
+document.getElementById('qosAddRule').style.display = 'none';
+} else {
+if (document.layers == false)
+{
+document.all.qosPly.style.display = 'block';
+document.all.qosRulestbl.style.display = 'block';
+document.all.qosAddRule.style.display = 'none';
+}
+}
+}
+function qosClick(url)
+{
+var wide=620;
+var high=400;
+if (document.all)
+var xMax = screen.width, yMax = screen.height;
+else if (document.layers)
+var xMax = window.outerWidth, yMax = window.outerHeight;
+else
+var xMax = 640, yMax=480;
+var xOffset = (xMax - wide)/2;
+var yOffset = (yMax - high)/3;
+var settings = 'width='+wide+',height='+high+',screenX='+xOffset+',screenY='+yOffset+',top='+yOffset+',left='+xOffset+', resizable=yes, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes';
+window.open( url, 'qosTbl', settings );
+}
+function delRuleCheck()
+{
+if(document.qostbl.selRule.length)
+{
+for(i=0;i<document.qostbl.selRule.length;i++)
+{
+if(document.qostbl.selRule[i].checked)
+return deleteClick();
+}
+}else
+{
+if(document.qostbl.selRule.checked)
+return deleteClick();
+}
+alert("please select an entry to delete!");
+return false;
+}
+function addRule()
+{
+with(document.forms[1]){
+document.getElementById("qosAddRule").style.display='block';
+document.getElementById("qostagid").style.display= 'none';
+smac.value="";
+dmac.value="";
+sip.value="";
+dip.value="";
+smask.value="";
+dmask.value="";
+sport.value="";
+dport.value="";
+sport.disabled=true;
+dport.disabled=true;
+prot.value=0;
+phyport.value=0;
+prio.value=3;
+sipp.value=0;
+sippend.value=0;
+stos.value=255;
+sdscp.value="";
+sdscpend.value="";
+stc.value="";
+stcend.value="";
+s1p.value=0;
+s1pend.value=0;
+ipp_ds_choose[1].checked=true;
+qostag.checked=false;
+mipp_ds_choose[1].checked=true;
+mipp.value=0;
+mtos.value=255;
+mdscp.value="";
+mtc.value="";
+m1p.value=0;
+ipp_ds_change();
+mipp_ds_change();
+}
+if(document.qostbl.selRule){
+if(document.qostbl.selRule.length)
+{
+for(i=0;i<document.qostbl.selRule.length;i++)
+{
+document.qostbl.selRule[i].checked=false;
+}
+}else
+document.qostbl.selRule.checked=false;
+}
+}
+function postVC(smac,dmac,sip,smask,dip,dmask,sport,sportend,dport,dportend,proto,phyport,s_ipp,s_ippend,s_tos,s_tosend,s_dscp,s_dscpend,s_1p,s_1pend,s_tc,s_tcend,
+prior,m_ipp,m_tos,m_dscp,m_1p,m_tc)
+{
+var nfmark=0;
+with(document.forms[1]){
+document.getElementById("qosAddRule").style.display='block';
+document.getElementById("qostagid").style.display= 'none';
+}
+document.qostbl.smac.value=smac;
+document.qostbl.dmac.value=dmac;
+document.qostbl.sip.value=sip;
+document.qostbl.smask.value=smask;
+document.qostbl.dip.value=dip;
+document.qostbl.dmask.value=dmask;
+document.qostbl.prot.value=proto;
+if(proto==1||proto==2||proto==4){
+document.qostbl.sport.disabled=false;
+document.qostbl.dport.disabled=false;
+if(sport)
+document.qostbl.sport.value=sport;
+else
+document.qostbl.sport.value="";
+if(dport)
+document.qostbl.dport.value=dport;
+else
+document.qostbl.dport.value="";
+}else{
+document.qostbl.sport.disabled=true;
+document.qostbl.dport.disabled=true;
+}
+document.qostbl.phyport.value=phyport;
+document.qostbl.prio.value=prior;
+document.qostbl.sipp.value=s_ipp+1;
+document.qostbl.sippend.value=s_ippend+1;
+if(s_tos==-1){
+document.qostbl.stos.value=255;
+}else{
+document.qostbl.stos.value=s_tos;
+}
+if(s_dscp==-1){
+document.qostbl.sdscp.value="";
+}else{
+document.qostbl.sdscp.value=s_dscp;
+}
+if(s_dscpend==-1){
+document.qostbl.sdscpend.value="";
+}else{
+document.qostbl.sdscpend.value=s_dscpend;
+}
+if(s_tc==-1){
+document.qostbl.stc.value="";
+}else{
+document.qostbl.stc.value=s_tc;
+}
+if(s_tcend==-1){
+document.qostbl.stcend.value="";
+}else{
+document.qostbl.stcend.value=s_tcend;
+}
+document.qostbl.s1p.value=s_1p+1;
+document.qostbl.s1pend.value=s_1pend+1;
+if(s_dscp>=0){
+document.qostbl.ipp_ds_choose[1].checked=true;
+}else if(s_ipp>=0 || s_tos>=0){
+document.qostbl.ipp_ds_choose[0].checked=true;
+}else
+document.qostbl.ipp_ds_choose[1].checked=true;
+ipp_ds_change();
+if(m_ipp!=-1 || m_tos!=-1 || m_dscp!=-1
+|| m_tc!=-1
+|| m_1p!=-1
+)
+nfmark=1;
+if(nfmark){
+document.qostbl.qostag.checked=true;
+document.getElementById('qostagid').style.display='block';
+document.qostbl.mipp.value=m_ipp+1;
+if(m_tos==-1)
+document.qostbl.mtos.value=255;
+else
+document.qostbl.mtos.value=m_tos;
+if(m_dscp==-1)
+document.qostbl.mdscp.value="";
+else
+document.qostbl.mdscp.value=m_dscp;
+if(m_tc==-1)
+document.qostbl.mtc.value="";
+else
+document.qostbl.mtc.value=m_tc;
+document.qostbl.m1p.value=m_1p+1;
+if(m_dscp>=0){
+document.qostbl.mipp_ds_choose[1].checked=true;
+}else if(m_ipp>=0 || m_tos>=0){
+document.qostbl.mipp_ds_choose[0].checked=true;
+}else
+document.qostbl.mipp_ds_choose[1].checked=true;
+mipp_ds_change();
+}else{
+document.qostbl.qostag.checked=false;
+document.getElementById('qostagid').style.display='none';
+}
+}
+function adminClick()
+{
+if ( (document.qostbl.prot.selectedIndex==1) ||
+(document.qostbl.prot.selectedIndex==2) ||
+(document.qostbl.prot.selectedIndex==4))
+{
+document.qostbl.sport.disabled = false;
+document.qostbl.dport.disabled = false;
+} else {
+document.qostbl.sport.disabled = true;
+document.qostbl.dport.disabled = true;
+}
+}
+function qostaglist(cb, id)
+{
+if(cb.checked==true)
+{
+if (document.getElementById)
+document.getElementById(id).style.display = 'block';
+else {
+if (document.layers == false)
+document.all.id.style.display = 'block';
+}
+} else {
+if (document.getElementById)
+{
+document.getElementById(id).style.display = 'none';
+} else {
+if (document.layers == false)
+document.all.id.style.display = 'none';
+}
+document.qostbl.mipp.value=0;
+document.qostbl.mtos.value=255;
+document.qostbl.mdscp.value="";
+document.qostbl.mtc.value="";
+document.qostbl.m1p.value=0;
+}
+}
+function addClick()
+{
+if(document.qostbl.smac.value!=""){
+if(checkMac(document.qostbl.smac)==0){
+alert("Invalid source Mac!");
+document.qostbl.smac.focus();
+return false;
+}
+}
+if(document.qostbl.dmac.value!=""){
+if(checkMac(document.qostbl.dmac)==0){
+alert("Invalid destination Mac!");
+document.qostbl.dmac.focus();
+return false;
+}
+}
+var ipv6flag=-1,dipv6flag=-1;
+if(document.qostbl.sip.value!=""){
+if(isIpv6Address(document.qostbl.sip.value)){
+if(isGlobalIpv6Address(document.qostbl.sip.value)==0 || isUnicastIpv6Address(document.qostbl.sip.value)==0){
+alert("Invalid source ipv6 address!");
+document.qostbl.sip.focus();
+return false;
+}
+ipv6flag=1;
+}else
+{
+if(checkIP(document.qostbl.sip)==0)
+{
+alert("Invalid source ip address!");
+document.qostbl.sip.focus();
+return false;
+}
+if (document.qostbl.smask.value!="" && !checkMask(document.qostbl.smask)) {
+return false;
+}
+ipv6flag=0;
+}
+}
+if(document.qostbl.dip.value!=""){
+if(isIpv6Address(document.qostbl.dip.value)){
+if(isGlobalIpv6Address(document.qostbl.dip.value)==0 || isUnicastIpv6Address(document.qostbl.dip.value)==0){
+alert("Invalid destination ipv6 address!");
+document.qostbl.dip.focus();
+return false;
+}
+dipv6flag=1;
+}else
+{
+if(checkIP(document.qostbl.dip)==0)
+{
+alert("Invalid destination ip address!");
+document.qostbl.dip.focus();
+return false;
+}
+if (document.qostbl.dmask.value!="" && !checkMask(document.qostbl.dmask)) {
+return false;
+}
+dipv6flag=0;
+}
+}
+if(ipv6flag>=0 && dipv6flag>=0){
+if(ipv6flag!=dipv6flag){
+alert("Source ip and Destination ip should be the same ip type!");
+document.qostbl.sip.focus();
+return false;
+}
+}
+if((document.qostbl.prot.value == "1") || (document.qostbl.prot.value == "2") || (document.qostbl.prot.value == "4"))
+{
+if ( document.qostbl.sport.value!="" ) {
+if ( validateDecimalDigit( document.qostbl.sport.value ) == 0 ) {
+alert("Invalid source port!");
+document.qostbl.sport.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.sport.value, 1);
+if (d1 > 65535 || d1 < 1) {
+alert("source port range: 1-65535!");
+document.qostbl.sport.focus();
+return false;
+}
+}
+if ( document.qostbl.dport.value!="" ) {
+if ( validateDecimalDigit( document.qostbl.dport.value ) == 0 ) {
+alert("Invalid destination port!");
+document.qostbl.dport.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.dport.value, 1);
+if (d1 > 65535 || d1 < 1) {
+alert("destination port range: 1-65535");
+document.qostbl.dport.focus();
+return false;
+}
+}
+}
+if ((document.qostbl.sipp.value!=0 || document.qostbl.stos.value!=255) && document.qostbl.sdscp.value!="")
+{
+alert("Choose only one for TOS or DSCP!");
+return false;
+}
+if(ipv6flag==1 || dipv6flag==1){
+if(document.qostbl.sipp.value!=0 || document.qostbl.stos.value!=255
+|| document.qostbl.mipp.value!=0 || document.qostbl.mtos.value!=255){
+alert("When set ipv6 address, can't set Ip precedence or Tos!");
+return false;
+}
+}
+if(ipv6flag==0 || dipv6flag==0){
+if(document.qostbl.stc.value!="" || document.qostbl.mtc.value!=""){
+alert("When set ipv4 address, can't set Traffic Class!");
+return false;
+}
+}
+if ( (document.qostbl.sipp.value!=0 || document.qostbl.stos.value!=255 || document.qostbl.sdscp.value!="") && document.qostbl.stc.value!="" )
+{
+alert("Choose only one for TOS/DSCP or TC !");
+return false;
+}
+if(document.qostbl.sipp.value==0){
+if(document.qostbl.sippend.value!=0){
+alert("Please input ip precedence start value!");
+document.qostbl.sipp.focus();
+return false;
+}
+}else{
+d1 = getDigit(document.qostbl.sipp.value, 1);
+if(document.qostbl.sippend.value!=0){
+d2 = getDigit(document.qostbl.sippend.value, 1);
+if(d1>d2){
+alert("Ip precedence end value should be larger than begin value!");
+document.qostbl.sipp.focus();
+return false;
+}
+}
+}
+if(document.qostbl.s1p.value==0){
+if(document.qostbl.s1pend.value!=0){
+alert("Please input 802.1p start value!");
+document.qostbl.s1p.focus();
+return false;
+}
+}else{
+d1 = getDigit(document.qostbl.s1p.value, 1);
+if(document.qostbl.s1pend.value!=0){
+d2 = getDigit(document.qostbl.s1pend.value, 1);
+if(d1>d2){
+alert("802.1p end value should be larger than begin value!");
+document.qostbl.s1p.focus();
+return false;
+}
+}
+}
+if(document.qostbl.sdscp.value==""){
+if(document.qostbl.sdscpend.value!=""){
+alert("Please input DSCP begin value!");
+document.qostbl.sdscp.focus();
+return false;
+}
+}else{
+if ( validateDecimalDigit( document.qostbl.sdscp.value ) == 0 ) {
+alert("Invalid DSCP value!");
+document.qostbl.sdscp.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.sdscp.value, 1);
+if ( !checkDigitRange(document.qostbl.sdscp.value,1,0,63) ) {
+alert("Invalid DSCP value,should between 0~63.");
+document.qostbl.sdscp.focus();
+return false;
+}
+if(document.qostbl.sdscpend.value!=""){
+if ( validateDecimalDigit( document.qostbl.sdscpend.value ) == 0 ) {
+alert("Invalid DSCP value!");
+document.qostbl.sdscpend.focus();
+return false;
+}
+d2 = getDigit(document.qostbl.sdscpend.value, 1);
+if ( !checkDigitRange(document.qostbl.sdscpend.value,1,0,63) ) {
+alert("Invalid DSCP value,should between 0~63.");
+document.qostbl.sdscpend.focus();
+return false;
+}
+if(d1>d2){
+alert("DSCP end value should be larger than begin value!");
+document.qostbl.sdscp.focus();
+return false;
+}
+}
+}
+if(document.qostbl.stc.value==""){
+if(document.qostbl.stcend.value!=""){
+alert("Please input traffic class begin value");
+document.qostbl.stc.focus();
+return false;
+}
+}else{
+if ( validateDecimalDigit( document.qostbl.stc.value ) == 0 ) {
+alert("Invalid traffic class value!");
+document.qostbl.stc.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.stc.value, 1);
+if ( !checkDigitRange(document.qostbl.stc.value,1,0,255) ) {
+alert("Invalid traffic class value,should between 0~255.");
+document.qostbl.stc.focus();
+return false;
+}
+if(document.qostbl.stcend.value!=""){
+if ( validateDecimalDigit( document.qostbl.stcend.value ) == 0 ) {
+alert("Invalid traffic class value!");
+document.qostbl.stcend.focus();
+return false;
+}
+d2 = getDigit(document.qostbl.stcend.value, 1);
+if ( !checkDigitRange(document.qostbl.stcend.value,1,0,255) ) {
+alert("Invalid traffic class value,should between 0~255.");
+document.qostbl.stcend.focus();
+return false;
+}
+if(d1>d2){
+alert("Traffic class end value should be larger than begin vlaue!");
+document.qostbl.stc.focus();
+return false;
+}
+}
+}
+if(document.qostbl.qostag.checked){
+if( document.qostbl.mtos.value==255
+&& document.qostbl.mipp.value==0
+&& document.qostbl.mdscp.value==""
+&& document.qostbl.mtc.value==""
+&& document.qostbl.m1p.value ==0){
+alert("Please set the mark!");
+return false;
+}
+}
+if (( document.qostbl.mtos.value!=255 || document.qostbl.mipp.value!=0) && document.qostbl.mdscp.value!="")
+{
+alert("Choose only one way to set remark, TOS or DSCP!");
+return false;
+}
+if (( document.qostbl.mtos.value!=255 || document.qostbl.mipp.value!=0 || document.qostbl.mdscp.value!="") && document.qostbl.mtc.value!="" )
+{
+alert("Choose only one way to set remark, TOS/DSCP or TC !");
+return false;
+}
+if ( document.qostbl.mdscp.value!="")
+{
+if ( validateDecimalDigit( document.qostbl.mdscp.value ) == 0 ) {
+alert("Invaldi DSCP value!");
+document.qostbl.mdscp.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.mdscp.value, 1);
+if (d1 > 63 || d1 < 0) {
+alert("Invaldi DSCP value, should between 0 and 63.");
+document.qostbl.mdscp.focus();
+return false;
+}
+}
+if ( document.qostbl.mtc.value!="")
+{
+if ( validateDecimalDigit( document.qostbl.mtc.value ) == 0 ) {
+alert("Invaldi TC value!");
+document.qostbl.mtc.focus();
+return false;
+}
+d1 = getDigit(document.qostbl.mtc.value, 1);
+if (d1 > 255 || d1 < 0) {
+alert("Invaldi TC value, should between 0 and 255.");
+document.qostbl.mtc.focus();
+return false;
+}
+}
+if(document.qostbl.m1p.value !=0)
+{
+if (!confirm('you have selected 802.1p tag, please make sure 802.1q is enabled in specified WAN interface, otherwise 802.1p tag will not be tagged!'))
+return false;
+}
+if (document.qostbl.smac.value == "" &&
+document.qostbl.dmac.value == "" &&
+document.qostbl.sip.value == "" &&
+document.qostbl.dip.value == "" &&
+document.qostbl.prot.value == 0 &&
+document.qostbl.phyport.value =="0" &&
+document.qostbl.sipp.value == 0 &&
+document.qostbl.stos.value == 255 &&
+document.qostbl.sdscp.value == "" &&
+document.qostbl.stc.value == "" &&
+document.qostbl.s1p.value == 0
+)
+{
+alert("no condition is set!");
+document.qostbl.sip.focus();
+return false;
+}
+if (document.getElementById)
+document.getElementById('qosAddRule').style.display = 'none';
+else {
+if (document.layers == false)
+document.all.qosAddRule.style.display = 'none';
+}
+return true;
+}
+function ipp_ds_change()
+{
+if(document.qostbl.ipp_ds_choose[0].checked==true){
+document.qostbl.sdscp.value="";
+document.qostbl.sdscpend.value="";
+document.qostbl.sipp.disabled=false;
+document.qostbl.sippend.disabled=false;
+document.qostbl.stos.disabled=false;
+document.qostbl.sdscp.disabled=true;
+document.qostbl.sdscpend.disabled=true;
+}else{
+document.qostbl.sipp.value=0;
+document.qostbl.sippend.value=0;
+document.qostbl.stos.value=255;
+document.qostbl.sipp.disabled=true;
+document.qostbl.sippend.disabled=true;
+document.qostbl.stos.disabled=true;
+document.qostbl.sdscp.disabled=false;
+document.qostbl.sdscpend.disabled=false;
+}
+}
+function mipp_ds_change()
+{
+if(document.qostbl.mipp_ds_choose[0].checked==true){
+document.qostbl.mdscp.value="";
+document.qostbl.mipp.disabled=false;
+document.qostbl.mtos.disabled=false;
+document.qostbl.mdscp.disabled=true;
+}else{
+document.qostbl.mipp.value=0;
+document.qostbl.mtos.value=255;
+document.qostbl.mipp.disabled=true;
+document.qostbl.mtos.disabled=true;
+document.qostbl.mdscp.disabled=false;
+}
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="qosadd";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">IP QoS</td>
+</tr>
+<tr>
+<td class="content">
+<p> Entries in this table are used to assign the precedence for each incoming packet
+based on specified policy.<br>
+Config Procedure: <br>
+1: set traffic rule.<br>
+2: assign the precedence or add marker for different stream.<br>
+</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2IPQoS.cgi" method=POST name=qos>
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">IP QoS Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">IP QoS:</td>
+<td class="form_label_right">
+<input type="radio" value=0 onclick="return disableRules()" name="qosen"
+checked
+ >
+disable&nbsp;
+<input type="radio" value=1 onclick="return enableRules()" name="qosen"
+
+ >
+enable
+</td>
+</tr>
+</table>
+<br>
+<div id="qosPly" style="display:none">
+<table border=0 width="500" cellspacing=4 cellpadding=0>
+<tr>
+<td width="30%">Schedule Mode:</td>
+<td>
+<select name="qossch">
+<option value="0">strict prior</option>
+<option value="1">WFQ(4:3:2:1)</option>
+</select>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" name=admin value="Apply Changes">
+<script>
+document.qos.qossch.selectedIndex=0;
+
+</script>
+<input type="hidden" value="Send" name="submit.htm?ipqos.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2IPQoS.cgi" method=POST name=qostbl>
+<div id="qosRulestbl" style="display:none">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">QoS Rule List</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" style="table-layout:fixed; word-wrap:break-word; overflow:hidden;" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td align=center bgcolor="#808080" width="15%"><b>src MAC</b></td>
+<td align=center bgcolor="#808080" width="15%"><b>dest MAC</b></td>
+<td align=center bgcolor="#808080" width="15%"><b>src IP</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>sPort</b></td>
+<td align=center bgcolor="#808080" width="15%"><b>dest IP</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>dPort</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>proto</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>phy port</b></td>
+</tr>
+
+</table>
+</td>
+</tr>
+<tr>
+<td class="topheader">QoS Rule List(Continue)</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" style="table-layout:fixed; word-wrap:break-word; overflow:hidden;" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td align=center bgcolor="#808080" width="5%"><b>IPP</b></td>
+<td align=center bgcolor="#808080" width="6%"><b>TOS</b></td>
+<td align=center bgcolor="#808080" width="9%"><b>DSCP</b></td>
+<td align=center bgcolor="#808080" width="5%"><b>TC</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>802.1p</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>Prior</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>IPP Mark</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>TOS Mark</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>DSCP Mark</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>TC Mark</b></td>
+<td align=center bgcolor="#808080" width="10%"><b>802.1p Mark</b></td>
+<td align=center bgcolor="#808080" width="5%"><b>sel</b></td>
+</tr>
+
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Delete" name=delSel onClick="return delRuleCheck()"
+disabled
+ >&nbsp;&nbsp;
+<input type="button" value="Add Rule" name="add" onClick="addRule()">
+</div>
+<div id="qosAddRule" style="display:none" class="column">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Add Or Modify QoS Rule</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table>
+<tr>
+<td width="30%" align=left>Source MAC: </td>
+<td><input type=text name=smac size=20 maxlength=18></td>
+</tr>
+<tr>
+<td>Destination MAC: </td>
+<td><input type=text name=dmac size=20 maxlength=18></td>
+</tr>
+<tr>
+<td>Source IP: </td>
+<td><input type=text name=sip size=20 maxlength=46></td>
+</tr>
+<tr>
+<td>Source Mask: </td>
+<td><input type=text name=smask size=20 maxlength=46></td>
+</tr>
+<tr>
+<td>Destination IP: </td>
+<td><input type=text name=dip size=20 maxlength=46></td>
+</tr>
+<tr>
+<td>Destination Mask: </td>
+<td><input type=text name=dmask size=20 maxlength=46></td>
+</tr>
+<tr>
+<td>Source Port: </td>
+<td><input type=text name=sport size=6 maxlength=5></td>
+</tr>
+<tr>
+<td>Destination Port: </td>
+<td><input type=text name=dport size=6 maxlength=5></td>
+</tr>
+<tr>
+<td>Protocol: </td>
+<td>
+<select name=prot onClick="return adminClick()">
+<option value=0></option>
+<option value=1>TCP</option>
+<option value=2>UDP</option>
+<option value=3>ICMP</option>
+<option value=4>TCP/UDP</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Phy Port: </td>
+<td>
+<select name=phyport>
+<option value=0>&nbsp;&nbsp;</option>
+<option value=1>LAN1</option>
+<option value=2>LAN2</option>
+<option value=3>LAN3</option>
+<option value=4>LAN4</option>
+<option value=6>WLAN</option>
+<option value=7>WLAN-VAP0</option>
+<option value=8>WLAN-VAP1</option>
+<option value=9>WLAN-VAP2</option>
+<option value=10>WLAN-VAP3</option>
+
+ </select>
+</td>
+</tr>
+<tr>
+<td>IPP/DS Field: </td>
+<td>
+<input type="radio" name="ipp_ds_choose" value=0 onClick="return ipp_ds_change()" >IPP/TOS&nbsp;
+<input type="radio" name="ipp_ds_choose" value=1 onClick="return ipp_ds_change()" checked>DSCP
+</td>
+</tr>
+<tr>
+<td>IP Precedence Range: </td>
+<td>
+<select name="sipp">
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+~
+<select name="sippend">
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Type of Service: </td>
+<td>
+<select name="stos">
+<option value=255>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=0>Normal Service(0x0)</option>
+<option value=2>Minimize Cost(0x2)</option>
+<option value=4>Maximize Reliability(0x4)</option>
+<option value=8>Maximize Throughput(0x8)</option>
+<option value=16>Minimize Dela(0x10)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>DSCP Range: </td>
+<td>
+<input type=text name="sdscp" size=8 maxlength=2>~<input type=text name="sdscpend" size=8 maxlength=2>(Value Range:0~63)
+</td>
+</tr>
+<tr>
+<td>Traffic Class Range: </td>
+<td>
+<input type=text name="stc" size=8 maxlength=3>~<input type=text name="stcend" size=8 maxlength=3>(Value Range:0~255)
+</td>
+</tr>
+<tr>
+<td>802.1p: </td>
+<td>
+<select name="s1p">
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+~
+<select name="s1pend">
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Priority: </td>
+<td>
+<select name=prio>
+<option value=3>p3(Lowest)</option>
+<option value=2>p2</option>
+<option value=1>p1</option>
+<option value=0>p0(Highest)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td colspan=2><input type="checkbox" name=qostag onClick="qostaglist(this, 'qostagid')"; > insert or modify QoS mark</td>
+</tr>
+</table>
+<br>
+<table id='qostagid' style="display:none">
+<tr>
+<td width="30%">IPP/DS Field: </td>
+<td>
+<input type="radio" name="mipp_ds_choose" value=0 onClick="return mipp_ds_change()" >IPP/TOS&nbsp;
+<input type="radio" name="mipp_ds_choose" value=1 onClick="return mipp_ds_change()" checked>DSCP
+</td>
+</tr>
+<tr>
+<td>IP Precedence: </td>
+<td>
+<select name=mipp >
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>IP ToS: </td>
+<td>
+<select name=mtos>
+<option value=255>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=0>Normal Service(0x0)</option>
+<option value=2>Minimize Cost(0x2)</option>
+<option value=4>Maximize Reliability(0x4)</option>
+<option value=8>Maximize Throughput(0x8)</option>
+<option value=16>Minimize Delay(0x10)</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>DSCP: </td>
+<td>
+<input type=text name=mdscp size=8 maxlength=2>(Value Range:0-63)
+</td>
+</tr>
+<tr>
+<td>Traffic Class: </td>
+<td>
+<input type=text name=mtc size=8 maxlength=3>(Value Range:0~255)
+</td>
+</tr>
+<tr>
+<td>802.1p: </td>
+<td>
+<select name=m1p>
+<option value=0>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value=1>0</option>
+<option value=2>1</option>
+<option value=3>2</option>
+<option value=4>3</option>
+<option value=5>4</option>
+<option value=6>5</option>
+<option value=7>6</option>
+<option value=8>7</option>
+</select>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" name=addqos value="Apply Changes" onClick="return addClick()">
+</td>
+</tr>
+</table>
+</div>
+<script>
+if (document.qos.qosen[1].checked == true)
+enableRules();
+else
+disableRules();
+ipp_ds_change();
+mipp_ds_change();
+</script>
+<input type="hidden" value="Send" name="submit.htm?ipqos.htm">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/ipqos.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

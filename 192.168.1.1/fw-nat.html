@@ -1,0 +1,177 @@
+<html>
+<!-- Mirrored from 192.168.1.1/fw-nat.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>NAT Forwarding</title>
+<script>
+function addClick()
+{
+if (document.formNatPortFwAdd.inlocalip.value=="" && document.formNatPortFwAdd.inglobalip.value=="" )
+return false;
+if(!checkIP(document.formNatPortFwAdd.inlocalip))
+{
+return false;
+}
+if(!checkIP(document.formNatPortFwAdd.inglobalip))
+{
+return false;
+}
+return true;
+}
+function disableDelButton()
+{
+if (verifyBrowser() != "ns") {
+disableButton(document.formPortFwDel.deleteSelPortFw);
+disableButton(document.formPortFwDel.deleteAllPortFw);
+}
+}
+function naptTblClick(url)
+{
+var wide=600;
+var high=400;
+if (document.all)
+var xMax = screen.width, yMax = screen.height;
+else if (document.layers)
+var xMax = window.outerWidth, yMax = window.outerHeight;
+else
+var xMax = 640, yMax=480;
+var xOffset = (xMax - wide)/2;
+var yOffset = (yMax - high)/3;
+var settings = 'width='+wide+',height='+high+',screenX='+xOffset+',screenY='+yOffset+',top='+yOffset+',left='+xOffset+', resizable=yes, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes';
+window.open( url, 'NATTbl', settings );
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="NAT";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>NAT Forwarding</td>
+</tr>
+<tr>
+<td class=content>
+<p>Entries in this table allow you to automatically redirect common network services
+to a specific machine behind the NAT firewall. These settings are only necessary
+if you wish to host some sort of server like a web server or mail server on the
+private local network behind your Gateway's NAT firewall.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2nat.cgi" method=POST name="formNatPortFwAdd">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' width="30%">
+Local IP Address
+</td>
+<td class='form_label_right' >
+<INPUT TYPE="TEXT" NAME="inlocalip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="30%">
+Remote IP Address
+</td>
+<td class='form_label_right' >
+<INPUT TYPE="TEXT" NAME="inglobalip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="30%">
+Enable
+</td>
+<td class='form_label_right' >
+<INPUT TYPE="CHECKBOX" NAME="enable" VALUE="enable" checked>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">&nbsp;&nbsp;
+<input type="hidden" name="submit.htm?fw-nat.htm" VALUE="Send">
+</form>
+<br>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2natdel.cgi">
+<INPUT TYPE="HIDDEN" NAME="actiontype" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="natcmd" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="state" VALUE="" >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current NAT Port Forwarding Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row >
+<td class='form_label_col' >
+Local IP Address
+</td>
+<td class='form_label_col' >
+Remote IP Address
+</td>
+<td class='form_label_col' >
+State
+</td>
+<td class='form_label_col' >
+Action
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<INPUT TYPE="HIDDEN" NAME="submit.htm?fw-nat.htm" VALUE="Send" >
+</form>
+<script language="JavaScript">
+<!--
+function natActionFunc( form , actiontype, natcmd, state){
+form.elements[0].value=actiontype;
+form.elements[1].value=natcmd;
+form.elements[2].value=state;
+form.submit();
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/fw-nat.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

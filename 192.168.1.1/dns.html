@@ -1,0 +1,278 @@
+<html>
+<!-- Mirrored from 192.168.1.1/dns.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>DNS Configuration </title>
+<SCRIPT>
+function autoDNSclicked()
+{
+document.dns.dns1.disabled = true;
+document.dns.dns2.disabled = true;
+document.dns.dns3.disabled = true;
+}
+function manualDNSclicked()
+{
+document.dns.dns1.disabled = false;
+document.dns.dns2.disabled = false;
+document.dns.dns3.disabled = false;
+}
+function getDigit(str, num)
+{
+i=1;
+if ( num != 1 ) {
+while (i!=num && str.length!=0) {
+if ( str.charAt(0) == '.' ) {
+i++;
+}
+str = str.substring(1);
+}
+if ( i!=num )
+return -1;
+}
+for (i=0; i<str.length; i++) {
+if ( str.charAt(i) == '.' ) {
+str = str.substring(0, i);
+break;
+}
+}
+if ( str.length == 0)
+return -1;
+d = parseInt(str, 10);
+return d;
+}
+function validateKey(str)
+{
+for (var i=0; i<str.length; i++) {
+if ( (str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+(str.charAt(i) == '.' ) )
+continue;
+return 0;
+}
+return 1;
+}
+function checkDigitRange(str, num, min, max)
+{
+d = getDigit(str,num);
+if ( d > max || d < min )
+return false;
+return true;
+}
+function saveClick()
+{
+if (document.dns.dnsMode[0].checked) {
+return true;
+}
+if (document.dns.dns1.value=="") {
+alert("Enter DNS value !");
+document.dns.dns1.focus();
+return false;
+}
+if ( validateKey( document.dns.dns1.value ) == 0 ) {
+alert("Invalid DNS 1 value.");
+document.dns.dns1.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns1.value,1,0,223) ) {
+alert('Invalid DNS 1 range in 1st digit. It should be 0-223.');
+document.dns.dns1.focus();
+return false;
+}
+if ( getDigit(document.dns.dns1.value,1)==127 ) {
+alert('Invalid DNS 1 range in 1st digit. It should not be 127.xxx.xxx.xxx.');
+document.dns.dns1.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns1.value,2,0,255) ) {
+alert('Invalid DNS 1 range in 2nd digit. It should be 0-255.');
+document.dns.dns1.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns1.value,3,0,255) ) {
+alert('Invalid DNS 1 range in 3rd digit. It should be 0-255.');
+document.dns.dns1.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns1.value,4,1,254) ) {
+alert('Invalid DNS 1 range in 4th digit. It should be 1-254.');
+document.dns.dns1.focus();
+return false;
+}
+if (document.dns.dns2.value=="") {
+return true;
+}
+if ( validateKey( document.dns.dns2.value ) == 0 ) {
+alert("Invalid DNS 2 value.");
+document.dns.dns2.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns2.value,1,0,223) ) {
+alert('Invalid DNS 2 range in 1st digit. It should be 0-223.');
+document.dns.dns2.focus();
+return false;
+}
+if ( getDigit(document.dns.dns2.value,1)==127 ) {
+alert('Invalid DNS 2 range in 1st digit. It should not be 127.xxx.xxx.xxx.');
+document.dns.dns2.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns2.value,2,0,255) ) {
+alert('Invalid DNS 2 range in 2nd digit. It should be 0-255.');
+document.dns.dns2.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns2.value,3,0,255) ) {
+alert('Invalid DNS 2 range in 3rd digit. It should be 0-255.');
+document.dns.dns2.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns2.value,4,1,254) ) {
+alert('Invalid DNS 2 range in 4th digit. It should be 1-254.');
+document.dns.dns2.focus();
+return false;
+}
+if (document.dns.dns3.value=="") {
+return true;
+}
+if ( validateKey( document.dns.dns3.value ) == 0 ) {
+alert("Invalid DNS 3 value.");
+document.dns.dns3.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns3.value,1,0,223) ) {
+alert('Invalid DNS 3 range in 1st digit. It should be 0-223.');
+document.dns.dns3.focus();
+return false;
+}
+if ( getDigit(document.dns.dns3.value,1)==127 ) {
+alert('Invalid DNS 3 range in 1st digit. It should not be 127.xxx.xxx.xxx.');
+document.dns.dns3.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns3.value,2,0,255) ) {
+alert('Invalid DNS 3 range in 2nd digit. It should be 0-255.');
+document.dns.dns3.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns3.value,3,0,255) ) {
+alert('Invalid DNS 3 range in 3rd digit. It should be 0-255.');
+document.dns.dns1.focus();
+return false;
+}
+if ( !checkDigitRange(document.dns.dns3.value,4,1,254) ) {
+alert('Invalid DNS 3 range in 4th digit. It should be 1-254.');
+document.dns.dns1.focus();
+return false;
+}
+return true;
+}
+function resetClick()
+{
+if (initAutoDns)
+autoDNSclicked();
+else
+manualDNSclicked();
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="DNS";
+HelpItem="dns";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DNS Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the DNS server ip addresses for DNS Relay.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Dns.cgi" method=POST name="dns">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">DNS Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left"><input type="radio" value="0" name="dnsMode"
+checked
+ onClick="autoDNSclicked()"></td>
+<td class="form_label_right">Attain DNS Automatically</td>
+</tr>
+<tr>
+<td class="form_label_left"><input type="radio" value="1" name="dnsMode"
+
+ onClick="manualDNSclicked()"></td>
+<td class="form_label_right">Set DNS Manually</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 1:<input type="text" name="dns1" size="18" maxlength="15" value=
+0.0.0.0
+></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 2:<input type="text" name="dns2" size="18" maxlength="15" value=
+0.0.0.0
+></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 3:<input type="text" name="dns3" size="18" maxlength="15" value=
+0.0.0.0
+></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="hidden" NAME="submit.htm?dns.htm" VALUE="Send">
+<input type="submit" value="Apply Changes" name="save" onClick="return saveClick()">
+<input type="reset" value="Reset Selected" name="reset" onClick="return resetClick()">
+<script>
+initAutoDns = document.dns.dnsMode[0].checked;
+if (document.dns.dnsMode[0].checked)
+autoDNSclicked();
+if(document.dns.dns2.value=="0.0.0.0")
+document.dns.dns2.value="";
+if(document.dns.dns3.value=="0.0.0.0")
+document.dns.dns3.value="";
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/dns.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

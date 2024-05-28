@@ -1,0 +1,205 @@
+<html>
+<!-- Mirrored from 192.168.1.1/logging.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<TITLE>Log Setting</TITLE>
+<script language="JavaScript">
+<!--
+function logActionFunc( form , type){
+form.elements[0].value=type;
+form.submit();
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</HEAD>
+<BODY >
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="System Log";
+HelpItem="logsettings";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Log Setting</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page is used to display the system event log table. By checking Error or Notice ( or both)will set the log flag. By clicking the ">>|", it will display the newest log information below.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2logging.cgi">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' style="text-align: left;">
+Error:
+<INPUT TYPE="CHECKBOX" NAME="xscrnSysLogError" VALUE="error"  >
+
+ </td>
+<td class='form_label_left' style="text-align: left;">
+Notice:
+<INPUT TYPE="CHECKBOX" NAME="xscrnSysLogNotice" VALUE="notice"  >
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="hidden" NAME="submit.htm?logging.htm" VALUE="Send">
+<input type="submit" value="Apply Changes" name="save">&nbsp;&nbsp;
+<INPUT TYPE="reset" NAME="reset" VALUE="Reset">
+</form>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2logremote.cgi" name=logremote>
+<table id=body_header border=0 cellSpacing=0>
+	<tr>
+		<td class=topheader>Remote Setting</td>
+	</tr>
+	<tr>
+		<td class="content" align="center">
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+	<tr>
+		<td class="form_label_left">Remote Log Enable:</td>
+		<td class="form_label_right">
+			<input type=checkbox name=logRemoteEnable value=1  onClick=updateInput()>
+		</td>
+	</tr>
+</table>
+<div id="remoteLog" style="display:none">
+	<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+		<tr>
+			<td class="form_label_left">Remote Log Host:</td>
+			<td class="form_label_right"><input type=text name=logRemoteHost size=15 maxlength=15 value=""></td>
+		</tr>
+	</table>
+</div>
+			<p align=center>
+			<input type="submit" value="Apply Changes" onclick="return AddCheck()"><br><br>
+			</p>
+		</td>
+	</tr>
+</table>
+<script>
+function AddCheck()
+{
+	if (document.logremote.logRemoteEnable.checked == true && document.logremote.logRemoteHost.value == "") {
+		 alert("Remote Log Host can not be empty");
+		 focus(document.logremote.logRemoteHost);
+		 return false;
+		}
+	return true;
+}
+function updateInput()
+{
+	if (document.logremote.logRemoteEnable.checked == true) {
+		if (document.getElementById)  // DOM3 = IE5, NS6
+			document.getElementById('remoteLog').style.display = 'block';
+			else {
+			if (document.layers == false) // IE4
+				document.all.remoteLog.style.display = 'block';
+		}
+	} else {
+		if (document.getElementById)  // DOM3 = IE5, NS6
+			document.getElementById('remoteLog').style.display = 'none';
+		else {
+			if (document.layers == false) // IE4
+				document.all.remoteLog.style.display = 'none';
+		}
+	}
+}
+</script>
+<INPUT TYPE="hidden" NAME="submit.htm?logging.htm" VALUE="Send">
+</form>
+
+ <form method=POST Action="http://admin:admin@192.168.1.1/form2logaction.cgi">
+<INPUT TYPE="HIDDEN" NAME="type" VALUE="" >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Event log Table</td>
+</tr>
+<tr>
+<td class="content" align="center">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td>
+<INPUT TYPE="BUTTON" VALUE="Save Log to File" onClick="window.location.href='logfile.log'">&nbsp;
+<INPUT TYPE="BUTTON" VALUE="Clean Log Table" onClick="logActionFunc( this.form, 'clean');">
+</td>
+</tr>
+<tr>
+<td>
+<font size=2><b>Old<INPUT TYPE="BUTTON" VALUE="|<<" onClick="logActionFunc( this.form, '|<<');">&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT TYPE="BUTTON" VALUE="&nbsp&nbsp<&nbsp&nbsp" onClick="logActionFunc( this.form, '<');">&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT TYPE="BUTTON" VALUE="&nbsp&nbsp>&nbsp&nbsp" onClick="logActionFunc( this.form, '>');">&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT TYPE="BUTTON" VALUE=">>|" onClick="logActionFunc( this.form, '>>|');">New</b></font>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0 style="table-layout:fixed; word-wrap:break-word; overflow:hidden;">
+<tr class=form_label_row>
+<td class='form_label_col' width="20%">
+Time
+</td>
+<td class='form_label_col' width="10%">
+Index
+</td>
+<td class='form_label_col' width="10%">
+Type
+</td>
+<td class='form_label_col'>
+Log Information
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+<tr>
+<td class=content>
+<b>Page: 1/1</b>
+ </td>
+</tr>
+</table>
+<INPUT TYPE="HIDDEN" NAME="submit.htm?Logging.htm" VALUE="Send" >
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</BODY>
+<!-- Mirrored from 192.168.1.1/logging.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+</HTML>
+
+

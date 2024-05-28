@@ -1,0 +1,637 @@
+<html>
+<!-- Mirrored from 192.168.1.1/nat_portrigger.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Nat Port Trigger</title>
+<SCRIPT language=javascript>
+TOTAL_ROW = 8;
+remain = 31;
+var appName = '';
+NO_SEL_MSG = 'please select an application';
+RE_ALL_MSG = 'please input the match port & relate port rightly';
+function isValidPort(port) {
+var fromport = 0;
+var toport = 100;
+portrange = port.split(':');
+if ( portrange.length < 1 || portrange.length > 2 ) {
+return false;
+}
+if ( isNaN(portrange[0]) )
+return false;
+fromport = parseInt(portrange[0]);
+if ( portrange.length > 1 ) {
+if ( isNaN(portrange[1]) )
+return false;
+toport = parseInt(portrange[1]);
+if ( toport <= fromport )
+return false;
+}
+if ( fromport < 1 || fromport > 65535 || toport < 1 || toport > 65535 )
+return false;
+return true;
+}
+function clearAll()
+{
+with (document.form2PortriggerRule) {
+for (i = 0; i < TOTAL_ROW; i++) {
+matchPort_s[i].value = matchPort_e[i].value = relatePort_s[i].value = relatePort_e[i].value = "";
+protocol[i].value = oProto[i].value = 1;
+dir[i].value=0;
+}
+}
+}
+function appSelect(v)
+{
+clearAll();
+with (document.form2PortriggerRule) {
+switch(v) {
+case '0':
+AppName.selectedIndex = 0;
+AppName.options[0].value = "0";
+appName = "";
+break;
+case '1':
+appName = "Aim Talk";
+matchPort_s[0].value = matchPort_e[0].value = 4099;
+relatePort_s[0].value = relatePort_e[0].value = 5191;
+protocol[0].value = oProto[0].value = 0;
+break;
+case '2':
+appName = "Asheron's Call";
+matchPort_s[0].value = relatePort_s[0].value = 9000;
+matchPort_e[0].value = relatePort_e[0].value = 9013;
+protocol[0].value = oProto[0].value = 1;
+break;
+case '3':
+appName = "Calista IP Phone";
+matchPort_s[0].value = matchPort_e[0].value = 5190;
+relatePort_s[0].value = relatePort_e[0].value = 3000;
+protocol[0].value = 0;
+oProto[0].value = 1;
+break;
+case '4':
+appName = "Delta Force (Client/Server)";
+matchPort_s[0].value = matchPort_e[0].value = 3568;
+protocol[0].value = 1;
+relatePort_s[0].value = 3100;
+relatePort_e[0].value = 3999;
+oProto[0].value = 255;
+break;
+case '5':
+appName = "ICQ";
+matchPort_s[0].value = matchPort_e[0].value = 4000;
+protocol[0].value = 1;
+relatePort_s[0].value = 20000;
+relatePort_e[0].value = 20059;
+oProto[0].value = 0;
+break;
+case '6':
+appName = "Napster";
+matchPort_s[0].value = matchPort_e[0].value = matchPort_s[1].value = matchPort_e[1].value = matchPort_s[2].value = matchPort_e[2].value =
+matchPort_s[3].value = matchPort_e[3].value = matchPort_s[4].value = matchPort_e[4].value = matchPort_s[5].value = matchPort_e[5].value =
+matchPort_s[6].value = matchPort_e[6].value = 6699;
+relatePort_s[0].value = relatePort_e[0].value = 6699;
+relatePort_s[1].value = relatePort_e[1].value = 6697;
+relatePort_s[2].value = relatePort_e[2].value = 4444;
+relatePort_s[3].value = relatePort_e[3].value = 5555;
+relatePort_s[4].value = relatePort_e[4].value = 6666;
+relatePort_s[5].value = relatePort_e[5].value = 7777;
+relatePort_s[6].value = relatePort_e[6].value = 8888;
+protocol[0].value = oProto[0].value = 0;
+protocol[1].value = oProto[1].value = 0;
+protocol[2].value = oProto[2].value = 0;
+protocol[3].value = oProto[3].value = 0;
+protocol[4].value = oProto[4].value = 0;
+protocol[5].value = oProto[5].value = 0;
+protocol[6].value = oProto[6].value = 0;
+break;
+case '7':
+appName = "Net2Phone";
+matchPort_s[0].value = matchPort_e[0].value = 6801;
+protocol[0].value = 1;
+relatePort_s[0].value = relatePort_e[0].value = 6801;
+oProto[0].value = 1;
+break;
+case '8':
+appName = "QuickTime 4 Client";
+matchPort_s[0].value = matchPort_e[0].value = matchPort_s[1].value = matchPort_e[1].value = 554;
+relatePort_s[0].value = relatePort_s[1].value = 6970;
+relatePort_e[0].value = 32000;
+relatePort_e[1].value = 7000;
+protocol[0].value = protocol[1].value =0;
+oProto[0].value=oProto[1].value = 1;
+break;
+case '9':
+appName = "Rainbow Six/Rogue Spea";
+matchPort_s[0].value = matchPort_e[0].value = 2346;
+relatePort_s[0].value = 2436;
+relatePort_e[0].value = 2438;
+protocol[0].value =0;
+oProto[0].value = 255;
+break;
+default:
+alert('Not support selection');
+}
+}
+}
+function radioClick()
+{
+with (document.form2PortriggerRule) {
+if (radiosrv[0].checked == true)
+txtAppName.value = '';
+}
+appSelect("0");
+}
+function btnApply() {
+var loc = "form2PortriggerRuled41d.cgi?";
+with ( document.form2PortriggerRule) {
+if (radiosrv[0].checked == true) {
+if (encodeURI(appName) == '') {
+alert(NO_SEL_MSG);
+return;
+}
+appName=appName.replace(/(^\s*)/g, "");
+appName=appName.replace(/(\s*$)/g, "");
+appName=appName.replace(/(\s)/g, "&nbsp;");
+loc += '&AppName=' + encodeURI(appName);
+}
+else {
+if (encodeURI(txtAppName.value) == '') {
+alert('please input an application name');
+return;
+}
+txtAppName.value=txtAppName.value.replace(/(^\s*)/g, "");
+txtAppName.value=txtAppName.value.replace(/(\s*$)/g, "");
+txtAppName.value=(txtAppName.value).replace(/(\s)/g, "&nbsp;");
+loc += '&AppName=' + encodeURI(txtAppName.value);
+}
+for (i = 0; i < TOTAL_ROW; i++) {
+if (matchPort_s[i].value == "" && matchPort_e[i].value == "" && relatePort_s[i].value == "" && relatePort_e[i].value == "")
+break;
+if (matchPort_s[i].value == "" || matchPort_e[i].value == "" || relatePort_s[i].value == "" || relatePort_e[i].value == "") {
+alert(RE_ALL_MSG);
+return;
+}
+}
+if (i == 0) {
+alert(RE_ALL_MSG);
+return;
+}
+if (i > remain) {
+remain = i - remain;
+alert('xxxx' + remain);
+remain = 31;
+return;
+}
+tProtoLoc = '&triggerProto=';
+tStartLoc = '&matchPort_s=';
+tEndLoc = '&matchPort_e=';
+oProtoLoc = '&openProto=';
+oStartLoc = '&relatePort_s=';
+oEndLoc = '&relatePort_e=';
+dirLoc = '&dir=';
+eCount = i;
+for (i = 0; i < eCount; i++) {
+if ( isValidPort(matchPort_s[i].value) == false ) {
+alert('The start trigger port "' + matchPort_s[i].value + '" is unvalid.');
+return;
+}
+if ( isValidPort(matchPort_e[i].value) == false ) {
+alert('The end trigger port"' + matchPort_e[i].value + '" is unvalid.');
+return;
+}
+if ( isValidPort(relatePort_s[i].value) == false ) {
+alert('The start relate port "' + relatePort_s[i].value + '" is unvalid.');
+return;
+}
+if ( isValidPort(relatePort_e[i].value) == false ) {
+alert('he end relate port"' + relatePort_e[i].value + '" is unvalid.');
+return;
+}
+tS = parseInt(matchPort_s[i].value);
+tE = parseInt(matchPort_e[i].value);
+if (tS > tE) {
+alert('The range of open port [' + tS + '-' + tE + '] is unvalid.');
+return;
+}
+oS = parseInt(relatePort_s[i].value);
+oE = parseInt(relatePort_e[i].value);
+if ( oS > oE ) {
+alert('The range of related port [' + oS + '-' + oE + '] is unvalid.');
+return;
+}
+tStartLoc = tStartLoc + matchPort_s[i].value + ',';
+tEndLoc = tEndLoc + matchPort_e[i].value + ',';
+tProtoLoc = tProtoLoc + protocol[i].value + ',';
+oStartLoc = oStartLoc + relatePort_s[i].value + ',';
+oEndLoc = oEndLoc + relatePort_e[i].value + ',';
+oProtoLoc = oProtoLoc + oProto[i].value + ',';
+dirLoc= dirLoc+dir[i].value+',';
+}
+}
+loc = loc + tStartLoc + tEndLoc + tProtoLoc + oStartLoc + oEndLoc + oProtoLoc+dirLoc+'&submit.htm?nat_portrigger.htm=Send';
+var code = 'location="' + loc + '"';
+eval(code);
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Port Triggering";
+HelpItem="porttriggering";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Nat Portrigger</td>
+</tr>
+<tr>
+<td class="content">
+<p>Some applications require that specific ports in the Router's firewall be opened for access by the remote parties. 
+Port Trigger dynamically opens up the "Relate Port" in the firewall when an application on the LAN initiates a TCP/UDP connection to a remote party using the "Match Port".
+The Router allows the remote party from the WAN side to establish new connections back to the application on the LAN side using the "Relate Port".</p>
+<p>Entries in this table are used to restrict certain types of data packets from your local network to Internet through the Gateway. Use of such filters can be helpful in securing or restricting your local network.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2NatPortriggerStatus.cgi" method=POST name="form2NatPortriggerStatus">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">NAT Port Trigger Status</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Nat Port Trigger:</td>
+<td class="form_label_right">
+<input type="radio" name="pt_status" value="enable"  >Enable&nbsp;&nbsp;<input type="radio" name="pt_status" value="disable" checked>Disable&nbsp;&nbsp;</b>
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes">&nbsp;&nbsp;
+<input type="hidden" NAME="submit.htm?nat_portrigger.htm" value="Send">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2PortriggerRule.cgi" name="form2PortriggerRule">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Application Type</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_radio" style="text-align:left"><input type="radio" name="radiosrv" value="0" onClick="radioClick();" checked>Usual Application Name:</td>
+<td>
+<select onchange=appSelect(this.value) size=1 name=AppName>
+<option value=0 selected>Select One</option>
+<option value=1>Aim Talk</option>
+<option value=2>Asheron's Call</option>
+<option value=3>Calista IP Phone</option>
+<option value=4>Delta Force (Client/Server)</option>
+<option value=5>ICQ</option>
+<option value=6>Napster</option>
+<option value=7>Net2Phone</option>
+<option value=8>QuickTime 4 Client</option>
+<option value=9>Rainbow Six/RogueSpea</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_radio" style="text-align:left; width:220px"><input type="radio" name="radiosrv" value="1">User-defined Application Name:</td>
+<td><input type="text" size="30" name="txtAppName" maxlength="15"></td>
+</tr>
+</table>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<TR align=middle>
+<TD class=hd>Start Match Port </TD>
+<TD class=hd>End Match Port </TD>
+<TD class=hd>Trigger Protocol</TD>
+<TD class=hd>Start Relate Port</TD>
+<TD class=hd>End Relate Port</TD>
+<TD class=hd>Open Protocol</TD>
+<TD class=hd>Nat Type</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+<TR>
+<TD><INPUT size=7 name=matchPort_s></TD>
+<TD><INPUT size=7 name=matchPort_e></TD>
+<TD>
+<SELECT name=protocol>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD><INPUT size=7 name=relatePort_s></TD>
+<TD><INPUT size=7 name=relatePort_e></TD>
+<TD>
+<SELECT name=oProto>
+<OPTION value=1 selected>UDP
+<OPTION value=0>TCP
+<OPTION value=255>TCP/UDP
+</OPTION>
+</SELECT>
+</TD>
+<TD>
+<SELECT name=dir>
+<OPTION value=0 selected>outgoing
+<OPTION value=1 >incoming
+</OPTION>
+</SELECT>
+</TD>
+</TR>
+</table>
+</td>
+</tr>
+</table>
+<input type="button" value="Apply Changes" name="save" onClick="return btnApply();">&nbsp;&nbsp;
+</form>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2PortriggerRuleDelete.cgi">
+<INPUT TYPE="HIDDEN" NAME="natType" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="dir" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="triggerproto" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="matchPort_s" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="matchPort_e" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="openproto" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="relatePort_s" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="relatePort_e" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="name" VALUE="" >
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">Current Portrigger Table</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">ServerName</td>
+<td class="form_label_col">Trigger Protocol</td>
+<td class="form_label_col">Direction</td>
+<td class="form_label_col">Match Port</td>
+<td class="form_label_col">Open Protocol</td>
+<td class="form_label_col">Relate Port</td>
+<td class="form_label_col">Action</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="HIDDEN" NAME="submit.htm?nat_portrigger.htm" VALUE="Send" >
+</form>
+<script language="JavaScript">
+function natPortriggerActionFunc( form , natType,dir,triggerproto,matchport_s,matchport_e,openproto,relateport_s,relateport_e,name){
+form.elements[0].value=natType;
+form.elements[1].value=dir;
+form.elements[2].value=triggerproto;
+form.elements[3].value=matchport_s;
+form.elements[4].value=matchport_e;
+form.elements[5].value=openproto;
+form.elements[6].value=relateport_s;
+form.elements[7].value=relateport_e;
+form.elements[8].value=name;
+form.submit();
+}
+</script>
+<script>
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/nat_portrigger.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

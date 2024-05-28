@@ -1,0 +1,433 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wlmbssid.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>MBSSID Setup </title>
+<SCRIPT>
+function checkVapState(vap)
+{
+if(vap == 0){
+if(document.WlanMBSSID.En_vap0.checked == true){
+enableTextField(document.WlanMBSSID.ssid_v0);
+enableRadioGroup(document.WlanMBSSID.authType0);
+enableRadioGroup(document.WlanMBSSID.brssid_v0);
+enableRadioGroup(document.WlanMBSSID.vap0_relay_block);
+ }else{
+disableTextField(document.WlanMBSSID.ssid_v0);
+disableRadioGroup(document.WlanMBSSID.authType0);
+disableRadioGroup(document.WlanMBSSID.brssid_v0);
+disableRadioGroup(document.WlanMBSSID.vap0_relay_block);
+ }
+}
+if(vap == 1){
+if(document.WlanMBSSID.En_vap1.checked == true){
+enableTextField(document.WlanMBSSID.ssid_v1);
+enableRadioGroup(document.WlanMBSSID.authType1);
+enableRadioGroup(document.WlanMBSSID.brssid_v1);
+enableRadioGroup(document.WlanMBSSID.vap1_relay_block);
+ }else{
+disableTextField(document.WlanMBSSID.ssid_v1);
+disableRadioGroup(document.WlanMBSSID.authType1);
+disableRadioGroup(document.WlanMBSSID.brssid_v1);
+disableRadioGroup(document.WlanMBSSID.vap1_relay_block);
+ }
+}
+if(vap == 2){
+if(document.WlanMBSSID.En_vap2.checked == true){
+enableTextField(document.WlanMBSSID.ssid_v2);
+enableRadioGroup(document.WlanMBSSID.authType2);
+enableRadioGroup(document.WlanMBSSID.brssid_v2);
+enableRadioGroup(document.WlanMBSSID.vap2_relay_block);
+ }else{
+disableTextField(document.WlanMBSSID.ssid_v2);
+disableRadioGroup(document.WlanMBSSID.authType2);
+disableRadioGroup(document.WlanMBSSID.brssid_v2);
+disableRadioGroup(document.WlanMBSSID.vap2_relay_block);
+ }
+}
+if(vap == 3){
+if(document.WlanMBSSID.En_vap3.checked == true){
+enableTextField(document.WlanMBSSID.ssid_v3);
+enableRadioGroup(document.WlanMBSSID.authType3);
+enableRadioGroup(document.WlanMBSSID.brssid_v3);
+enableRadioGroup(document.WlanMBSSID.vap3_relay_block);
+ }else{
+disableTextField(document.WlanMBSSID.ssid_v3);
+disableRadioGroup(document.WlanMBSSID.authType3);
+disableRadioGroup(document.WlanMBSSID.brssid_v3);
+disableRadioGroup(document.WlanMBSSID.vap3_relay_block);
+ }
+}
+}
+function updateState()
+{
+if(wlanDisabled){
+disableCheckBox(document.WlanMBSSID.En_vap0);
+disableTextField(document.WlanMBSSID.ssid_v0);
+disableRadioGroup(document.WlanMBSSID.brssid_v0);
+disableRadioGroup(document.WlanMBSSID.authType0);
+disableRadioGroup(document.WlanMBSSID.vap0_relay_block);
+ disableCheckBox(document.WlanMBSSID.En_vap1);
+disableTextField(document.WlanMBSSID.ssid_v1);
+disableRadioGroup(document.WlanMBSSID.brssid_v1);
+disableRadioGroup(document.WlanMBSSID.authType1);
+disableRadioGroup(document.WlanMBSSID.vap1_relay_block);
+ disableCheckBox(document.WlanMBSSID.En_vap2);
+disableTextField(document.WlanMBSSID.ssid_v2);
+disableRadioGroup(document.WlanMBSSID.brssid_v2);
+disableRadioGroup(document.WlanMBSSID.authType2);
+disableRadioGroup(document.WlanMBSSID.vap2_relay_block);
+ disableCheckBox(document.WlanMBSSID.En_vap3);
+disableTextField(document.WlanMBSSID.ssid_v3);
+disableRadioGroup(document.WlanMBSSID.brssid_v3);
+disableRadioGroup(document.WlanMBSSID.authType3);
+disableRadioGroup(document.WlanMBSSID.vap3_relay_block);
+ disableButton(document.WlanMBSSID.save);
+}
+else{
+checkVapState(0);
+checkVapState(1);
+checkVapState(2);
+checkVapState(3);
+enableButton(document.WlanMBSSID.save);
+}
+}
+function saveChanges()
+{
+if (document.WlanMBSSID.ssid_v0.value=="")
+{
+alert('SSID cannot be empty!');
+document.WlanMBSSID.ssid_v0.value = document.WlanMBSSID.ssid_v0.defaultValue;
+document.WlanMBSSID.ssid_v0.focus();
+return false;
+}
+if (includeSpace(document.WlanMBSSID.ssid_v0.value))
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v0.focus();
+return false;
+}
+if (checkString(document.WlanMBSSID.ssid_v0.value) == 0)
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v0.focus();
+return false;
+}
+if (document.WlanMBSSID.ssid_v1.value=="")
+{
+alert('SSID cannot be empty!');
+document.WlanMBSSID.ssid_v1.value = document.WlanMBSSID.ssid_v1.defaultValue;
+document.WlanMBSSID.ssid_v1.focus();
+return false;
+}
+if (includeSpace(document.WlanMBSSID.ssid_v1.value))
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v1.focus();
+return false;
+}
+if (checkString(document.WlanMBSSID.ssid_v1.value) == 0)
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v1.focus();
+return false;
+}
+if (document.WlanMBSSID.ssid_v2.value=="")
+{
+alert('SSID cannot be empty!');
+document.WlanMBSSID.ssid_v2.value = document.WlanMBSSID.ssid_v2.defaultValue;
+document.WlanMBSSID.ssid_v2.focus();
+return false;
+}
+if (includeSpace(document.WlanMBSSID.ssid_v2.value))
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v2.focus();
+return false;
+}
+if (checkString(document.WlanMBSSID.ssid_v2.value) == 0)
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v2.focus();
+return false;
+}
+if (document.WlanMBSSID.ssid_v3.value=="")
+{
+alert('SSID cannot be empty!');
+document.WlanMBSSID.ssid_v3.value = document.WlanMBSSID.ssid_v3.defaultValue;
+document.WlanMBSSID.ssid_v3.focus();
+return false;
+}
+if (includeSpace(document.WlanMBSSID.ssid_v3.value))
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v3.focus();
+return false;
+}
+if (checkString(document.WlanMBSSID.ssid_v3.value) == 0)
+{
+alert('Invalid SSID.');
+document.WlanMBSSID.ssid_v3.focus();
+return false;
+}
+return true;
+}
+</SCRIPT>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Advanced Wireless";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<form method=POST action="http://admin:admin@192.168.1.1/form2WlanMBSSID.cgi" name=WlanMBSSID>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Wireless Multiple BSSID Setup
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page allows you to set virutal access points(VAP). Here you can enable/disable virtual AP,
+and set its SSID and authentication type. click "Apply Changes" to take it effect.</p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>WIRELEES MULTIPLE BSSID SETTINGS- VAP0
+</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<tr>
+<td align=right><input type="checkbox" name="En_vap0" value=1
+
+ ONCLICK="checkVapState(0)">
+</td>
+<td class=form_label_enabled>&nbsp;&nbsp;Enable VAP0
+</td>
+</tr>
+<tr>
+<td class=form_label_40>SSID:</td>
+<td>
+<input type=text name=ssid_v0 size=16 maxlength=16
+value="D-Link_Guest1"
+ >
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Broadcast SSID:</td>
+<td>
+<input type="radio" name="brssid_v0" value=0>Enable&nbsp;&nbsp;
+<input type="radio" name="brssid_v0" value=1>Disable
+</td>
+</tr>
+<tr>         <td class="form_label_40">Relay Blocking:</td>         <td><input type="radio" name="vap0_relay_block" value=1>Enable&nbsp;&nbsp;           <input type="radio" name="vap0_relay_block" value=0>Disable</td>     </tr>
+ <tr>
+<td class=form_label_40>Authentication Type:</td>
+<td>
+<input type="radio" name="authType0" value=0 >Open System&nbsp;&nbsp;
+<input type="radio" name="authType0" value=1 >Shared Key&nbsp;&nbsp;
+<input type="radio" name="authType0" value=2 >Auto
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>WIRELEES MULTIPLE BSSID SETTINGS- VAP1
+</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<tr>
+<td align=right>
+<input type="checkbox" name="En_vap1" value=1
+
+ ONCLICK="checkVapState(1)">
+</td>
+<td class=form_label_enabled>&nbsp;&nbsp;Enable VAP1
+</td>
+</tr>
+<tr>
+<td class=form_label_40>SSID:</td>
+<td>
+<input type=text name=ssid_v1 size=16 maxlength=16
+value="D-Link_Guest2"
+ >
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Broadcast SSID:</td>
+<td>
+<input type="radio" name="brssid_v1" value=0>Enable&nbsp;&nbsp;
+<input type="radio" name="brssid_v1" value=1>Disable
+</td>
+</tr>
+<tr>         <td class="form_label_40">Relay Blocking:</td>         <td><input type="radio" name="vap1_relay_block" value=1>Enable&nbsp;&nbsp;           <input type="radio" name="vap1_relay_block" value=0>Disable</td>     </tr>
+ <tr>
+<td class=form_label_40>Authentication Type:</td>
+<td>
+<input type="radio" name="authType1" value=0 >Open System&nbsp;&nbsp;
+<input type="radio" name="authType1" value=1 >Shared Key&nbsp;&nbsp;
+<input type="radio" name="authType1" value=2 >Auto
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<div class="data_common data_common_notitle" id="VAP2" style="
+display: block;
+ ">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>WIRELEES MULTIPLE BSSID SETTINGS- VAP2
+</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<tr>
+<td align=right>
+<input type="checkbox" name="En_vap2" value=1
+
+ ONCLICK="checkVapState(2)">
+</td>
+<td class=form_label_enabled>&nbsp;&nbsp;Enable VAP2
+</td>
+</tr>
+<tr>
+<td class=form_label_40>SSID:</td>
+<td>
+<input type=text name=ssid_v2 size=16 maxlength=16
+value="D-Link_Guest3"
+ >
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Broadcast SSID:</td>
+<td>
+<input type="radio" name="brssid_v2" value=0>Enable&nbsp;&nbsp;
+<input type="radio" name="brssid_v2" value=1>Disable
+</td>
+</tr>
+<tr>         <td class="form_label_40">Relay Blocking:</td>         <td><input type="radio" name="vap2_relay_block" value=1>Enable&nbsp;&nbsp;           <input type="radio" name="vap2_relay_block" value=0>Disable</td>     </tr>
+ <tr>
+<td class=form_label_40>Authentication Type:</td>
+<td>
+<input type="radio" name="authType2" value=0 >Open System&nbsp;&nbsp;
+<input type="radio" name="authType2" value=1 >Shared Key&nbsp;&nbsp;
+<input type="radio" name="authType2" value=2 >Auto
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<div class="data_common data_common_notitle" id="VAP3" style="
+display: block;
+ ">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>WIRELEES MULTIPLE BSSID SETTINGS- VAP3
+</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width=100%>
+<tr>
+<td align=right>
+<input type="checkbox" name="En_vap3" value=1
+
+ ONCLICK="checkVapState(3)">
+</td>
+<td class=form_label_enabled>&nbsp;&nbsp;Enable VAP3
+</td>
+</tr>
+<tr>
+<td class=form_label_40>SSID:</td>
+<td>
+<input type=text name=ssid_v3 size=16 maxlength=16
+value="D-Link_Guest4"
+ >
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Broadcast SSID:</td>
+<td>
+<input type="radio" name="brssid_v3" value=0>Enable&nbsp;&nbsp;
+<input type="radio" name="brssid_v3" value=1>Disable
+</td>
+</tr>
+<tr>         <td class="form_label_40">Relay Blocking:</td>         <td><input type="radio" name="vap3_relay_block" value=1>Enable&nbsp;&nbsp;           <input type="radio" name="vap3_relay_block" value=0>Disable</td>     </tr>
+ <tr>
+<td class=form_label_40>Authentication Type:</td>
+<td>
+<input type="radio" name="authType3" value=0 >Open System&nbsp;&nbsp;
+<input type="radio" name="authType3" value=1 >Shared Key&nbsp;&nbsp;
+<input type="radio" name="authType3" value=2 >Auto
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<p align=center>
+<input type=submit value="Apply Changes" name="save" onClick="return saveChanges()">
+</p>
+<INPUT TYPE="hidden" NAME="submit.htm?wlmbssid.htm" VALUE="Send">
+<script>
+wlanDisabled=0;
+document.WlanMBSSID.authType0[2].checked = true;
+document.WlanMBSSID.authType1[2].checked = true;
+document.WlanMBSSID.authType2[2].checked = true;
+document.WlanMBSSID.authType3[2].checked = true;
+document.WlanMBSSID.brssid_v0[0].checked = true;
+document.WlanMBSSID.brssid_v1[0].checked = true;
+document.WlanMBSSID.brssid_v2[0].checked = true;
+document.WlanMBSSID.brssid_v3[0].checked = true;
+document.WlanMBSSID.vap0_relay_block[1].checked = true;
+document.WlanMBSSID.vap1_relay_block[1].checked = true;
+document.WlanMBSSID.vap2_relay_block[1].checked = true;
+document.WlanMBSSID.vap3_relay_block[1].checked = true;
+
+ updateState();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wlmbssid.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

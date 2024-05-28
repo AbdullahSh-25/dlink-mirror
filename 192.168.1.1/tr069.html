@@ -1,0 +1,396 @@
+<html>
+<!-- Mirrored from 192.168.1.1/tr069.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>TR-069 Configuration</title>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head><SCRIPT>
+function saveChanges()
+{
+if (!checkSpecialChar(document.tr069.cwmpserverurl.value,1)) {
+alert("Invalid characters in ACS URL!");
+document.tr069.cwmpserverurl.value = document.tr069.cwmpserverurl.defaultValue;
+document.tr069.cwmpserverurl.focus();
+return false;
+}
+if (!checkSpecialChar(document.tr069.cwmpserveruser.value,1)) {
+if(document.tr069.cwmpserveruser.value!="") {
+alert("Invalid characters");
+document.tr069.cwmpserveruser.focus();
+return false;
+}
+}
+if (!checkSpecialChar(document.tr069.cwmpserverpwd.value,1)) {
+if(document.tr069.cwmpserverpwd.value!="") {
+alert("Invalid characters");
+document.tr069.cwmpserverpwd.focus();
+return false;
+}
+}
+if (!checkSpecialChar(document.tr069.cwmpconrequser.value,1)) {
+if(document.tr069.cwmpconrequser.value!="") {
+alert("Invalid characters");
+document.tr069.cwmpconrequser.focus();
+return false;
+}
+}
+if (!checkSpecialChar(document.tr069.cwmpconreqpwd.value,1)) {
+if(document.tr069.cwmpconreqpwd.value!="") {
+alert("Invalid characters");
+document.tr069.cwmpconreqpwd.focus();
+return false;
+}
+}
+if (!checkSpecialChar(document.tr069.cwmpconreqpath.value,1)) {
+alert("Invalid characters");
+document.tr069.cwmpconreqpath.focus();
+return false;
+}
+if ( document.tr069.cwmpinforminterval.value=="") {
+alert("Please input periodic inform interval!");
+document.tr069.cwmpinforminterval.focus();
+return false;
+}
+if ( validateKey( document.tr069.cwmpinforminterval.value ) == 0 ) {
+alert('Periodic inform interval should be the decimal number (0-9).');
+document.tr069.cwmpinforminterval.focus();
+return false;
+}
+if(!checkDigitRange(document.tr069.cwmpinforminterval.value,1,0,2147483647))
+{
+alert('Invalid Periodic inform interval. It should be 0-2147483647');
+document.tr069.cwmpinforminterval.focus();
+return false;
+}
+if (document.tr069.cwmpconreqport.value=="") {
+alert("Please input the port number for connection request.");
+document.tr069.cwmpconreqport.value = document.tr069.cwmpconreqport.defaultValue;
+document.tr069.cwmpconreqport.focus();
+return false;
+}
+if ( validateKey( document.tr069.cwmpconreqport.value ) == 0 ) {
+alert("Invalid port number of connection request. It should be 1-65535.");
+document.tr069.cwmpconreqport.value = document.tr069.cwmpconreqport.defaultValue;
+document.tr069.cwmpconreqport.focus();
+return false;
+}
+if ( !checkDigitRange(document.tr069.cwmpconreqport.value,1,1,65535) ) {
+alert('Invalid port number of connection request. It should be 1-65535.');
+document.tr069.cwmpconreqport.value = document.tr069.cwmpconreqport.defaultValue;
+document.tr069.cwmpconreqport.focus();
+return false;
+}
+return true;
+}
+function updateState()
+{
+if (document.tr069.tr069ReadOnly.value == "YES") {
+disableCheckBox(document.tr069.cwmpserverenable);
+disableTextField(document.tr069.cwmpserverurl);
+disableTextField(document.tr069.cwmpserveruser);
+disableTextField(document.tr069.cwmpserverpwd);
+disableRadioGroup(document.tr069.cwmpinformenable);
+disableTextField(document.tr069.cwmpinforminterval);
+disableTextField(document.tr069.cwmpconrequser);
+disableTextField(document.tr069.cwmpconreqpwd);
+disableTextField(document.tr069.cwmpconreqpath);
+disableTextField(document.tr069.cwmpconreqport);
+disableRadioGroup(document.tr069.cwmpacscertcpe);
+disableRadioGroup(document.tr069.cwmpshowmsg);
+disableRadioGroup(document.tr069.cwmpgetrpc);
+disableRadioGroup(document.tr069.cwmpskip);
+disableRadioGroup(document.tr069.cwmpdelay);
+disableRadioGroup(document.tr069.cwmpautoexec);
+disableRadioGroup(document.tr069.cwmpctext);
+disableButton(document.tr069.apply);
+disableButton(document.tr069.reset);
+disableTextField(document.cpe_passwd.cwmpcertpwd);
+disableButton(document.cpe_passwd.apply);
+disableButton(document.cpe_passwd.reset);
+disableTextField(document.cpe_cert.binary);
+disableButton(document.cpe_cert.load);
+disableTextField(document.ca_cert.binary);
+disableButton(document.ca_cert.load);
+}
+}
+</SCRIPT>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="tr069";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">TR-069 Configuration</td>
+</tr>
+<tr>
+<td class="content"><p>This page is used to configure the TR-069 CPE.
+Here you may change the setting for the ACS's parameters.</p></td>
+</tr>
+</table>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2cwmp.cgi" name="tr069">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">ACS Configuration</td>
+<input type=hidden name="tr069ReadOnly"
+value="NO"
+ >
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Enable:</td>
+<td class="form_label_right">
+<INPUT TYPE="CHECKBOX" NAME="cwmpserverenable" VALUE="ON" CHECKED >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">URL:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpserverurl" NAME="cwmpserverurl" SIZE="32" MAXLENGTH="256" VALUE="http://172.21.70.44/cpe/?pd128" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">User Name:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpserveruser" NAME="cwmpserveruser" SIZE="32" MAXLENGTH="256" VALUE="rtk" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Password:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpserverpwd" NAME="cwmpserverpwd" SIZE="32" MAXLENGTH="256" VALUE="rtk" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Periodic Inform Enable:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpinformenable" VALUE="Disable"  >Disable
+<INPUT TYPE="RADIO" NAME="cwmpinformenable" VALUE="Enable" CHECKED >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Periodic Inform Interval:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpinforminterval" NAME="cwmpinforminterval" SIZE="32" MAXLENGTH="10" VALUE="300" >
+seconds
+ </td>
+</tr>
+</table></td>
+</tr>
+</table>
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Connection Request</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">User Name:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpconrequser" NAME="cwmpconrequser" SIZE="32" MAXLENGTH="256" VALUE="rtk" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Password:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpconreqpwd" NAME="cwmpconreqpwd" SIZE="32" MAXLENGTH="256" VALUE="rtk" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Path:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpconreqpath" NAME="cwmpconreqpath" SIZE="32" MAXLENGTH="32" VALUE="/tr069" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Port:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="cwmpconreqport" NAME="cwmpconreqport" SIZE="32" MAXLENGTH="5" VALUE="7547" >
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<div style="
+display: block;
+">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Debug</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+  <tr>
+      <td class="form_label_left">ACS Certificates CPE:</td>
+      <td class="form_label_right">
+      <input type="radio" name="cwmpacscertcpe" value="0" CHECKED >No
+      <input type="radio" name="cwmpacscertcpe" value="1"  >Yes
+      </td>
+  </tr>
+
+ <tr>
+<td class="form_label_left">Show Message:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpshowmsg" VALUE="0" CHECKED >Disable
+<INPUT TYPE="RADIO" NAME="cwmpshowmsg" VALUE="1"  >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">CPE Sends GetRPC:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpgetrpc" VALUE="0" CHECKED >Disable
+<INPUT TYPE="RADIO" NAME="cwmpgetrpc" VALUE="1"  >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Skip MReboot:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpskip" VALUE="0" CHECKED >Disable
+<INPUT TYPE="RADIO" NAME="cwmpskip" VALUE="1"  >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Delay:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpdelay" VALUE="0"  >Disable
+<INPUT TYPE="RADIO" NAME="cwmpdelay" VALUE="1" CHECKED >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Auto-Execution:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpautoexec" VALUE="0"  >Disable
+<INPUT TYPE="RADIO" NAME="cwmpautoexec" VALUE="1" CHECKED >Enable
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">CT Inform Extension:</td>
+<td class="form_label_right">
+<INPUT TYPE="RADIO" NAME="cwmpctext" VALUE="0" CHECKED >Disable
+<INPUT TYPE="RADIO" NAME="cwmpctext" VALUE="1"  >Enable
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<br>
+<input type="submit" NAME="apply" value="Apply Changes" onClick="return saveChanges()">
+<INPUT TYPE="RESET" NAME="reset" VALUE="Reset">
+<INPUT TYPE="hidden" NAME="submit.htm?tr069.htm" VALUE="Send">
+</form>
+<div style="
+display: block;
+">
+<table id="body_header" border="0" cellSpacing="0">
+  <tr>
+      <td class="topheader">Certificate Management</td>
+  </tr>
+  <tr>
+      <td class="content" align="left">
+			<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+
+  <tr>
+      <td class="form_label_left">CPE Certificate Password:</td>
+      <td class="form_label_right">
+		<form action="http://admin:admin@192.168.1.1/form2cwmp_certpw.cgi" method=POST name="cpe_passwd">
+		<input type="text" name="cwmpcertpwd" size="24" maxlength="64" value="client">
+		<input type="submit" value="Apply"  name="apply" onClick="if(!checkSpecialChar(document.cpe_passwd.cwmpcertpwd.value,1)){alert('Invalid characters!');return false;}">
+		<input type="reset" value="Undo" name="reset">
+		<input type="hidden" name="submit.htm?tr069.htm" value="Send" >
+		</form>
+      </td>
+  </tr>
+
+  <tr>
+      <td class="form_label_left">CPE Certificate:</td>
+      <td class="form_label_right">
+           <form action="http://admin:admin@192.168.1.1/form2cwmp_cpecert.cgi" method=POST enctype="multipart/form-data" name="cpe_cert">
+           <input type="file" name="binary" size=24>
+           <input type="submit" value="Upload" name="load">
+           <INPUT TYPE="hidden" NAME="submit" VALUE="Send">
+           </form>
+      	<form action="http://admin:admin@192.168.1.1/form2cwmp_delcpecert.cgi" method=POST name="cpe_cert_del">
+      	<input type="submit" value="Delete" name="cpedelbutton">
+      	<INPUT TYPE="hidden" NAME="submit.htm?tr069.htm" VALUE="Send">
+           </form>
+      </td>
+  </tr>
+
+  <tr>
+      <td class="form_label_left">CA Certificate:</td>
+      <td class="form_label_right">
+           <form action="http://admin:admin@192.168.1.1/form2cwmp_cacert.cgi" method=POST enctype="multipart/form-data" name="ca_cert">
+           <input type="file" name="binary" size=24>
+           <input type="submit" value="Upload" name="load">
+           <INPUT TYPE="hidden" NAME="submit" VALUE="Send">
+           </form>
+      	<form action="http://admin:admin@192.168.1.1/form2cwmp_delcacert.cgi" method=POST name="ca_cert_del">
+      	<input type="submit" value="Delete" name="cadelbutton">
+      	<INPUT TYPE="hidden" NAME="submit.htm?tr069.htm" VALUE="Send">
+           </form>
+      </td>
+  </tr>
+
+			</table>
+		</td>
+	</tr>
+</table>
+
+<SCRIPT>document.cpe_cert_del.cpedelbutton.disabled=true;
+document.ca_cert_del.cadelbutton.disabled=true;</SCRIPT>
+</div>
+<script>
+updateState();
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/tr069.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

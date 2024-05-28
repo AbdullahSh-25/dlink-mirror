@@ -1,0 +1,165 @@
+<html>
+<!-- Mirrored from 192.168.1.1/adslset.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>ADSL Settings </title>
+<script language="javascript"></script>
+<SCRIPT>
+function dhcpTblClick(url) {
+openWindow(url, 'DHCPTbl' );
+}
+function adsltoneClick(url)
+{
+var wide=600;
+var high=400;
+if (document.all)
+var xMax = screen.width, yMax = screen.height;
+else if (document.layers)
+var xMax = window.outerWidth, yMax = window.outerHeight;
+else
+var xMax = 640, yMax=480;
+var xOffset = (xMax - wide)/2;
+var yOffset = (yMax - high)/3;
+var settings = 'width='+wide+',height='+high+',screenX='+xOffset+',screenY='+yOffset+',top='+yOffset+',left='+xOffset+', resizable=yes, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes';
+window.open( url, 'ADSLTONETbl', settings );
+}
+function updateStatus()
+{
+if( document.set_adsl.adsl2.checked == true){
+document.set_adsl.anxl.disabled = false;
+}else{
+document.set_adsl.anxl.checked = false;
+document.set_adsl.anxl.disabled = true;
+}
+if( document.set_adsl.adsl2.checked == true || document.set_adsl.adsl2p.checked == true
+){
+document.set_adsl.anxm.disabled = false;
+document.set_adsl.sra.disabled = false;
+}else{
+document.set_adsl.anxm.checked = false;
+document.set_adsl.anxm.disabled = true;
+document.set_adsl.sra.checked = false;
+document.set_adsl.sra.disabled = true;
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Internet Setup";
+HelpItem="adsl";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">ADSL Settings</td>
+</tr>
+<tr>
+<td class="content">
+<p>Adsl Settings.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2SetAdsl.cgi" method=POST name=set_adsl>
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">ADSL Settings</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">ADSL modulation:</td>
+<td class="form_label_right"></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=glite value=1 onClick = updateStatus()>G.Lite</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=gdmt value=2 onClick = updateStatus()>G.Dmt</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=t1413 value=3 onClick = updateStatus()>T1.413</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=adsl2 value=4 onClick = updateStatus()>ADSL2</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=adsl2p value=5 onClick = updateStatus()>ADSL2+</td>
+</tr>
+<tr>
+<td class="form_label_left">AnnexL Option:</td>
+<td class="form_label_right"></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=anxl value=6>Enabled</td>
+</tr>
+<tr>
+<td class="form_label_left">AnnexM Option:</td>
+<td class="form_label_right"></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=anxm value=7>Enabled</td>
+</tr>
+<tr>
+<td class="form_label_left">ADSL Capability:</td>
+<td class="form_label_right"></td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=bswap value=1>Bitswap Enable</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right"><input type=checkbox name=sra value=1>SRA Enable</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type=submit value="Apply Changes" name="save">
+<input type="hidden" NAME="submit.htm?adslset.htm" value="Send">
+<script>
+document.set_adsl.t1413.checked=true;document.set_adsl.gdmt.checked=true;document.set_adsl.adsl2.checked=true;document.set_adsl.glite.checked=true;document.set_adsl.adsl2p.checked=true;document.set_adsl.bswap.checked=true;document.set_adsl.anxl.checked=true;document.set_adsl.anxm.checked=true;
+
+updateStatus();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/adslset.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

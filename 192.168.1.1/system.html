@@ -1,0 +1,131 @@
+<html>
+<!-- Mirrored from 192.168.1.1/system.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Commit and Reboot</title>
+<SCRIPT>
+function resetClick()
+{
+document.cmboot.reset;
+}
+var uploadClick=0;
+function sendClicked()
+{
+var str = document.getElementById("uploadfilename").value;
+if(str.length==0) {
+alert("Please select config file to update");
+return false;
+}
+if (!confirm('Do you really want to update the settings?'))
+return false;
+else
+{
+if(uploadClick==0)
+{
+uploadClick=1;
+}
+else
+{
+alert("The request is in process, please wait a few seconds!");
+return false;
+}
+return true;
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="System";
+HelpItem="system";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<form action="http://admin:admin@192.168.1.1/form2RebootOrReset.cgi" method=POST name="cmboot">
+<table id=body_header border=0 cellSpacing=0 width="500">
+<tr>
+<td class=topheader>Commit/Reboot</td>
+</tr>
+<tr>
+<td class=content>
+<p>Click the button below to reboot the router or reset it to factory default settings.</p>
+<p align="center">
+<input type="submit" value="Reset to default" name="reset2factory">&nbsp;&nbsp;
+<input type="submit" value="Save and reboot" name="saveCurAndReboot">&nbsp;&nbsp;
+<input type="hidden" NAME="submit.htm?reboot.htm" value="Send">
+</p>
+</td>
+</tr>
+</table>
+</form>
+<div>
+<form action="http://admin:admin@192.168.1.1/form2saveConf.cgi" method=POST name="saveConfig">
+<table id=body_header border=0 cellSpacing=0 width="500">
+<tr>
+<td class=topheader>Backup Settings</td>
+</tr>
+<tr>
+<td class=content>
+<p>
+Back up DSL Router configurations. You may save your router configurations to a file on your
+PC.<br><font color=red>Note: Please always save configuration file first before viewing it.</font></p>
+<p align="center"><input type="submit" value="Back Settings" name="submit.htm?saveconf.htm"></p>
+</td>
+</tr>
+</table>
+</form>
+<form action="http://admin:admin@192.168.1.1/form2fileConf.htm" method=POST enctype="multipart/form-data" name="upload">
+<table id=body_header border=0 cellSpacing=0 width="500">
+<tr>
+<td class=topheader>Update Settings</td>
+</tr>
+<tr>
+<td class=content>
+<p>
+Update DSL Router settings. You may update your router settings using your saved files.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">Settings File Name&nbsp;: <input type="file" id="uploadfilename" name="download image file" size=30></p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="center">
+<input type="submit" value="Update Settings" name="send" onClick="return sendClicked()">
+<INPUT TYPE="hidden" NAME="submit" VALUE="Send"></p>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/system.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

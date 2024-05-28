@@ -1,0 +1,688 @@
+<html>
+<!-- Mirrored from 192.168.1.1/acl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+ <title>ACL configuration</title>
+<script>
+var retPort=/^([0-9]|[:]){1,15}$/;
+var retNum=/^[0-9]{1,15}$/;
+var aclModeEnabled=1;
+
+var oldlanaclmode=0;
+var oldwanaclmode=0;
+
+ function portInfo(startPort, endPort, srvName)
+{
+this.startPort = startPort;
+this.endPort = endPort;
+this.srvName = srvName;
+}
+function lanAclip(selectindex,order)
+{
+this.selectindex=selectindex;
+this.order=order;
+}
+var lanAclips = new Array();
+function checkOpenPort(startport, endport)
+{
+}
+function checkPort(port)
+{
+portValue = parseInt(port);
+if ((portValue > 65535) || (portValue <= 0))
+{
+return false;
+}
+else
+{
+return true;
+}
+}
+function checkIpRange(startIp,endIp)
+{
+if(getDigit(startIp,1)!=getDigit(endIp,1))
+return false;
+if(getDigit(startIp,2)!=getDigit(endIp,2))
+return false;
+if(getDigit(startIp,3)!=getDigit(endIp,3))
+return false;
+if(getDigit(startIp,4)>getDigit(endIp,4))
+return false;
+return true;
+}
+function OnHelp( page)
+{
+HelpWin= window.open(page,"Help","toolbar=no,location=no,directories=no,   status=no,menubar=no,scrollbars=yes,resizable=yes,width=500,height=500");
+}
+function addClick()
+{
+if (document.getElementById ("fromwanipid").style.display==""&&(document.formFilterEdit.aclIP.value!="0.0.0.0"&&!checkIP(document.formFilterEdit.aclIP)))
+{
+document.formFilterEdit.aclIP.focus();
+return false;
+}
+if (document.formFilterEdit.aclIPend.value != "")
+{
+if(document.formFilterEdit.aclIP.value=="0.0.0.0")
+{
+alert("any ip address!please clear the end ip!");
+return false;
+}
+if ( !checkIP(document.formFilterEdit.aclIPend))
+return false;
+if(!checkIpRange(document.formFilterEdit.aclIP.value,document.formFilterEdit.aclIPend.value))
+{
+alert("The start Ip address in ip range must be lesser than end Ip address!");
+return false;
+}
+}
+if(document.formFilterEdit.interface.value == "lan")
+return true;
+var tcpPort=new Array(3);
+var i=0;
+if(document.formFilterEdit.localAcl_web.checked)
+{
+if (document.formFilterEdit.webport.value == '' || !retNum.test(document.formFilterEdit.webport.value)
+|| false == checkPort(document.formFilterEdit.webport.value)) {
+msg = 'web' + document.formFilterEdit.webport.value + ' is invalid!';
+alert(msg);
+return false;
+}
+tcpPort[i++]=document.formFilterEdit.webport.value;
+}
+if(document.formFilterEdit.localAcl_telnet.checked) {
+if (document.formFilterEdit.telnetport.value == '' || !retNum.test(document.formFilterEdit.telnetport.value)
+|| false == checkPort(document.formFilterEdit.telnetport.value))
+{
+msg = 'telnet' + formFilterEdit.telnetport.value + ' is invalid!';
+alert(msg);
+return false;
+}
+tcpPort[i++]=document.formFilterEdit.telnetport.value;
+}
+if(document.formFilterEdit.localAcl_tftp.checked){
+if (document.formFilterEdit.tftpport.value == '' || !retNum.test(document.formFilterEdit.tftpport.value)
+|| false == checkPort(document.formFilterEdit.tftpport.value))
+{
+msg = 'tftp' + formFilterEdit.tftpport.value + ' is invalid!';
+alert(msg);
+return false;
+}
+}
+if(document.formFilterEdit.localAcl_ftp.checked){
+if (document.formFilterEdit.ftpport.value == '' || !retNum.test(document.formFilterEdit.ftpport.value)
+|| false == checkPort(document.formFilterEdit.ftpport.value))
+{
+msg = 'ftp' + formFilterEdit.ftpport.value + ' is invalid!';
+alert(msg);
+return false;
+}
+tcpPort[i++]=document.formFilterEdit.ftpport.value;
+}
+if(document.formFilterEdit.localAcl_snmp.checked) {
+if (document.formFilterEdit.snmpport.value == '' || !retNum.test(document.formFilterEdit.snmpport.value)
+|| false == checkPort(document.formFilterEdit.snmpport.value))
+{
+msg = 'snmp' + formFilterEdit.snmpport.value + ' is invalid!';
+alert(msg);
+return false;
+}
+}
+var m=0;
+for(m=0;m<i;m++)
+{
+var t=0;
+for(t=m+1;t<i;t++)
+{
+if(tcpPort[t]==tcpPort[m])
+{
+alert("Invalid port!More than one services occupy the same port!");
+return false;
+}
+}
+}
+if(document.formFilterEdit.localAcl_tftp.checked&&document.formFilterEdit.localAcl_snmp.checked)
+{
+if(document.formFilterEdit.snmpport.value==document.formFilterEdit.tftpport.value)
+{
+alert("Invalid port!More than one services occupy the same port!");
+return false;
+}
+}
+return true;
+}
+function onClickAnyBtn()
+{
+var objDiv = document.getElementById ("serviceTable");
+if(document.formFilterEdit.localAcl_any.checked==true)
+{
+objDiv.style.display = "none";
+}else
+objDiv.style.display = "";
+document.formFilterEdit.localAcl_web.checked=false;
+document.formFilterEdit.localAcl_telnet.checked=false;
+document.formFilterEdit.localAcl_ssh.checked=false;
+document.formFilterEdit.localAcl_tftp.checked=false;
+document.formFilterEdit.localAcl_ftp.checked=false;
+document.formFilterEdit.localAcl_snmp.checked=false;
+document.formFilterEdit.localAcl_web.checked=false;
+document.formFilterEdit.localAcl_ping.checked=false;
+}
+function OnClickWebChk()
+{
+var objDiv = document.getElementById ("webporttext");
+if(document.formFilterEdit.localAcl_web.checked==true&&document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+}else
+objDiv.style.display = "none";
+}
+function OnClickTelnetChk()
+{
+var objDiv = document.getElementById ("telnetporttext");
+if(document.formFilterEdit.localAcl_telnet.checked==true&&document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+}else
+objDiv.style.display = "none";
+}
+function OnClickSshChk()
+{
+var objDiv = document.getElementById ("sshporttext");
+if(document.formFilterEdit.localAcl_ssh.checked==true&&document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+}else
+objDiv.style.display = "none";
+}
+function OnClickTftpChk()
+{
+var objDiv = document.getElementById ("tftpporttext");
+if(document.formFilterEdit.localAcl_tftp.checked==true&&document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+}else
+objDiv.style.display = "none";
+}
+function OnClickFtpChk()
+{
+var objDiv = document.getElementById("ftpporttext");
+if (document.formFilterEdit.localAcl_ftp.checked==true && document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+} else
+objDiv.style.display = "none";
+}
+function OnClickSnmpChk()
+{
+var objDiv = document.getElementById ("snmpporttext");
+if(document.formFilterEdit.localAcl_snmp.checked==true&&document.formFilterEdit.interface.value=="wan" && aclModeEnabled == 0)
+{
+objDiv.style.display = "";
+}else
+objDiv.style.display = "none";
+}
+function SelectInterface(type)
+{
+if(document.formFilterEdit.interface.selectedIndex==0)
+{
+document.getElementById ("wanitfselectid").style.display="none";
+document.getElementById ("fromwanipid").style.display="";
+document.getElementById ("wansettingid").style.display="none";
+document.getElementById ("localanyid").style.display=""
+document.getElementById ("serviceTable").style.display="none"
+if(type==1) document.formFilterEdit.localAcl_any.checked=true;
+}else
+{
+document.getElementById ("wanitfselectid").style.display="";
+document.getElementById ("fromwanipid").style.display="none";
+document.getElementById ("wansettingid").style.display="";
+document.getElementById ("localanyid").style.display="none"
+document.getElementById ("serviceTable").style.display=""
+document.formFilterEdit.localAcl_any.checked=false;
+}
+if(type==1)
+{
+document.formFilterEdit.aclIP.value='';
+document.getElementById ("webport").value = "";
+document.getElementById ("localAcl_web").checked = false;
+document.getElementById ("webporttext").style.display = "none";
+document.getElementById ("telnetport").value = "";
+document.getElementById ("localAcl_telnet").checked = false;
+document.getElementById ("telnetporttext").style.display = "none";
+document.getElementById ("tftpport").value = "";
+document.getElementById ("localAcl_tftp").checked = false;
+document.getElementById ("tftpporttext").style.display = "none";
+document.getElementById ("ftpport").value = "";
+document.getElementById ("localAcl_ftp").checked = false;
+document.getElementById ("ftpporttext").style.display = "none";
+document.getElementById ("snmpport").value = "";
+document.getElementById ("localAcl_snmp").checked = false;
+document.getElementById ("snmpporttext").style.display = "none";
+document.getElementById ("localAcl_ping").checked = false;
+}
+}
+function wansettingchange()
+{
+if(document.formFilterEdit.wansetting.selectedIndex==0)
+{
+document.getElementById ("wanitfselectid").style.display="";
+document.getElementById ("fromwanipid").style.display="none";
+} else if(document.formFilterEdit.wansetting.selectedIndex==1)
+{
+document.getElementById ("wanitfselectid").style.display="none";
+document.getElementById ("fromwanipid").style.display="";
+}
+}
+function lansettingchange()
+{
+if(document.formFilterEdit.lansetting.selectedIndex==1)
+{
+document.getElementById ("lanitfselectid").style.display="";
+document.getElementById ("fromwanipid").style.display="none";
+} else if(document.formFilterEdit.lansetting.selectedIndex==0)
+{
+document.getElementById ("lanitfselectid").style.display="none";
+document.getElementById ("fromwanipid").style.display="";
+}
+}
+function localAclEnableCheck()
+{
+if(lanAclips.length<1&&document.formFilterEnable.aclEnable[0].checked==true && oldlanaclmode==0)
+{
+alert("Sorry!It must need at least one ip from lan or one lan interface to be permited to access the modem!");
+document.formFilterEnable.aclEnable[1].checked=true;
+return false;
+}
+return true;
+}
+function localAclModeCheck()
+{
+if((document.form2aclModeSel.LanAclMode[0].checked== true && oldlanaclmode==1) ||
+(document.form2aclModeSel.LanAclMode[1].checked== true && oldlanaclmode==0)){
+if(confirm("Modify lan acl mode will disable lan acl to make sure this change won't disable web access, are you sure to continue?"))
+return ture;
+else
+return false;
+}
+}
+function LanWan(direction)
+{
+if(direction == "0")
+{
+document.getElementById("lanaclswitchid").style.display="";
+document.formFilterEdit.interface.value="lan";
+if(document.getElementById("lansettingid"))
+document.getElementById("lansettingid").style.display="";
+if(document.getElementById("lanitfselectid"))
+document.getElementById("lanitfselectid").style.display="none";
+document.getElementById("fromwanipid").style.display="";
+document.getElementById("localanyid").style.display="";
+document.getElementById("wanitfselectid").style.display="none";
+document.getElementById("wansettingid").style.display="none";
+document.formFilterEdit.localAcl_any.checked=true;
+if(document.formFilterEdit.localAcl_any.checked)
+{
+document.getElementById("serviceTable").style.display="none";
+}else
+{
+document.getElementById("serviceTable").style.display="";
+}
+}
+if(direction == "1")
+{
+document.getElementById("lanaclswitchid").style.display="none";
+document.formFilterEdit.interface.value="wan";
+if(document.getElementById("lansettingid"))
+document.getElementById("lansettingid").style.display="none";
+if(document.getElementById("lanitfselectid"))
+document.getElementById("lanitfselectid").style.display="none";
+document.getElementById("fromwanipid").style.display="none";
+document.getElementById("localanyid").style.display="none";
+document.getElementById("wanitfselectid").style.display="";
+document.getElementById("wansettingid").style.display="";
+document.formFilterEdit.localAcl_any.checked=false;
+document.getElementById("serviceTable").style.display="";
+document.formFilterEdit.wansetting.selectedIndex=0;
+document.getElementById ("wanitfselectid").style.display="";
+}
+OnClickWebChk();
+OnClickTelnetChk();
+OnClickSshChk();
+OnClickTftpChk();
+OnClickFtpChk();
+OnClickSnmpChk();
+onClickAnyBtn();
+return true;
+}
+function onLoad()
+{
+if(document.lanwancheck.nop[0].checked==true)
+LanWan(0);
+else
+LanWan(1);
+}
+</script>
+</head>
+<body onload="onLoad();">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Access Control List";
+HelpItem="acl";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>ACL Configuration</td>
+</tr>
+<tr>
+<td class=content>
+<p>You can specify what services are accessable form LAN or WAN parts.
+&nbsp;&nbsp;Entries in this ACL table are used to permit certain types of data packets from your local
+network or Internet network to the Gateway.
+&nbsp;&nbsp;Using of such access control can be helpful in securing
+or restricting the Gateway managment.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2aclModeSel.cgi" method=POST name="form2aclModeSel">
+<div
+style="display:"
+ >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>ACL Mode</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_40>LAN ACL Mode:&nbsp;&nbsp;</td>
+<td>
+<input type="radio" name="LanAclMode" value="white" checked>&nbsp;&nbsp;White List
+<input type="radio" name="LanAclMode" value="black" >&nbsp;&nbsp;Black List
+</td>
+</tr>
+<tr>
+<td class=form_label_40>WAN ACL Mode:&nbsp;&nbsp;</td>
+<td>
+<input type="radio" name="WanAclMode" value="white" checked>&nbsp;&nbsp;White List
+<input type="radio" name="WanAclMode" value="black" >&nbsp;&nbsp;Black List
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" onclick="return localAclModeCheck();" value="Apply">&nbsp;&nbsp;
+</p>
+<input type="hidden" NAME="submit.htm?acl.htm" value="Send">
+</div>
+</form>
+<form name="lanwancheck">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>ACL Configuration -- Direction</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_40>Direction Select:&nbsp;&nbsp;</td>
+<td>
+<input type="radio" name="nop" value="lan" checked onClick="LanWan(0);">&nbsp;LAN&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="nop" value="wan" onClick="LanWan(1);">&nbsp;WAN
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+<form action="http://admin:admin@192.168.1.1/form2LocalAclenablecfg.cgi" method=POST name="formFilterEnable">
+<div id="lanaclswitchid" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>LAN ACL Switch Configuration</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class=form_label_40>LAN ACL Switch:&nbsp;&nbsp;&nbsp;</td>
+<td>
+<td><font size=2><b><input type="radio" name="aclEnable" value="enable" >&nbsp;&nbsp;Enable</b></font></td>
+<td><font size=2><b><input type="radio" name="aclEnable" value="disable" checked>&nbsp;&nbsp;Disable </b></font></td>
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Apply" onClick="return localAclEnableCheck();">&nbsp;&nbsp;
+</p>
+<input type="hidden" NAME="submit.htm?acl.htm" value="Send">
+</div>
+</form>
+<form action="http://admin:admin@192.168.1.1/form2LocalAclEditcfg.cgi" method=POST name="formFilterEdit">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>ACL Settings</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<input type="hidden" NAME="enable" value="1">
+<input type="hidden" NAME="interface" value="lan">
+<tr id="wansettingid" style="display:none">
+<td class=form_label_40>WAN Setting:</td>
+<td><select name='wansetting' size="1" style="width:200" ONCHANGE="wansettingchange();">
+<option value="0">Interface</option>
+<option value="1">IP Address</option>
+</select>
+</td>
+</tr>
+
+
+ <tr id="fromwanipid" style="display:none">
+<td class=form_label_40>IP Address:</td>
+<td>
+<input type='text' size="15" name="aclIP">-<input type='text' size="15" name="aclIPend">(The IP 0.0.0.0 represent any IP ) </td>
+</tr>
+<tr id="wanitfselectid" style="display:none">
+<td class=form_label_40>WAN Interface:</td>
+<td>
+<select name='fromwanitf' size="1" style="width:200">
+<OPTION VALUE="pppoe2" SELECTED> pppoe2</OPTION>
+
+ <option value="any">any</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_40>Services Allowed:</td>
+<td></td>
+</tr>
+<tr id="localanyid">
+<td align=right>&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="localAcl_any" value="any" checked onClick="onClickAnyBtn();">
+</td>
+<td class=form_label_enabled>Any</td>
+</tr>
+</table>
+<div id="serviceTable" style="display:none">
+<table>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_web" value="web" onClick="OnClickWebChk();">web &nbsp;
+</td>
+<td id="webporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="80" NAME="webport" SIZE="5" MAXLENGTH="5" VALUE="" disabled>
+</td>
+</tr>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_telnet" value="telnet" onClick="OnClickTelnetChk();">telnet &nbsp;
+</td>
+<td id="telnetporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="23" NAME="telnetport" SIZE="5" MAXLENGTH="5" VALUE="" >
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_ssh" value="ssh" onClick="OnClickSshChk();">ssh &nbsp;
+</td>
+<td id="sshporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="22" NAME="sshport" SIZE="5" MAXLENGTH="5" VALUE="" disabled>
+</td>
+</tr>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_ftp" value="ftp" onClick="OnClickFtpChk();">ftp &nbsp;
+</td>
+<td id="ftpporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="21" NAME="ftpport" SIZE="5" MAXLENGTH="5" VALUE="" >
+</td>
+</tr>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_tftp" value="tftp" onClick="OnClickTftpChk();">tftp &nbsp;
+</td>
+<td id="tftpporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="69" NAME="tftpport" SIZE="5" MAXLENGTH="5" VALUE="" >
+</td>
+</tr>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_snmp" value="snmp" onClick="OnClickSnmpChk();">snmp &nbsp;
+</td>
+<td id="snmpporttext" style="display:none">
+Port:<INPUT TYPE="TEXT" value="161" NAME="snmpport" SIZE="5" MAXLENGTH="5" VALUE="" >
+</td>
+</tr>
+<tr>
+<td >
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="localAcl_ping" value="ping">ping
+</td>
+<td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Add" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">&nbsp;&nbsp;
+<input type="hidden" NAME="submit.htm?acl.htm" value="Send">
+</p>
+</form>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2LocalAcldel.cgi">
+<INPUT TYPE="HIDDEN" NAME="acldel" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="state" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="delip" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="itftype" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="openport" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="itfname" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="protocol" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="itforip" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="srvname" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="delipend" VALUE="" >
+<BR>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current ACL Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row>
+<td class=form_label_col>Select</td>
+<td class=form_label_col>Direction</td>
+<td class=form_label_col>IP Address/Interface</td>
+<td class=form_label_col>Service</td>
+<td class=form_label_col>Port</td>
+<td class=form_label_col>Action</td>
+</tr>
+
+<TR>
+<TD class=form_label_col><font size="2"><b>0</b></font></TD>
+<TD class=form_label_col><font size="2"><b>WAN</b></font></TD>
+<TD class=form_label_col name='pppoeusername'><font size="2"><b>0.0.0.0</b></font></TD>
+<TD class=form_label_col><font size="2"><b>ping</b></font></TD>
+<TD class=form_label_col><font size="2"><b>--</b></font></TD>
+<TD class=form_label_col><INPUT TYPE="BUTTON" VALUE="Delete" onClick="
+return LocalAclDelFunc( this.form,	       'config ip mark interface any icmp src 0.0.0.0 0.0.0.0 dst 0.0.0.0 0.0.0.0 241 ping wan', 'delete',	       0,0,0,'WAN',	       'any','icmp',0,	       'ping',0,0,0);
+">
+</TD>
+</TR>
+
+ </table>
+</td>
+</tr>
+</table>
+<script language="JavaScript">
+<!--
+function deleteAclip(id)
+{
+if(0)
+{
+if(lanAclips.length==1&&lanAclips[0].selectindex==id)
+{
+alert("Sorry!It must need at least one ip from lan or one lan interface to be permited to access the modem!");
+return false;
+}
+}
+return true;
+}
+function LocalAclDelFunc( form , acldel, state,ip,ip2,itftype,openport,itfname,protocol,itforip,srvname,isLocal,id,localAclEnable){
+if(isLocal&&localAclEnable&&!deleteAclip(id)){
+return false;
+}
+form.elements[0].value=acldel;
+form.elements[1].value=state;
+form.elements[2].value=ip;
+form.elements[3].value=openport;
+form.elements[4].value=itftype;
+form.elements[5].value=itfname;
+form.elements[6].value=protocol;
+form.elements[7].value=itforip;
+form.elements[8].value=srvname;
+form.elements[9].value=ip2;
+form.submit();
+return true;
+}
+document.form2aclModeSel.LanAclMode[0].checked= true;
+document.form2aclModeSel.WanAclMode[0].checked= true;
+
+</script>
+<input type="hidden" NAME="submit.htm?acl.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/acl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+</html>
+
+

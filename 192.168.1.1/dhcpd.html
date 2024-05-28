@@ -1,0 +1,408 @@
+<html>
+<!-- Mirrored from 192.168.1.1/dhcpd.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>DHCP Server Setup </title>
+<SCRIPT>
+var initialDhcp;
+function openWindow(url, windowName) {
+var wide=600;
+var high=400;
+if (document.all)
+var xMax = screen.width, yMax = screen.height;
+else if (document.layers)
+var xMax = window.outerWidth, yMax = window.outerHeight;
+else
+var xMax = 640, yMax=480;
+var xOffset = (xMax - wide)/2;
+var yOffset = (yMax - high)/3;
+var settings = 'width='+wide+',height='+high+',screenX='+xOffset+',screenY='+yOffset+',top='+yOffset+',left='+xOffset+', resizable=yes, toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes';
+window.open( url, windowName, settings );
+}
+function dhcpdEnabled()
+{
+document.getElementById('dhcpserver_block').style.display = 'block';
+if(document.dhcpd.setVendor)
+enableButton( document.dhcpd.setVendor);
+if(document.dhcpd.setOpt60)
+enableButton( document.dhcpd.setOpt60);
+}
+function dhcpdDisabled()
+{
+document.getElementById('dhcpserver_block').style.display = 'none';
+if(document.dhcpd.setVendor){
+disableButton( document.dhcpd.setVendor);
+}
+if(document.dhcpd.setOpt60){
+disableButton( document.dhcpd.setOpt60);
+}
+}
+function dhcpdRelayEnabled()
+{
+document.getElementById('dhcprelay_block').style.display = 'block';
+if(document.dhcpd.setVendor)
+disableButton( document.dhcpd.setVendor);
+if(document.dhcpd.setOpt60)
+disableButton( document.dhcpd.setOpt60);
+}
+function dhcpdRelayDisabled()
+{
+document.getElementById('dhcprelay_block').style.display = 'none';
+}
+function resetClick()
+{
+if (initDhcpDisable==0)
+{
+dhcpdDisabled();
+dhcpdRelayDisabled();
+}
+else if(initDhcpDisable==1){
+dhcpdRelayEnabled();
+dhcpdDisabled();
+}
+else{
+dhcpdEnabled();
+dhcpdRelayDisabled();
+}
+}
+function checkSubnet(ip, mask, client)
+{
+ip_d = getDigit(ip, 4);
+mask_d = getDigit(mask, 4);
+if ( (ip_d & mask_d) != (client & mask_d ) )
+return false;
+return true;
+}
+function checkiflanipinpool(lanip, start, end)
+{
+if(checkNetwork(start, lanip) && checkNetwork(lanip, end)) {
+return true;
+}
+return false;
+}
+function saveChanges()
+{
+if ( document.dhcpd.dhcpmode.value==2) {
+if (document.dhcpd.dhcpRangeStart.value=="") {
+alert("Please input DHCP IP pool range.");
+document.dhcpd.dhcpRangeStart.value = document.dhcpd.dhcpRangeStart.defaultValue;
+document.dhcpd.dhcpRangeStart.focus();
+return false;
+}
+if (!checkIP( document.dhcpd.dhcpRangeStart)) {
+document.dhcpd.dhcpRangeStart.focus();
+return false;
+}
+if (document.dhcpd.dhcpRangeEnd.value=="") {
+alert("Please input DHCP IP pool range.");
+document.dhcpd.dhcpRangeEnd.value = document.dhcpd.dhcpRangeEnd.defaultValue;
+document.dhcpd.dhcpRangeEnd.focus();
+return false;
+}
+if (!checkIP( document.dhcpd.dhcpRangeEnd)) {
+document.dhcpd.dhcpRangeEnd.focus();
+return false;
+}
+if(!checkNetworkByMask(document.dhcpd.dhcpRangeStart.value, document.dhcpd.lan_ip.value, document.dhcpd.lan_mask.value)){
+alert("Starting address should be in the same network with lan IP address.");
+document.dhcpd.dhcpRangeStart.focus();
+return false;
+}
+if(!checkNetworkByMask(document.dhcpd.dhcpRangeEnd.value, document.dhcpd.lan_ip.value, document.dhcpd.lan_mask.value)){
+alert("Starting address should be in the same network with lan IP address.");
+document.dhcpd.dhcpRangeStart.focus();
+return false;
+}
+if(!checkNetwork(document.dhcpd.dhcpRangeStart.value, document.dhcpd.dhcpRangeEnd.value)) {
+alert("Starting address should be in the same network with ending address.");
+document.dhcpd.dhcpRangeStart.focus();
+return false;
+}
+if(checkiflanipinpool(document.dhcpd.lan_ip.value, document.dhcpd.dhcpRangeStart.value, document.dhcpd.dhcpRangeEnd.value)) {
+document.getElementById("localipinpool").style.display = 'block';
+}
+else
+document.getElementById("localipinpool").style.display = 'none';
+if (!checkMaskSpecial(document.dhcpd.dhcpSubnetMask))
+return false;
+if (document.dhcpd.dfgw.value=="") {
+alert("Please input DHCP IP pool default gateway.");
+document.dhcpd.dfgw.focus();
+return false;
+}
+if (!checkIP( document.dhcpd.dfgw)) {
+document.dhcpd.dfgw.focus();
+return false;
+}
+if ( document.dhcpd.ltime.value == 0 ) {
+alert('Invalid DHCP lease time. It should not be 0.');
+document.dhcpd.ltime.focus();
+return false;
+}
+if ( validateKey( document.dhcpd.ltime.value ) == 0 ) {
+alert('Invalid DHCP lease time. It should be the decimal number (0-9).');
+document.dhcpd.ltime.focus();
+return false;
+}
+var maxleasetime=365*24*60;
+if ( !checkDigitRange(document.dhcpd.ltime.value,1,1,maxleasetime) ) {
+alert('Invalid DHCP lease time. It should be 1-'+maxleasetime+'.');
+document.dhcpd.ltime.value = document.dhcpd.ltime.defaultValue;
+document.dhcpd.ltime.focus();
+return false;
+}
+if(checkIP(document.dhcpd.dns1) == false){
+document.dhcpd.dns1.focus();
+return false;
+}
+if(!checkSpecialChar(document.dhcpd.dname.value,1))
+{
+alert("Invalid characters!");
+document.dhcpd.dname.focus();
+return false;
+}
+if( (document.dhcpd.dns2.value != '') && checkIP(document.dhcpd.dns2) == false){
+document.dhcpd.dns2.focus();
+return false;
+}
+if( (document.dhcpd.dns3.value != '') && checkIP(document.dhcpd.dns3) == false){
+document.dhcpd.dns3.focus();
+return false;
+}
+}
+if ( document.dhcpd.dhcpmode.value==1)
+{
+if(!checkIP(document.dhcpd.relayaddr))
+{
+return false;
+}
+}
+return true;
+}
+function dhcpTblClick(url) {
+if ( document.dhcpd.dhcpmode.value==2 ) {
+openWindow(url, 'DHCPTbl' );
+}
+}
+function dhcpRtTblClick(url) {
+if ( document.dhcpd.dhcpmode.value==2 ) {
+openWindow(url, 'DHCPRtTbl' );
+}
+}
+function dhcpVendorTblClick(url) {
+if ( document.dhcpd.dhcpmode.value==2 ) {
+openWindow(url, 'DHCPVendorClassTbl' );
+}
+}
+function dhcpInterfaceTblClick(url) {
+if (document.dhcpd.dhcpmode.value == 2) {
+openWindow(url, 'DHCPInterfaceTbl');
+}
+}
+function dhcpCUCOpt60TblClick(url) {
+if ( document.dhcpd.dhcpmode.value==2 ) {
+openWindow(url, 'DHCPCUCOpt60Tbl' );
+}
+}
+function ShowIP(ipVal) {
+document.write(getDigit(ipVal,1));
+document.write('.');
+document.write(getDigit(ipVal,2));
+document.write('.');
+document.write(getDigit(ipVal,3));
+document.write('.');
+}
+function dhcpmodechang(){
+if (document.dhcpd.dhcpmode.value==0)
+{
+dhcpdDisabled();
+dhcpdRelayDisabled();
+}
+else if(document.dhcpd.dhcpmode.value==1)
+{
+dhcpdRelayEnabled();
+dhcpdDisabled();
+}else{
+dhcpdRelayDisabled();
+dhcpdEnabled();
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Local Network";
+HelpItem="dhcp_server";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DHCP Server Setting</td>
+</tr>
+<tr>
+<td class="content">
+<p>
+This page can be used to config the DHCP mode:None,DHCP Relay or DHCP Server.<br>
+(1)Enable the DHCP Server if you are using this device as a DHCP server. This page lists the
+IP address pools available to hosts on your LAN. The device distributes numbers in the
+pool to hosts on your network as they request Internet access.<br>
+(2)Enable the DHCP Relay if you are using the other DHCP server to assign IP address to your hosts
+on the LAN. You can set the DHCP server ip address.<br>
+(3)If you choose "None", then the modem will do nothing when the hosts request a IP address.
+</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Dhcpd.cgi" method=POST name="dhcpd">
+<input type="hidden" name="lan_ip" value=
+192.168.1.1
+>
+<input type="hidden" name="lan_mask" value=
+255.255.255.0
+>
+<table id="body_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DHCP Server Settings</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">LAN IP:</td>
+<td class="form_label_right"><script>document.write(document.dhcpd.lan_ip.value);</script>/<script>document.write(document.dhcpd.lan_mask.value);</script></td>
+</tr>
+<tr>
+<td class="form_label_left">DHCP Mode:</td>
+<td class="form_label_right">
+<select size="1" name="dhcpmode" onChange="dhcpmodechang()">
+NOFDREF NBIO ASYNC INCOMP <OPTION VALUE="0" > None</OPTION>
+<OPTION VALUE="1" > DHCP Relay</OPTION>
+<OPTION VALUE="2" SELECTED> DHCP Server</OPTION>
+
+ </select>
+</td>
+</tr>
+</table>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500" id="dhcpserver_block" style="display:block">
+<tr><td class="form_label_left"><b>Interface:</b></td><td class="form_label_right"> <input type="checkbox" value="lan1" name="lan1" checked>LAN1 &nbsp; <input type="checkbox" value="lan2" name="lan2" checked>LAN2 &nbsp; <input type="checkbox" value="lan3" name="lan3" checked>LAN3 &nbsp; <input type="checkbox" value="lan4" name="lan4" checked>LAN4 &nbsp; <input type="checkbox" value="wlan" name="wlan" checked>WLAN &nbsp;  <input type="checkbox" value="vap0" name="vap0" checked>VAP0 &nbsp; <input type="checkbox" value="vap1" name="vap1" checked>VAP1 &nbsp; <input type="checkbox" value="vap2" name="vap2" checked>VAP2 &nbsp; <input type="checkbox" value="vap3" name="vap3" checked>VAP3 &nbsp;</td></tr>
+ <tr>
+<td class="form_label_left">IP Pool Range:</td>
+<td class="form_label_right"><input type="text" name="dhcpRangeStart" size="15" maxlength=15 value=
+192.168.1.2
+><font face="Arial" size="5">- </font><input type="text" name="dhcpRangeEnd" size="15" maxlength=15 value=
+192.168.1.254
+>&nbsp;<input type="button" value="Show Client" name="dhcpClientTbl" onClick="dhcpTblClick('dhcptbl.html')" >
+</td>
+</tr>
+<tr id="localipinpool" style="display:none">
+<th class="form_label_left"><script>document.write(document.dhcpd.lan_ip.value);</script> is reserved!</th>
+<th class="form_label_right">&nbsp;</th>
+</tr>
+<script>
+if(checkiflanipinpool(document.dhcpd.lan_ip.value, document.dhcpd.dhcpRangeStart.value, document.dhcpd.dhcpRangeEnd.value)) {
+document.getElementById("localipinpool").style.display = 'block';
+}
+else
+document.getElementById("localipinpool").style.display = 'none';
+</script>
+	<input type="hidden" name="dhcpSubnetMask" size=22 maxlength=19 value="255.255.255.0">
+
+  <input type="hidden" name="dfgw" size=22 maxlength=19 value="192.168.1.1">
+
+ <tr>
+<td class="form_label_left">Max Lease Time:</td>
+<td class="form_label_right">
+<input type="text" name="ltime" size=10 maxlength=9 value=
+1440
+>
+<b>minutes</b>
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Domain Name:</td>
+<td class="form_label_right">
+<input type="text" name="dname" size=22 maxlength=19 value=
+domain.name
+>
+</td>
+</tr>
+<tr>
+<td class="form_label_left">DNS Servers:</td>
+<td class="form_label_right">
+<input type="text" name="dns1" size=22 maxlength=19 value=
+192.168.1.1
+>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<input type="text" name="dns2" size=22 maxlength=19 value=
+
+>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<input type="text" name="dns3" size=22 maxlength=19 value=
+
+>
+</td>
+</tr>
+</table>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500" id="dhcprelay_block" style="display:block">
+<tr>
+<td class="form_label_left">Relay Server:</td>
+<td class="form_label_right">
+<input type="text" name="relayaddr" size=15 maxlength=15 value=
+192.168.2.242
+>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<INPUT TYPE="hidden" NAME="submit.htm?dhcpd.htm" VALUE="Send">
+<input type="submit" value="Apply Changes" name="save" onClick="return saveChanges()">&nbsp;&nbsp;
+<input type="reset" value="Undo" name="reset" onClick="resetClick()">
+
+<br><br><input type="button" value="Set VendorClass IP Range" name="setVendor" onClick="dhcpVendorTblClick('dhcpvendortbl.html')">
+
+ <SCRIPT>
+initDhcpDisable = document.dhcpd.dhcpmode.value;
+resetClick();
+</SCRIPT>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/dhcpd.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

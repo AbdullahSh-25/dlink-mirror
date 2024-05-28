@@ -1,0 +1,226 @@
+<html>
+<!-- Mirrored from 192.168.1.1/dhcpip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>LAN Interface Setup </title>
+<SCRIPT>
+function resetClick()
+{
+document.dhcpip.reset;
+}
+function dhcpIptable(ip1,ip2,ip3,ip4,mac)
+{
+this.ip1=ip1;
+this.ip2=ip2;
+this.ip3=ip3;
+this.ip4=ip4;
+this.mac=mac.replace(/:/g,"");
+}
+function checkPoolIP(ipaddr,macaddr)
+{
+var DhcpIpTables=new Array();
+	lanip1=192;
+	lanip2=168;
+	lanip3=1;
+	lanip4=1;
+	startip=2;
+	endip=254;
+
+ if (getDigit(ipaddr.value, 1) != lanip1) {
+alert("The Ip address should be in the range of DHCP ip pool!");
+ipaddr.focus();
+return false;
+}
+if (getDigit(ipaddr.value, 2) != lanip2) {
+alert("The Ip address should be in the range of DHCP ip pool!");
+ipaddr.focus();
+return false;
+}
+if (getDigit(ipaddr.value, 3) != lanip3) {
+alert("The Ip address should be in the range of DHCP ip pool!");
+ipaddr.focus();
+return false;
+}
+if (!checkDigitRange(ipaddr.value, 4, startip, endip)) {
+alert("The Ip address should be in the range of DHCP ip pool!");
+ipaddr.focus();
+return false;
+}
+for(var i=0; i<DhcpIpTables.length; i++)
+{
+if(DhcpIpTables[i].ip4 ==getDigit(ipaddr.value,4))
+{
+alert("The Ip address has been occupied!");
+ipaddr.focus();
+return false;
+}
+if(DhcpIpTables[i].mac==macaddr.value )
+{
+alert("The mac address has bound another ip address!");
+macaddr.focus();
+return false;
+}
+}
+return true;
+}
+function saveChanges()
+{
+if (!checkIP(document.dhcpip.ipaddr))
+{
+return false;
+}
+if(!checkMacWithoutColon(document.dhcpip.macaddr,1))
+{
+alert("Invalid mac address!please input one valid unicast mac address!");
+return false;
+}
+if(!checkPoolIP(document.dhcpip.ipaddr,document.dhcpip.macaddr))
+{
+return false;
+}
+return true;
+}
+function modifyClick()
+{
+var DhcpIpTables=new Array();
+	lanip1=192;
+	lanip2=168;
+	lanip3=1;
+	lanip4=1;
+	startip=2;
+	endip=254;
+
+ if (!checkIP(document.dhcpip.ipaddr))
+{
+return false;
+}
+if (!checkMacWithoutColon(document.dhcpip.macaddr, 1))
+{
+alert("Invalid mac address!please input one valid unicast mac address!");
+return false;
+}
+if (getDigit(document.dhcpip.ipaddr.value, 1) != lanip1)
+{
+alert("The Ip address should be in the range of DHCP ip pool!");
+document.dhcpip.ipaddr.focus();
+return false;
+}
+if (getDigit(document.dhcpip.ipaddr.value, 2) != lanip2)
+{
+alert("The Ip address should be in the range of DHCP ip pool!");
+document.dhcpip.ipaddr.focus();
+return false;
+}
+if (getDigit(document.dhcpip.ipaddr.value, 3) != lanip3)
+{
+alert("The Ip address should be in the range of DHCP ip pool!");
+document.dhcpip.ipaddr.focus();
+return false;
+}
+if (!checkDigitRange(document.dhcpip.ipaddr.value, 4, startip, endip))
+{
+alert("The Ip address should be in the range of DHCP ip pool!");
+document.dhcpip.ipaddr.focus();
+return false;
+}
+return true;
+}
+function postDhcpIp( ipaddr, macaddr)
+{
+document.dhcpip.ipaddr.value = ipaddr;
+document.dhcpip.macaddr.value = macaddr.replace(/:/g,"");
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script type='text/javascript'>
+TabHeader="Setup";
+SideItem="Local Network";
+HelpItem="dhcp_reserved";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DHCP Static IP Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p> This page lists the fixed IP/MAC address on your LAN. The device distributes the number configured to hosts on your network as they request Internet access.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Dhcpip.cgi" method=POST name="dhcpip">
+<table id="body_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DHCP Static IP Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">IP Address:</td>
+<td class="form_label_right"><input type="text" name="ipaddr" size="15" maxlength="15" value="0.0.0.0"></td>
+</tr>
+<tr>
+<td class="form_label_left">Mac Address:</td>
+<td class="form_label_right"><input type="text" name="macaddr" size="17" maxlength="17" value="000000000000">(ex. 00E086710502)</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" onClick="return saveChanges()">&nbsp;&nbsp;
+<input type="submit" value="Modify" name="modify" onClick="return modifyClick()">&nbsp;&nbsp;
+<input type="submit" value="Delete Selected" name="delete">&nbsp;&nbsp;
+<input type="reset" value="Undo" name="reset" onClick="resetClick()">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">DHCP Static IP Table</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">Select</td>
+<td class="form_label_col">IP Address</td>
+<td class="form_label_col">MAC Address</td>
+</tr>
+<tr class="form_label_row">
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" NAME="submit.htm?dhcpip.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/dhcpip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

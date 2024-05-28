@@ -1,0 +1,215 @@
+<html>
+<!-- Mirrored from 192.168.1.1/dns_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>IPv6 DNS Configuration </title>
+<SCRIPT>
+function autoDNS6clicked()
+{
+document.dns6.dns61.disabled = true;
+document.dns6.dns62.disabled = true;
+document.dns6.dns63.disabled = true;
+document.dns6.interface1.disabled = true;
+document.dns6.interface2.disabled = true;
+document.dns6.interface3.disabled = true;
+}
+function manualDNS6clicked()
+{
+document.dns6.dns61.disabled = false;
+document.dns6.dns62.disabled = false;
+document.dns6.dns63.disabled = false;
+document.dns6.interface1.disabled = false;
+document.dns6.interface2.disabled = false;
+document.dns6.interface3.disabled = false;
+}
+function saveClick6()
+{
+if (document.dns6.dns6Mode[0].checked) {
+return true;
+}
+if (document.dns6.dns61.value=="") {
+alert("Please input DNS 1 ipv6 address!");
+document.dns6.dns61.focus();
+return false;
+}
+if (! isUnicastIpv6Address( document.dns6.dns61.value)) {
+alert("Invalid DNS 1 address!");
+document.dns6.dns61.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.dns6.dns61.value))
+{
+if(document.getElementsByName("interface1")[0].value==""){
+alert("Please specify one interface!");
+document.dns6.interface1.focus();
+return false;
+}
+}
+if (document.dns6.dns62.value !="") {
+if (! isUnicastIpv6Address( document.dns6.dns62.value)) {
+alert("Invalid DNS 2 address!");
+document.dns6.dns62.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.dns6.dns62.value))
+{
+if(document.getElementsByName("interface2")[0].value==""){
+alert("Please specify one interface!");
+document.dns6.interface2.focus();
+return false;
+}
+}
+}
+if (document.dns6.dns63.value=="") {
+return true;
+}
+if (! isUnicastIpv6Address( document.dns6.dns63.value)) {
+alert("Invalid DNS 3 address!");
+document.dns6.dns63.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.dns6.dns63.value))
+{
+if(document.getElementsByName("interface3")[0].value==""){
+alert("Please specify one interface!");
+document.dns6.interface3.focus();
+return false;
+}
+}
+return true;
+}
+function resetClick6()
+{
+if (initAutoDns)
+autoDNS6clicked();
+else
+manualDNS6clicked();
+}
+</SCRIPT>
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="DNS";
+HelpItem="dns";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">IPv6 DNS Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the DNS server ipv6 addresses.</p>
+</td>
+</tr>
+</table>
+<form id="form" action="http://admin:admin@192.168.1.1/form2Dns6.cgi" method=POST name="dns6">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">IPv6 DNS Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left"><input type="radio" value="0" name="dns6Mode"
+checked
+ onClick="autoDNS6clicked()"></td>
+<td class="form_label_right">Attain DNS Automatically</td>
+</tr>
+<tr>
+<td class="form_label_left"><input type="radio" value="1" name="dns6Mode"
+
+ onClick="manualDNS6clicked()"></td>
+<td class="form_label_right">Set DNS Manually</td>
+</tr>
+</table>
+<div id='dns6Info' style="display:block">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 1:<input type="text" name="dns61" size="20" maxlength="64" value=
+
+>
+Interface:
+<select name="interface1">
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="16" > pppoe2</OPTION>
+</OPTION>
+ </select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 2:<input type="text" name="dns62" size="20" maxlength="64" value=
+
+>
+Interface:
+<select name="interface2">
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="16" > pppoe2</OPTION>
+</OPTION>
+ </select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">DNS 3:<input type="text" name="dns63" size="20" maxlength="64" value=
+
+>
+Interface:
+<select name="interface3">
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="16" > pppoe2</OPTION>
+</OPTION>
+ </select>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<input type="hidden" name="submit.htm?dns_v6.htm" value="Send">
+<input type="submit" value="Apply Changes" name="save" onClick="return saveClick6()">
+<input type="reset" value="Reset Selected" name="reset" onClick="return resetClick6()">
+</form>
+<script>
+initAutoDns = document.dns6.dns6Mode[0].checked;
+if (document.dns6.dns6Mode[0].checked)
+autoDNS6clicked();
+else
+{
+manualDNS6clicked();
+
+ }
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/dns_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

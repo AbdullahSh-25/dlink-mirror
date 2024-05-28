@@ -1,0 +1,219 @@
+<html>
+<!-- Mirrored from 192.168.1.1/routing_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>IPv6 Routing Configuration </title>
+<SCRIPT>
+function addClick()
+{
+if (document.route.destNet.value=="") {
+alert("Please input Destination Address!");
+document.route.destNet.focus();
+return false;
+}
+if (! isIpv6Address( document.route.destNet.value)) {
+alert("Invalid Destination Address.");
+document.route.destNet.focus();
+return false;
+}
+if (document.route.prefixLen.value=="") {
+alert("Please input Prefix Length!");
+document.route.prefixLen.focus();
+return false;
+}
+if (validateKey(document.route.prefixLen.value) == 0) {
+alert("Wrong Prefix Length!");
+document.route.prefixLen.focus();
+return false;
+}
+var prefixlen= getDigit(document.route.prefixLen.value, 1);
+if (prefixlen > 128 || prefixlen < 0) {
+alert("Wrong Prefix Length!");
+document.route.prefixLen.focus();
+return false;
+}
+if (document.route.nextHop.value != "") {
+if (! isIpv6Address( document.route.nextHop.value)) {
+alert("Invalid Next Hop Address.");
+document.route.nextHop.focus();
+return false;
+}
+if (!isUnicastIpv6Address(document.route.nextHop.value))
+{
+alert("Wrong Next Hop!");
+document.route.nextHop.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.route.nextHop.value))
+{
+if(document.getElementsByName("interface")[0].value==""){
+alert("Please select one interface!");
+document.route.interface.focus();
+return false;
+}
+}
+}else {
+if(document.getElementsByName("interface")[0].value==""){
+alert("Please select one interface!");
+document.route.interface.focus();
+return false;
+}
+}
+return true;
+}
+function postRoutingV6(destip,prefixlen, nextip, itf)
+{
+document.route.destNet.value = destip;
+document.route.nextHop.value = nextip;
+document.route.prefixLen.value = prefixlen;
+document.route.interface.value = itf;
+}
+function delRuleCheck()
+{
+if(document.route.select.length)
+{
+for(i=0;i<document.route.select.length;i++)
+{
+if(document.route.select[i].checked)
+return deleteClick();
+}
+}else
+{
+if(document.route.select.checked)
+return deleteClick();
+}
+alert("Please select the entry to be deleted!");
+return false;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" alink="#000000" link="#000000" vlink="#000000">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Routing";
+HelpItem="IPv6Routing";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>IPv6 Routing Configuration</td>
+</tr>
+<tr>
+<td class=content>
+<p> This page is used to configure the ipv6 routing information. Here you can add/delete
+IPv6 routes.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2RoutingV6.cgi" method=POST name="route">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' align =left width="20%">
+Destination
+</td>
+<td class='form_label_right' align =left width="80%">
+<input type="text" name="destNet" size="32" maxlength="64">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' align =left width="20%">
+Prefix Length
+</td>
+<td class='form_label_right' align =left width="80%">
+<input type="text" name="prefixLen" size="32" maxlength="5">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' align =left width="20%">
+Next Hop
+</td>
+<td class='form_label_right' align =left width="80%">
+<input type="text" name="nextHop" size="32" maxlength="64">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' align =left width="20%">
+Interface
+</td>
+<td class='form_label_right' align =left width="80%">
+
+<SELECT ID="interface" NAME="interface" WIDTH=30 >
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="pppoe 2" > pppoe2</OPTION>
+<OPTION VALUE="any" > any</OPTION>
+</SELECT>
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add Route" name="addRoute" onClick="return addClick()">&nbsp;&nbsp;
+<input type="submit" value="Delete Selected" name="delRoute" onClick="return delRuleCheck()">&nbsp;&nbsp;
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>IPv6 Static Route Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row>
+<td class='form_label_col' align =left width="5%">
+Select
+</td>
+<td class='form_label_col' align =left width="8%">
+Destination
+</td>
+<td class='form_label_col' align =left width="8%">
+NextHop
+</td>
+<td class='form_label_col' align =left width="8%">
+Interface
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" NAME="submit.htm?routing_v6.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/routing_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

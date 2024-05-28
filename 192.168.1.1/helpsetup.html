@@ -1,0 +1,482 @@
+<html>
+<!-- Mirrored from 192.168.1.1/helpsetup.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+</head>
+<body>
+<blockquote>
+<SCRIPT language="JavaScript">
+var wireless = '1';
+var LoginUser = 'admin';
+
+var WizardInfo = '1';
+
+</SCRIPT>
+<script language="JavaScript">
+TabHeader="Help";
+SideItem="Setup";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Setup Help
+</td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<script language="javascript">
+if(WizardInfo=="1")
+document.writeln('<li><a href="helpsetup.html#Wizard">Wizard</a>');
+</script>
+<li><a href="helpsetup.html#LAN">Local Network</a>
+<li><a href="helpsetup.html#Internet">Internet Setup</a>
+<li><a href="helpsetup.html#IPV6Set">IPV6</a>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpsetup.html#Wireless">Wireless Setup</a>');
+if (LoginUser == "admin")
+document.writeln('<li><a href="helpsetup.html#Time">Time and Date</a>');
+</script>
+</ul>
+</td>
+</tr>
+</table>
+<br>
+<div id="WizardHelp">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name="Wizard" id="Wizard">Wizard</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>If you are new to networking and have never configured a router before, click on <span class=button_ref>Setup Wizard</span>
+and the router will guide you through a few simple steps to get your network up and running. </p></td>
+</tr>
+</table>
+<br>
+</div>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name="Internet" id="Internet">Internet Setup</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>Channel Config
+<dd>
+<p>If you consider yourself an advanced user and have configured a
+router before, to add a new Internet Setup,you should input all the settings manually and click
+<span class=button_ref>Add</span>.</p>
+<dt>ATM Settings
+<dd>Here you can config some parameters of ATM channel.
+<dt>ADSL Settings
+<dd>The ADSL settings page contains a modulation and capability section to be specified by your ISP.
+Consult with your ISP to select the correct settings for each.
+Then click on "Apply Changes" if you are finished.
+<dt>PVC Auto Search
+<dd>If you want to add a new PVC connection,but you don't know which PVC(VPI/VCI) can be available,this feature can be helpful.
+</dl>
+</td>
+</tr>
+</table>
+<br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name="IPV6Set" id="IPV6Set">IPv6 Setup</a>
+</td>
+</tr>
+<tr>
+<td class=content><dl>
+<dt>IPv6
+</dt><dd>The IPv6 (Internet Protocol version 6) section is where
+you configure your IPv6 Connection type.
+</dd><dt>IPv6 Connection Type
+</dt><dd>There are several connection types to choose from: Link-local,
+Static IP v6, DHCPv6, Stateless Autoconfiguration, PPPoE, IPv6
+in IPv4 Tunnel and 6to4. If you are unsure of your connection
+method, please contact your IPv6 Internet Service Provider.
+Note: If using the PPPoE option, you will need to ensure that
+any PPPoE client software on your computers is removed or
+disabled.
+<dl>
+<dt>Link-local Mode
+</dt><dd>Link-local address is used by nodes and routers when
+communicating with neighboring nodes on the same link.
+This mode enables IPv6-capable devices to communicate
+with each other in the LAN side. </dd>
+</dl>
+<dl>
+<dt>Static IP v6 Mode
+</dt><dd>Used when your ISP provides you a set IPv6 address that
+does not change. The IPv6 information is manually entered
+in your IPv6 configuration settings. You must enter the
+IPv6 address, Subnet Prefix Length, Default Gateway, Primary
+DNS Server, and Secondary DNS Server. Your ISP provides
+you with all of this information. </dd>
+</dl>
+<dl>
+<dt>DHCPv6 Mode
+</dt><dd>A method of connection where the ISP assigns your IPv6
+address when your router requests one from the ISP's server. 
+Some ISP's require you to make some settings on your side 
+before your router can connect to the IPv6 Internet. </dd>
+</dl>
+<dl>
+<dt>PPPoE
+</dt><dd>Select this option if your ISP requires you to use a
+PPPoE (Point to Point Protocol over Ethernet) connection
+to IPv6 Internet. DSL providers typically use this option.
+This method of connection requires you to enter a <strong>Username</strong>
+and <strong>Password</strong> (provided by your Internet
+Service Provider) to gain access to the IPv6 Internet.
+The supported authentication protocols are PAP and CHAP.
+</dd>
+<dd>
+<p><span class="option">Dynamic IP: </span>If the ISP's 
+servers assign the router's WAN IPv6 addressing upon 
+establishing a connection, select this option. </p>
+</dd><dd>
+<p><span class="option">Static IP : </span>If your ISP has
+assigned a fixed IPv6 address, select this option. The
+ISP provides the value for the <span class="option">IPv6
+Address.</span> </p>
+</dd><dd>
+<p><span class="option">Service Name: </span>Some ISP's 
+may require that you enter a Service Name. Only enter
+a Service Name if your ISP requires one. </p>
+</dd><dd>
+<p><span class="option">Reconnect Mode: </span>Typically
+PPPoE connections are not always on. The D-Link router
+allows you to set the reconnection mode. The settings
+are: </p>
+<ul>
+<li><span class="option">Always on: </span>A connection
+to the Internet is always maintained.
+</li><li><span class="option">On demand: </span>A connection
+to the Internet is made as needed.
+</li><li><span class="option">Manual: </span>You have to open
+up the Web-based management interface and click the
+Connect button manually any time that you wish to
+connect to the Internet. </li>
+</ul>
+<p><span class="option">Maximum Idle Time: </span>Time interval
+the machine can be idle before the WAN link is disconnected.
+The Maximum Idle Time value is only used for the "On 
+demand" reconnect modes. </p>
+</dd><dt>&nbsp; </dt>
+</dl>
+<dl>
+<dt>IPv6 in IPv4 Tunnel Mode
+</dt><dd>IPv6 in IPv4 tunneling is the encapsulation of IPv6 packets
+in IPv4 packets so that IPv6 packets can be sent over an IPv4
+infrastructure.
+</dd></dl>
+<dl> <dt>6to4 Mode
+</dt><dd>6to4 is an IPv6 address assignment and automatic tunneling
+technology that used to provide unicast IPv6 connectivity
+between IPv6 sites and hosts across the IPv4 Internet. </dd><br>
+<dd>The following options apply to all WAN modes.</dd><br>
+<dd>Primary
+DNS Server, Secondary DNS Server: Enter the IPv6 addresses of the DNS
+Servers. Leave the field for the secondary server empty if not used.</dd>
+</dl>
+</dd><dt>LAN IPv6 Address Setting
+</dt><dd>These are the settings of the LAN (Local Area Network) IPv6
+interface for the router. The router's LAN IPv6 Address is configured 
+based on the IPv6 Address and Subnet assigned by your ISP. (A
+subnet with prefix /64 is supported in LAN.)</dd>
+<dt>LAN Address Autoconfiguration Settings
+</dt><dd>Use this section to setup IPv6 Autoconfiguration to assign
+IPv6 address to the computers on your local network. A Stateless
+and a Stateful Autoconfiguration method are provided.</dd>
+<dd>
+<dl>
+<dt>Enable Autoconfiguration
+</dt><dd>These two values (from and to) define a range of IPv6
+addresses that the DHCPv6 Server uses when assigning addresses
+to computers and devices on your Local Area Network. Any
+addresses that are outside of this range are not managed
+by the DHCPv6 Server; these could, therefore, be used for
+manually configured devices or devices that cannot use DHCPv6
+to obtain network address details automatically. </dd>
+<dd>When you selected Stateful (DHCPv6), the following options
+are displayed.</dd>
+<dd>The computers (and other devices) connected to your LAN
+also need to have their TCP/IP configuration set to "DHCPv6"
+or "Obtain an IPv6 address automatically".</dd>
+<dt>IPv6 Address Range (DHCPv6)
+</dt><dd>Once your D-Link router is properly configured and this
+option is enabled, the router will manage the IPv6 addresses
+and other network configuration information for computers
+and other devices connected to your Local Area Network.
+There is no need for you to do this yourself. </dd>
+<dd>It is possible for a computer or device that is manually
+configured to have an IPv6 address that does reside within
+this range. </dd>
+<dt>IPv6 Address Lifetime
+</dt><dd>The amount of time that a computer may have an IPv6 address before it is required to renew the lease. </dd>
+</dl>
+</dd>
+</dl></td>
+</tr>
+</table>
+<br>
+<div id="wirelessHelp" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=Wireless name=Wireless>Wireless Setting</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>The wireless section is used to configure the wireless settings
+for your D-Link router. Note that changes made in this section may
+also need to be duplicated on wireless clients that you want to
+connect to your wireless network. </p>
+<p>To protect your privacy, use the wireless security mode to
+configure the wireless security features. </p>
+<dl>
+<dt>Wireless Basics
+<dd>Basic settings to get your wireless network up and running.
+<dl>
+<dt>Disable Wireless LAN Interface
+<dd>This option turns off and on the wireless connection feature
+of the router.
+<dt>SSID(Wireless Network Name)
+<dd>When you are browsing for available wireless networks, this is
+the name that will appear in the list. For security purposes, it is highly recommended to change
+from the pre-configured network name.
+<dt>Radio Power(Percent):
+<dd>This is the percentage of power that should be transmitted from your wireless router. Select from 10%, 25%, 50%, 80%, and 100%.
+<dt>Associated Clients
+<dd>Click <span class=button_ref>Show Active Clients</span> to show current clients which connect to your router.
+</dl>
+<br>
+<dt>Wireless Security
+<dd>Settings to secure your wireless network
+<dl>
+<dt>Encryption
+<dd>Unless one of these encryption modes is selected, wireless
+transmissions to and from your wireless network can be easily
+intercepted and interpreted by unauthorized users.
+<dl>
+<dt>WEP
+<dd>
+<p>A method of encrypting data for wireless communication intended to provide the same level of privacy as a wired network. WEP is not as secure as WPA encryption.
+To gain access to a WEP network, you must know the key.
+The key is a string of characters that you create. When using WEP, you must determine the level of encryption.
+The type of encryption determines the key length. 128-bit encryption requires a longer key than 64-bit encryption.
+Keys are defined by entering in a string in HEX (hexadecimal - using characters 0-9, A-F) or ASCII (American Standard Code for Information Interchange - alphanumeric characters) format.
+ASCII format is provided so you can enter a string that is easier to remember. The ASCII string is converted to HEX for use over the network.
+Four keys can be defined so that you can change keys easily.To set WEP key,please click <span class=button_ref>Set WEP Key</span></p>
+<DIV class=help_example>
+<dl>
+<dt>Example:
+<dd>64-bit hexadecimal keys are exactly 10 characters in length. (12345678FA is a valid string of 10 characters for 64-bit encryption.)
+<dd>128-bit hexadecimal keys are exactly 26 characters in length. (456FBCDF123400122225271730 is a valid string of 26 characters for 128-bit encryption.)
+<dd>64-bit ASCII keys are up to 5 characters in length (DMODE is a valid string of 5 characters for 64-bit encryption.)
+<dd>128-bit ASCII keys are up to 13 characters in length (2002HALOSWIN1 is a valid string of 13 characters for 128-bit encryption.)
+</dd>
+</dl>
+</DIV>
+<dt>WPA or WPA2
+<dd>(Wi-Fi Protected Access). Uses TKIP(Temporal Key Integrity Protocol) or AES(Advanced Encryption Standard) encryption Method.
+</dd>
+</dl>
+<dt>WPA Authentication Mode
+<dd>
+<dl>
+<dt>Personal (Pre-Shared Key)
+<dd>For home and SOHO environments, using AES or TKIP encryption,
+per-packet key construction, and key management that WPA provides in the enterprise environment.
+The main difference is that the password is entered manually.
+<dt>Enterprise (RADIUS)
+<dd>Usually used for the larger Enterprise environment.
+</dd>
+</dl>
+<p><b>RADIUS Server IP Address: </b>The IP address of the authentication server. </p>
+<p><b>RADIUS Server Port: </b>The port number used to connect to the authentication server.</p>
+<p><b>RADIUS Server Password: </b>A passphrase that must match with the authentication server.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</td>
+</tr>
+</table>
+</div>
+<br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=LAN name=LAN>Local Network</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>LAN Setup
+<dd>These are the settings of the LAN (Local Area Network)
+interface for the router. The router's local network (LAN)
+settings are configured based on the IP Address and Subnet Mask
+assigned in this section. The IP address is also used to access
+this Web-based management interface. It is
+recommended that you use the default settings if you do not have
+an existing network.
+<dt>IP Address
+<dd>The IP address of your router on the local area network.
+Your local area network settings are based on the address
+assigned here. For example, 192.168.0.1.
+<dt>Subnet Mask
+<dd>The subnet mask of your router on the local area network.
+<dt>DHCP Server Settings
+<dd>DHCP stands for Dynamic Host Configuration Protocol. The DHCP section is where you
+configure the built-in DHCP Server to assign IP addresses to the computers and other
+devices on your local area network (LAN).
+<dl>
+<dt>DHCP Mode
+<dd>
+<p>Once your D-Link router is properly configured and select "DHCP Server"
+option, the DHCP Server will manage the IP addresses
+and other network configuration information for computers and
+other devices connected to your Local Area Network. There is no
+need for you to do this yourself. </p>
+<p>The computers (and other devices) connected to your LAN also
+need to have their TCP/IP configuration set to "DHCP" or "Obtain
+an IP address automatically". </p>
+<dt>IP Pool Range
+<dd>These two IP values define a
+range of IP addresses that the DHCP Server uses when assigning
+addresses to computers and devices on your Local Area Network.
+Any addresses that are outside of this range are not managed by
+the DHCP Server; these could, therefore, be used for manually
+configured devices or devices that cannot use DHCP to obtain
+network address details automatically.
+<p>Your D-Link router, by default, has a static IP address of
+192.168.1.1. This means that addresses 192.168.1.2 to
+192.168.1.254 can be made available for allocation by the DHCP
+Server. </p>
+<DIV class=help_example>
+<dl>
+<dt>Example:
+<dd>Your D-Link router uses 192.168.1.1 for the IP address.
+You've assigned a computer that you want to designate as a Web
+server with a static IP address of 192.168.1.3. You've
+assigned another computer that you want to designate as an FTP
+server with a static IP address of 192.168.1.4. Therefore the
+starting IP address for your DHCP IP address range needs to be
+192.168.1.5 or greater.
+<dt>Example:
+<dd>Suppose you configure the DHCP Server to manage addresses
+From 192.168.1.100 To 192.168.1.199. This means that
+192.168.1.3 to 192.168.1.99 and 192.168.1.200 to 192.168.1.254
+are NOT managed by the DHCP Server. Computers or devices that
+use addresses from these ranges are to be manually configured.
+</dd>
+</dl>
+</DIV>
+<dt>Max Lease Time
+<dd>The amount of time that a computer may have an IP address
+before it is required to renew the lease. The lease functions
+just as a lease on an apartment would. The initial lease
+designates the amount of time before the lease expires. If the
+tenant wishes to retain the address when the lease is expired
+then a new lease is established. If the lease expires and the
+address is no longer needed then another tenant may use the
+address.
+</dd></dl>
+</dd>
+</dl>
+</td>
+</tr>
+</table>
+<br>
+<div id="AdminSetupHelp">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=Time name=Time>Time and Date</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dd>The Time Configuration option allows you to configure, update, and maintain the correct
+time on the router's internal system clock. From this section you can set the time zone
+that you are in and set the Time Server.
+<dt>System Time
+<dd>Displays the time currently maintained by the router. If this is not correct,
+use the following options to configure the time correctly.
+<dt>NTP Configuration
+<dd>
+<dl>
+<dt>State
+<dd>Select Enable option to synchronize the time automatically with Internet or your own computer.
+<dt>Mode
+<dd>Two mode can be selected to synchronize the time automatically with Internet or your own computer.
+<dt>Server
+<dd>Type a Network Time Server for synchronization. For example:time.windows.com
+<dt>Time Zone
+<dd>Select your local time zone from pull down menu.
+</dd>
+</dl>
+</dd>
+</dl>
+</td>
+</tr>
+</table>
+</div>
+<script language="javascript">
+if(wireless == "1") {
+document.getElementById("wirelessHelp").style.display = 'block';
+}
+else {
+document.getElementById("wirelessHelp").style.display = 'none';
+}
+if (LoginUser == "admin") {
+document.getElementById("AdminSetupHelp").style.display = 'block';
+}
+else {
+document.getElementById("AdminSetupHelp").style.display = 'none';
+}
+if(WizardInfo == "1") {
+document.getElementById("WizardHelp").style.display = 'block';
+}
+else {
+document.getElementById("WizardHelp").style.display = 'none';
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer();
+mainTableEnd();
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/helpsetup.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+</html>
+
+

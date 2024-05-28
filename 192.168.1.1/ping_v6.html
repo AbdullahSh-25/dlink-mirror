@@ -1,0 +1,101 @@
+<html>
+<!-- Mirrored from 192.168.1.1/ping_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Ping6</title>
+<SCRIPT>
+function ping6Click()
+{
+if (document.ping6.ip6addr.value=="") {
+alert("Please input target address!");
+document.ping6.ip6addr.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.ping6.ip6addr.value))
+{
+if(document.getElementsByName("interface")[0].value==""){
+alert("Please select one interface!");
+document.ping6.interface.focus();
+return false;
+}
+}
+return true;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script type='text/javascript'>
+TabHeader="Maintenance";
+SideItem="Diagnostics";
+HelpItem="ping";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Ping6 Diagnostic</td>
+</tr>
+<tr>
+<td class="content">
+<p>Ping6 Diagnostic</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2pingv6.cgi" method=POST name="ping6" >
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Target Address:</td>
+<td class="form_label_right">
+<input type="text" name="ip6addr" size="32" maxlength="64">
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Interface:</td>
+<td class="form_label_right">
+<select name="interface">
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="1" > br0</OPTION>
+<OPTION VALUE="16" > pppoe2</OPTION>
+</OPTION>
+ </select>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value=" PING " onClick="return ping6Click()">
+<INPUT TYPE="hidden" NAME="submit.htm?pingrlt_v6.htm" VALUE="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/ping_v6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

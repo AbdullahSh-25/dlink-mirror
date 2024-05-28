@@ -1,0 +1,134 @@
+<html>
+<!-- Mirrored from 192.168.1.1/clientlimit.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Routing Configuration </title>
+<SCRIPT>
+function applyClick()
+{
+if(!validateDecimalDigit(document.clientlimit.numtextwindow.value))
+{
+if(document.clientlimit.limitcap[0].checked == true)
+{
+document.clientlimit.numtextwindow.value="";
+return true;
+}
+alert("Please input decimal value!");
+document.clientlimit.numtextwindow.focus();
+return false;
+}
+d1 = getDigit(document.clientlimit.numtextwindow.value, 1);
+if(d1 > 32)
+{
+alert("Should less than 33!");
+document.clientlimit.numtextwindow.focus();
+return false;
+}
+return true;
+}
+function disableLimit()
+{
+if (document.getElementById)
+{
+document.getElementById('numtext').style.display = 'none';
+} else {
+if (document.layers == false)
+{
+document.all.numtext.style.display = 'none';
+}
+}
+}
+function enableLimit()
+{
+if (document.getElementById)
+{
+document.getElementById('numtext').style.display = 'block';
+} else {
+if (document.layers == false)
+{
+document.all.numtext.style.display = 'block';
+}
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Client Limit Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the capability of force how many device can access to Internet! </p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2clientlimit.cgi" method=POST name="clientlimit">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Client Limit Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Client Limit Capability:</td>
+<td class="form_label_right">
+<input type="radio" value="0" name="limitcap" onClick="return disableLimit()">Disable&nbsp;&nbsp;
+<input type="radio" value="1" name="limitcap" onClick="return enableLimit()">Enable
+</td>
+</tr>
+</table>
+<table id="numtext" style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Maximum Devices:</td>
+<td class="form_label_right"><input type="text" maxlength="2" size="2" name="numtextwindow"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes" onClick="return applyClick()" >&nbsp;&nbsp;
+<input type="hidden" NAME="submit.htm?clientlimit.htm" value="Send">
+<script>
+document.clientlimit.limitcap[0].checked = true
+disableLimit();
+document.clientlimit.numtextwindow.value ="4";
+
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/clientlimit.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

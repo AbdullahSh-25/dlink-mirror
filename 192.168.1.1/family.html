@@ -1,0 +1,362 @@
+<html>
+<!-- Mirrored from 192.168.1.1/family.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Online Time Limit</title>
+<head>
+<script>
+function SetMode()
+{
+if(document.getElementsByName("openoroff")[1].checked)
+{
+disableButton(document.form2timelimit.addFilterTime);
+}
+else if(document.getElementsByName("openoroff")[0].checked)
+{
+enableButton(document.form2timelimit.addFilterTime);
+}
+}
+function SelectAll(obj)
+{
+var allInput = document.getElementsByName("select");
+var loopTime = allInput.length;
+for(i = 0;i < loopTime;i++)
+{
+if(allInput[i].type == "checkbox")
+{
+allInput[i].checked = obj.checked;
+}
+}
+}
+function SetTime()
+{
+if(document.getElementById("alltime").checked == true)
+{
+document.getElementById("timefrom").value = "00:00";
+document.getElementById("timeto").value = "23:59";
+}
+else
+{
+document.getElementById("timefrom").value = "";
+document.getElementById("timeto").value = "";
+}
+}
+function showdifftype()
+{
+if(document.getElementsByName("filtertype")[0].checked)
+{
+enableTextField(document.form2timelimit.src);
+enableTextField(document.form2timelimit.end);
+}
+else
+{
+disableTextField(document.form2timelimit.src);
+disableTextField(document.form2timelimit.end);
+}
+if(document.getElementsByName("filtertype")[1].checked)
+{
+enableTextField(document.form2timelimit.mac);
+}
+else
+{
+disableTextField(document.form2timelimit.mac);
+}
+}
+function addClick()
+{
+var allInput = document.getElementsByName("select");
+var i=0;
+var temp="";
+for(var c=0;c<allInput.length;c++)
+{
+if(allInput[c].checked)
+{
+i++;
+temp+= allInput[c].value;
+}
+}
+if(i==0)
+{
+alert("Date can not be empty!");
+return false;
+}
+else
+{
+document.getElementById("selectday").setAttribute("value",temp);
+}
+if(document.getElementById("timefrom").value=="" || document.getElementById("timeto").value=="")
+{
+alert("Start Time and End Time can not be empty!");
+return false;
+}
+else
+{
+if((document.getElementById("timefrom").value.length ==5) && (document.getElementById("timeto").value.length == 5))
+{
+var fromstr = document.getElementById("timefrom").value;
+var tostr = document.getElementById("timeto").value;
+var ptr = /^[0-2][0-9]\:[0-5][0-9]$/;
+if(ptr.test(fromstr) && ptr.test(tostr))
+{
+from = new Array;
+from = document.getElementById("timefrom").value.split(":");
+to = new Array;
+to = document.getElementById("timeto").value.split(":");
+if(from[0]>=24 || from[1]>59 || to[0]>=24 || to[1]>59)
+{
+alert("Input time error, hour should not be larger than 24£¬minute should not be larger than 59!");
+return false;
+}
+if((from[0] > to[0]) || (from[0]==to[0] && from[1]>=to[1]))
+{
+alert("Start Time must be earlier than End Time!");
+return false;
+}
+}
+else
+{
+alert("Time format must be xx:xx!");
+return false;
+}
+}
+else
+{
+alert("Please input complete time as format xx:xx!");
+return false;
+}
+}
+if(!document.getElementsByName("filtertype")[0].checked &&!document.getElementsByName("filtertype")[1].checked)
+{
+alert("Please select the way to specific PC!");
+return false;
+}
+if(document.getElementsByName("filtertype")[0].checked)
+{
+if(!checkIP(document.form2timelimit.src))
+{
+alert("Please input correct start IP!");
+document.form2timelimit.src.focus();
+return false;
+}
+if (document.form2timelimit.end.value != "")
+{
+if (!checkIP(document.form2timelimit.end))
+{
+alert("Please input correct end IP!");
+document.form2timelimit.end.focus();
+return false;
+}
+if (!checkIpRange(document.form2timelimit.src.value, document.form2timelimit.end.value))
+{
+alert("Start IP must be less than End IP!");
+return false;
+}
+}
+}
+else
+document.form2timelimit.src.value="";
+if(document.getElementsByName("filtertype")[1].checked)
+{
+if(!checkFormatUnicastMac(document.form2timelimit.mac))
+return false;
+}
+else
+document.form2timelimit.mac.value="";
+var table=document.getElementById("currentinfo");
+var rowsnum=table.rows.length;
+if((rowsnum+i-2) > 32)
+{
+alert("The max item is 32!!");
+return false;
+}
+return true;
+}
+function deleteClick(index)
+{
+document.getElementById("delindex").setAttribute("value",index);
+return true;
+}
+function deleteAllClick()
+{
+if ( !confirm('Are you sure to delete all?') )
+{
+return false;
+}
+else
+return true;
+}
+window.onload=function(){showdifftype();SetMode();}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Parent Control";
+HelpItem="blockmac";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Online Time Limit</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to manage the time of surf Internet,
+after enable this feature, only the specific PCs can surf Internet in specific time segment.<br>
+Note: you can use IP or MAC to specific PC.<br>
+Before enable this feature,you must enable that the time of the router is correct.
+Click <a href="time.html">Setup->Time and Date</a> to set the time of your router.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2timelimitenable.cgi" method=POST name="form2timelimitenable">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Online Time Limit</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Online Time Limit:</td>
+<td class="form_label_right">
+<input type="radio" name="openoroff" value=1 onclick="SetMode"
+
+>Enable &nbsp;&nbsp;
+<input type="radio" name="openoroff" value=0 onclick="SetMode"
+checked
+>Disable &nbsp;&nbsp;
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<input class="link_bg" type="submit" name="apply" value="Apply">
+<input type="hidden" name="submit.htm?family.htm" value="Send">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2timelimit.cgi" method=POST name="form2timelimit">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">&nbsp;</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Date:</td>
+<td class="form_label_right">
+<input type='checkbox' style='height:15px;' id=ck0 value="7" onclick="SelectAll(this)">
+<label for='ck0'>Everyday</label>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<input type='checkbox' style='height:15px;' id=ck1 value="1" name='select'>
+<label for='ck1'>Mon</label>
+<input type='checkbox' style='height:15px;' id=ck2 value="2" name='select'>
+<label for='ck2'>Tues</label>
+<input type='checkbox' style='height:15px;' id=ck3 value="3" name='select'>
+<label for='ck3'>Wed</label>
+<input type='checkbox' style='height:15px;' id=ck4 value="4" name='select'>
+<label for='ck4'>Thur</label>
+<input type='checkbox' style='height:15px;' id=ck5 value="5" name='select'>
+<label for='ck5'>Fri</label>
+<input type='checkbox' style='height:15px;' id=ck6 value="6" name='select'>
+<label for='ck6'>Sat</label>
+<input type='checkbox' style='height:15px;' id=ck7 value="0" name='select'>
+<label for='ck7'>Sun</label>
+</td>
+</tr>
+<input type="hidden" id="selectday" name="selectday" value="" runat="server">
+<tr>
+<td class="form_label_left">Time:</td>
+<td class="form_label_right">
+<input type="checkbox" name="alltime" id="alltime" value=0 onclick="SetTime()">
+<label for='alltime'>All day(24Hour)</label>
+</td>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+Start Time
+<input type="text" maxlength="5" id="timefrom" name="timefrom" size="5">
+End Time
+<input type="text" maxlength="5" id="timeto" name="timeto" size="5">(ex. 09:45)&nbsp;&nbsp;
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Specific PC:</td>
+<td class="form_lable_right">
+<input type="radio" name="filtertype" onclick="showdifftype()" checked>IP Address &nbsp;&nbsp;
+<input type="radio" name="filtertype" onclick="showdifftype()">MAC Address
+</td>
+</tr>
+<tr>
+<td class="form_label_left">IP Address:</td>
+<td class="form_label_right">
+<input type="text" name="src" id="src" maxlength="15">--<input type="text" name="end" id="end" maxlength="15">
+</td>
+</tr>
+<tr>
+<td class="form_label_left">MAC Address:</td>
+<td class="form_label_right">
+<input type="text" name="mac" id="mac" maxlength="17">(ex. 00:E0:86:71:05:02)&nbsp;&nbsp;
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<input type="submit" value="Add Rule" name="addFilterTime" onClick="return addClick()">
+<input type="reset" value="Reset" name="reset" >&nbsp;&nbsp;
+<input type="hidden" name="submit.htm?family.htm" value="Send">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2timelimitdel.cgi" method=POST name="form2timelimitdel">
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">Current Online TimeLimit Table:</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500" style="table-layout:fixed; word-wrap:break-word; overflow:hidden;">
+<tr class="form_label_row"><td class="form_label_col">Select</td>
+<td class="form_label_col">Date</td><td class="form_label_col">Starting Time</td><td class="form_label_col">Ending Time</td><td class="form_label_col">MAC Address</td><td class="form_label_col">IP Address</td><td class="form_label_col">Action</td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="submit" value="Delete All" name="deleteAll" onClick="return deleteAllClick()">&nbsp;&nbsp;&nbsp;
+<input type="hidden" id="delindex" name="delindex" value="" runat="server">
+<input type="hidden" name="submit.htm?family.htm" VALUE="Send">
+</form>
+<script type="text/javascript">
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/family.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

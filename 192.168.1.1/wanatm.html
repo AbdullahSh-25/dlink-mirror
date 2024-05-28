@@ -1,0 +1,208 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wanatm.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>ATM Settings</title>
+<script>
+function addClick()
+{
+var digit;
+digit = getDigit(document.formAtm.vpi.value, 1);
+if ( validateKey(document.formAtm.vpi.value) == 0 ||
+(digit > 255 || digit < 0) ) {
+alert("Invalid VPI value! You should set a value between 0-255.");
+return false;
+}
+digit = getDigit(document.formAtm.vci.value, 1);
+if ( validateKey(document.formAtm.vci.value) == 0 ||
+(digit > 65535 || digit < 32) ) {
+alert("Invalid VCI value! You should set a value between 0-65535.");
+return false;
+}
+digit = getDigit(document.formAtm.pcr.value, 1);
+if ( validateKey(document.formAtm.pcr.value) == 0 ||
+(digit > 65535 || digit < 1) ) {
+alert("Invalid PCR value! You should set a value between 1-65535.");
+document.formAtm.pcr.focus();
+return false;
+}
+digit = getDigit(document.formAtm.cdvt.value, 1);
+if ( validateKey(document.formAtm.cdvt.value) == 0 ||
+(digit > 4294967295 || digit < 0) ) {
+alert("Invalid CDVT value! You should set a value between 0-4294967295.");
+document.formAtm.cdvt.focus();
+return false;
+}
+if (( document.formAtm.qos.selectedIndex == 2 ) ||
+( document.formAtm.qos.selectedIndex == 3 )) {
+digit = getDigit(document.formAtm.scr.value, 1);
+if ( validateKey(document.formAtm.scr.value) == 0 ||
+(digit > 65535 || digit < 0) ) {
+alert("Invalid SCR value! You should set a value between 0-65535.");
+document.formAtm.scr.focus();
+return false;
+}
+digit = getDigit(document.formAtm.mbs.value, 1);
+if ( validateKey(document.formAtm.mbs.value) == 0 ||
+(digit > 65535 || digit < 0) ) {
+alert("Invalid MBS value! You should set a value between 0-65535.");
+document.formAtm.mbs.focus();
+return false;
+}
+}
+return true;
+}
+function resetClicked()
+{
+document.formAtm.qos.selectedIndex = 0;
+disableTextField(document.formAtm.scr);
+disableTextField(document.formAtm.mbs);
+}
+function qosSelection()
+{
+if (( document.formAtm.qos.selectedIndex == 2 ) ||
+( document.formAtm.qos.selectedIndex == 3 )) {
+enableTextField(document.formAtm.scr);
+enableTextField(document.formAtm.mbs);
+} else {
+disableTextField(document.formAtm.scr);
+disableTextField(document.formAtm.mbs);
+}
+}
+function clearAll()
+{
+document.formAtm.vpi.value = "";
+document.formAtm.vci.value = "";
+document.formAtm.qos.selectedIndex = 0;
+document.formAtm.pcr.value = "";
+document.formAtm.cdvt.value = "";
+document.formAtm.scr.value = "";
+document.formAtm.mbs.value = "";
+}
+function postVC(vpi,vci,qos,pcr,cdvt,scr,mbs)
+{
+clearAll();
+document.formAtm.vpi.value = vpi;
+document.formAtm.vci.value = vci;
+document.formAtm.qos.selectedIndex = qos;
+document.formAtm.pcr.value = pcr;
+document.formAtm.cdvt.value = cdvt;
+if (qos == 2 || qos == 3) {
+enableTextField(document.formAtm.scr);
+enableTextField(document.formAtm.mbs);
+document.formAtm.scr.value = scr;
+document.formAtm.mbs.value = mbs;
+}
+else {
+disableTextField(document.formAtm.scr);
+disableTextField(document.formAtm.mbs);
+}
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<BODY>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Internet Setup";
+HelpItem="wanatm";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">ATM Settings</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the parameters for the ATM of your ADSL Router. Here you may change the setting for VPI, VCI, QoS etc ...</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2WanAdslQos.cgi" method=POST name="formAtm">
+<table id="body_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">ATM Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr><td>
+<p><font size=2><b>VPI: </b> <input type="text" name="vpi" size="5" maxlength="3" disabled>&nbsp;&nbsp;
+<b><font size=2><b>VCI: </b> <input type="text" name="vci" size="5" maxlength="5" disabled>&nbsp;&nbsp;
+<b><font size=2><b>QoS: </b> <select size="1" name="qos" onChange="qosSelection()">
+<option selected value="0">UBR</option>
+<option value="1">CBR</option>
+<option value="2">nrt-VBR</option>
+<option value="3">rt-VBR</option>
+</select>
+<p><font size=2><b>PCR:</b><input type="text" name="pcr" size="5" maxlength="5">&nbsp;&nbsp;
+<b><font size=2><b>CDVT: </b> <input type="text" name="cdvt" size="10" maxlength="10">&nbsp;&nbsp;
+<b><font size=2><b>SCR: </b> <input type="text" name="scr" size="5" maxlength="5">&nbsp;&nbsp;
+<b><font size=2><b>MBS: </b> <input type="text" name="mbs" size="5" maxlength="5"></font>
+<p><input type="submit" value="Apply Changes" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Undo" name="reset" onClick="resetClicked()">
+</p>
+</td><tr>
+</table>
+<br>
+<table class=formlisting border="0" cellpadding="0" cellspacing="0" width="450">
+<tr class="form_label_row">
+<td class="form_label_col">Select</td>
+<td class="form_label_col">VPI</td>
+<td class="form_label_col">VCI</td>
+<td class="form_label_col">QoS</td>
+<td class="form_label_col">PCR</td>
+<td class="form_label_col">CDVT</td>
+<td class="form_label_col">SCR</td>
+<td class="form_label_col">MBS</td>
+</tr>
+
+<TR>
+<TD align=center bgcolor="#C0C0C0"><input type="radio" name="select" value="1" onClick="postVC( 8, 35, 0, 6144, 0, 0, 0)"></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>8</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>35</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>UBR</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>6144</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>0</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>---</b></font></TD>
+<TD align=center bgcolor="#C0C0C0"><font size="2"><b>---</b></font></TD>
+</TR>
+
+ </table>
+</td>
+</tr>
+<br>
+</table>
+<SCRIPT>
+qosSelection();
+</SCRIPT>
+<input type="hidden" NAME="submit.htm?wanatm.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wanatm.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

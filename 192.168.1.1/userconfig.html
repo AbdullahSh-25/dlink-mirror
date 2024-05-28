@@ -1,0 +1,355 @@
+<html>
+<!-- Mirrored from 192.168.1.1/userconfig.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>User Account configuration</title>
+<SCRIPT>
+selected=0;
+var includeDigit=0;
+var includeChar=0;
+var admin_account="admin";
+var user_account="user";
+
+function includeSpace(str)
+{
+for (var i=0; i<str.length; i++) {
+if ( str.charAt(i) == ' ' ) {
+return true;
+}
+}
+return false;
+}
+function includeSpecialKey(str)
+{
+for (var i=0; i<str.length; i++) {
+if (( str.charAt(i)== ' ' ) || ( str.charAt(i)== '%' )
+|| ( str.charAt(i)== '?' )
+||( str.charAt(i)== '&' ) ||( str.charAt(i)== '"' )) {
+return true;
+}
+}
+return false;
+}
+function saveChanges()
+{
+if (document.userconfig.username.value.length > 0 &&
+document.userconfig.newpass.value.length == 0) {
+alert('Password cannot be empty. Please try it again.');
+document.userconfig.newpass.focus();
+return false;
+}
+if (document.userconfig.newpass.value != document.userconfig.confpass.value) {
+alert('Password is not matched. Please type the same password between \'new\' and \'confirmed\' box.');
+document.userconfig.newpass.focus();
+return false;
+}
+if (includeSpecialKey(document.userconfig.username.value)) {
+alert('Invalid username,Please try it again.');
+document.userconfig.username.focus();
+return false;
+}
+if(!checkSpecialChar(document.userconfig.username.value,1))
+{
+alert("Invalid characters in user name!");
+document.userconfig.username.focus();
+return false;
+}
+if (document.userconfig.newpass.value.length <5)
+{
+alert('Password should be at least 5 characters. Please try it again.');
+document.userconfig.newpass.focus();
+return false;
+}
+if (includeSpecialKey(document.userconfig.newpass.value)) {
+alert('Invalid password,Please try it again.');
+document.userconfig.newpass.focus();
+return false;
+}
+if(!checkSpecialChar(document.userconfig.newpass.value,1))
+{
+alert("Invalid characters in password!");
+document.userconfig.newpass.focus();
+return false;
+}
+var str = document.userconfig.idletime.value;
+if(str != "")
+{
+if(str.length > 2)
+{
+alert("Invalid idle time value!");
+document.userconfig.idletime.focus();
+return false;
+}
+else if(str.length == 1 && (str.charAt(0) < '1' ||str.charAt(0) >'9'))
+{
+alert("Invalid idle time value!");
+document.userconfig.idletime.focus();
+return false;
+}
+else if(str.length == 2)
+{
+if(str.charAt(0) == '6' && str.charAt(1) == '0')
+{
+return true;
+}
+else if(str.charAt(0) <'0' ||str.charAt(0) > '5')
+{
+alert("Invalid idle time value!");
+document.userconfig.idletime.focus();
+return false;
+}
+else if(str.charAt(1) <'0' ||str.charAt(1) > '9')
+{
+alert("Invalid idle time value!");
+document.userconfig.idletime.focus();
+return false;
+}
+}
+}
+else
+{
+alert("Please input idle time value!");
+return false;
+}
+return true;
+}
+function modifyClick()
+{
+if (!selected) {
+alert("Please select an entry to modify!");
+return false;
+}
+if (document.userconfig.username.value != username_tmp) {
+alert('Added user name can not be modified, need to add a new user');
+return false;
+}
+if (document.userconfig.oldpass.value != document.userconfig.hiddenpass.value) {
+alert('Incorrect old password. Please try it again.');
+document.userconfig.oldpass.focus();
+return false;
+}
+return saveChanges();
+}
+function delClick(sysuser, consuser) {
+if (!selected) {
+alert("Please select an entry to delete!");
+return false;
+}
+if (document.userconfig.username.value == sysuser) {
+alert("Can't delete!");
+return false;
+}
+if (document.userconfig.username.value == consuser) {
+alert("Can't delete!");
+return false;
+}
+if (document.userconfig.oldpass.value.length == 0) {
+alert('Password cannot be empty. Please try it again.');
+document.userconfig.oldpass.focus();
+return false;
+}
+if(includeSpecialKey(document.userconfig.oldpass.value))
+{
+alert('Invalid old password,Please try it again.');
+document.userconfig.oldpass.focus();
+return false;
+}
+if (document.userconfig.oldpass.value != document.userconfig.hiddenpass.value) {
+alert('Incorrect old password. Please try it again.');
+document.userconfig.oldpass.focus();
+return false;
+}
+return true;
+}
+function postEntry(user, priv, pass, time)
+{
+document.userconfig.privilege.value = priv;
+if (user == admin_account || user == user_account)
+document.userconfig.privilege.disabled = true;
+else
+document.userconfig.privilege.disabled = false;
+document.userconfig.oldpass.disabled = false;
+document.userconfig.username.value = user;
+username_tmp = user;
+document.userconfig.hiddenpass.value = pass;
+document.userconfig.idletime.value = time;
+selected = 1;
+}
+function disablePriv()
+{
+document.userconfig.privilege.value = 0;
+document.userconfig.privilege.disabled = true;
+}
+function resetConfig()
+{
+selected = 0;
+document.userconfig.privilege.value = 0;
+document.userconfig.privilege.disabled = false;
+document.userconfig.oldpass.disabled = true;
+}
+function checkAction()
+{
+if (!selected)
+document.userconfig.oldpass.disabled = true;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<BODY>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="Password";
+HelpItem="password";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>User Account Configuration</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page is used to add user account to access the web server of ADSL Router.
+Empty user name or password is not allowed.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2userconfig.cgi" method=POST name="userconfig">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' width="20%">
+User Name:
+</td>
+<td class='form_label_right'>
+<input type="text" name="username" size="20" maxlength="29">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%">
+Privilege:
+</td>
+<td class='form_label_right'>
+<select size="1" name="privilege">
+<option value="0">User</option>
+<option value="2">Root</option>
+
+ </select>
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%">
+Old Password:
+</td>
+<td class='form_label_right'>
+<input type="password" name="oldpass" size="20" maxlength="29">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%">
+New Password:
+</td>
+<td class='form_label_right'>
+<input type="password" name="newpass" size="20" maxlength="29">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%">
+Confirm Password:
+</td>
+<td class='form_label_right'>
+<input type="password" name="confpass" size="20" maxlength="29">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%">
+Idle logout time:
+</td>
+<td class='form_label_right'>
+<input type="text" name="idletime" size="20" maxlength="29">&nbsp;(1-60min)
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" name="adduser" onClick="return saveChanges()">
+<input type="submit" value="Modify" name="modify" onClick="return modifyClick()">
+<input class="link_bg", type="submit" onclick="return delClick('admin', 'user')" name="deluser" value="Delete">
+
+<input type="reset" value="Reset" name="reset" onClick="resetConfig()">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>User Account Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row>
+<td class='form_label_col' width="20%">
+Select
+</td>
+<td class='form_label_col' width="30%">
+User Name
+</td>
+<td class='form_label_col' width="30%">
+Privilege
+</td>
+<td class='form_label_col' width="20%">
+Idle Time
+</td>
+</tr>
+<tr class=form_label_row><td class="form_label_col" width="20%" ><input type="radio" name="select" value="s0" onClick="postEntry('admin', '2', 'admin','5')"> </td>
+<td class="form_label_col" width="30%" >admin</td>
+<td class="form_label_col" width="30%" >root</td>
+<td class="form_label_col" width="20%" >5</td></tr>
+<tr class=form_label_row><td class="form_label_col" width="20%" ><input type="radio" name="select" value="s1" onClick="postEntry('user', '0', 'user','5')"> </td>
+<td class="form_label_col" width="30%" >user</td>
+<td class="form_label_col" width="30%" >user</td>
+<td class="form_label_col" width="20%" >5</td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" name="hiddenpass">
+<input type="hidden" NAME="submit.htm?userconfig.htm" VALUE="Send">
+<script>
+checkAction();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+<blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/userconfig.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

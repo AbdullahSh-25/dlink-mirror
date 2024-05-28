@@ -1,0 +1,318 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wladvanced.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Wireless Advanced Setting</title>
+<SCRIPT>
+var selectwpa = 0;
+
+ var band;
+function validateNum(str)
+{
+for (var i=0; i<str.length; i++) {
+if ( !(str.charAt(i) >='0' && str.charAt(i) <= '9')) {
+alert("Invalid value. It should be in decimal number (0-9).");
+return false;
+}
+}
+return true;
+}
+function saveChanges()
+{
+if ( validateNum(document.advanceSetup.fragThreshold.value) == 0 ) {
+document.advanceSetup.fragThreshold.focus();
+return false;
+}
+num = parseInt(document.advanceSetup.fragThreshold.value);
+if (document.advanceSetup.fragThreshold.value == "" || num < 256 || num > 2346) {
+alert('Invalid value of Fragment Threshold. Input value should be between 256-2346 in decimal.');
+document.advanceSetup.fragThreshold.focus();
+return false;
+}
+if ( validateNum(document.advanceSetup.rtsThreshold.value) == 0 ) {
+document.advanceSetup.rtsThreshold.focus();
+return false;
+}
+num = parseInt(document.advanceSetup.rtsThreshold.value);
+if (document.advanceSetup.rtsThreshold.value=="" || num > 2347) {
+alert('Invalid value of RTS Threshold. Input value should be between 0-2347 in decimal.');
+document.advanceSetup.rtsThreshold.focus();
+return false;
+}
+if ( validateNum(document.advanceSetup.beaconInterval.value) == 0 ) {
+document.advanceSetup.beaconInterval.focus();
+return false;
+}
+num = parseInt(document.advanceSetup.beaconInterval.value);
+if (document.advanceSetup.beaconInterval.value=="" || num < 20 || num > 1024) {
+alert('Invalid value of Beacon Interval. Input value should be between 20-1024 in decimal.');
+document.advanceSetup.beaconInterval.focus();
+return false;
+}
+num = parseInt(document.advanceSetup.dtimInterval.value);
+if (document.advanceSetup.dtimInterval.value=="" || num < 1 || num > 255) {
+alert('Invalid value of DTIM. Input value should be between 1-255 in decimal.');
+document.advanceSetup.dtimInterval.focus();
+return false;
+}
+return true;
+}
+function disableRadioGroup (radioArrOrButton)
+{
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = true;
+for (var b = 0; b < radioArray.length; b++) {
+if (radioArray[b].checked) {
+radioArray.checkedElement = radioArray[b];
+break;
+}
+}
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = true;
+radioArray[b].checkedElement = radioArray.checkedElement;
+}
+}
+function enableRadioGroup (radioArrOrButton)
+{
+if (radioArrOrButton.type && radioArrOrButton.type == "radio") {
+var radioButton = radioArrOrButton;
+var radioArray = radioButton.form[radioButton.name];
+}
+else
+var radioArray = radioArrOrButton;
+radioArray.disabled = false;
+radioArray.checkedElement = null;
+for (var b = 0; b < radioArray.length; b++) {
+radioArray[b].disabled = false;
+radioArray[b].checkedElement = null;
+}
+}
+function updateState()
+{
+if (document.advanceSetup.wlanDisabled.value == "ON") {
+disableRadioGroup(document.advanceSetup.authType);
+disableTextField(document.advanceSetup.fragThreshold);
+disableTextField(document.advanceSetup.rtsThreshold);
+disableTextField(document.advanceSetup.beaconInterval);
+disableTextField(document.advanceSetup.dtimInterval);
+disableTextField(document.advanceSetup.txRate);
+disableRadioGroup(document.advanceSetup.preamble);
+disableRadioGroup(document.advanceSetup.hiddenSSID);
+disableRadioGroup(document.advanceSetup.block);
+disableRadioGroup(document.advanceSetup.BlockEth2Wir);
+disableRadioGroup(document.advanceSetup.mc2uc);
+disableRadioGroup(document.advanceSetup.aggregation);
+disableRadioGroup(document.advanceSetup.shortGI);
+disableButton(document.advanceSetup.save);
+}
+else if(selectwpa == 1)
+{
+disableRadioGroup(document.advanceSetup.authType);
+}
+}
+</SCRIPT>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Advanced Wireless";
+HelpItem="wladvanced";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<body>
+<form action="http://admin:admin@192.168.1.1/form2AdvanceSetup.cgi" method=POST name="advanceSetup">
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Wireless Advanced Settings</td>
+</tr>
+<tr>
+<td class=content>
+<p>These settings are only for more technically advanced users who have a sufficient
+knowledge about wireless LAN. These settings should not be changed unless you know
+what effect the changes will have on your Access Point.</p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Advanced Wireless Settings</td>
+</tr>
+<tr>
+<td class=content align=center>
+<table class=formarea border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<input type=hidden name="wlanDisabled"
+value="OFF"
+ >
+</tr>
+<tr>
+<td class=form_label_left>Authentication Type:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name="authType" value=0 >Open System&nbsp;&nbsp;
+<input type="radio" name="authType" value=1 >Shared Key&nbsp;&nbsp;
+<input type="radio" name="authType" value=2 >Auto
+</td>
+</tr>
+<tr>
+<td class=form_label_left>Fragment Threshold:&nbsp;</td>
+<td class=form_label_right>
+<input type="text" name="fragThreshold" size="10" maxlength="4"
+value=2346
+ >(256-2346)
+</td>
+</tr>
+<tr>
+<td class=form_label_left>RTS Threshold:&nbsp;</td>
+<td class=form_label_right><input type="text" name="rtsThreshold" size="10" maxlength="4"
+value=2347
+ >(0-2347)</td>
+</tr>
+<tr>
+<td class=form_label_left>Beacon Interval:&nbsp;</td>
+<td class=form_label_right><input type="text" name="beaconInterval" size="10" maxlength="4"
+value=100
+ >(20-1024 ms)</td>
+</tr>
+<tr>
+<td class=form_label_left>DTIM Interval:&nbsp;</td>
+<td class=form_label_right><input type="text" name="dtimInterval" size="10" maxlength="3"
+value=1
+ >(1-255)</td>
+</tr>
+<tr>
+<td class=form_label_left>Data Rate:&nbsp;</b></td>
+<td class=form_label_right><select size="1" name="txRate">
+<SCRIPT>
+band=11;
+txrate=1;
+auto=1;
+rf_num=2;
+
+ rate_mask = [15,1,1,1,1,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,8,8,8,8,8,8,8,8];
+rate_name =["Auto","1M","2M","5.5M","11M","6M","9M","12M","18M","24M","36M","48M","54M", "MCS0", "MCS1",
+"MCS2", "MCS3", "MCS4", "MCS5", "MCS6", "MCS7", "MCS8", "MCS9", "MCS10", "MCS11", "MCS12", "MCS13", "MCS14", "MCS15"];
+mask=0;
+if (auto)
+txrate=0;
+if (band & 1)
+mask |= 1;
+if ((band&2) || (band&4))
+mask |= 2;
+if (band & 8) {
+if (rf_num == 2)
+mask |= 12;
+else
+mask |= 4;
+}
+defidx=0;
+for (idx=0, i=0; i<=28; i++) {
+if (rate_mask[i] & mask) {
+if (i == 0)
+rate = 0;
+else
+rate = (1 << (i-1));
+if (txrate == rate)
+defidx = idx;
+document.write('<option value="' + i + '">' + rate_name[i] + '\n');
+idx++;
+}
+}
+document.advanceSetup.txRate.selectedIndex=defidx;
+</SCRIPT>
+</select>
+</td>
+</tr>
+<tr>
+<td class=form_label_left>Preamble Type:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name="preamble" value=0>Long Preamble&nbsp;&nbsp;
+<input type="radio" name="preamble" value=1>Short Preamble</td>
+</tr>
+<tr>
+<td class=form_label_left>Broadcast SSID:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name="hiddenSSID" value=0>Enabled&nbsp;&nbsp;
+<input type="radio" name="hiddenSSID" value=1>Disabled</td>
+</tr>
+<tr>
+<td class=form_label_left>Relay Blocking:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name=block value=1>Enabled&nbsp;&nbsp;
+<input type="radio" name=block value=0>Disabled</td>
+</tr>
+<tr>
+<td class=form_label_left>Ethernet to Wireless Blocking:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name=BlockEth2Wir value=1>Enabled&nbsp;&nbsp;
+<input type="radio" name=BlockEth2Wir value=0>Disabled</td>
+</tr>
+<tr>
+<td class=form_label_left>Wifi Multicast to Unicast:&nbsp;</td>
+<td class=form_label_right>
+<input type="radio" name=mc2uc value=1>Enabled&nbsp;&nbsp;
+<input type="radio" name=mc2uc value=0>Disabled</td>
+</tr>
+<tr>
+<td class=form_label_left>Aggregation:</td>
+<td class=form_label_right>
+<input type="radio" name=aggregation value=1>Enabled&nbsp;&nbsp;
+<input type="radio" name=aggregation value=0>Disabled</td>
+</tr>
+<tr>
+<td class=form_label_left>Short GI:</td>
+<td class=form_label_right>
+<input type="radio" name=shortGI value=1>Enabled&nbsp;&nbsp;
+<input type="radio" name=shortGI value=0>Disabled</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p align=center>
+<input type="submit" value="Apply Changes" name="save" onClick="return saveChanges()">&nbsp;&nbsp;
+<INPUT TYPE="hidden" NAME="submit.htm?wladvanced.htm" VALUE="Send">
+</p>
+<script>
+document.advanceSetup.authType[2].checked = true;
+document.advanceSetup.preamble[0].checked = true;
+document.advanceSetup.hiddenSSID[1].checked = true;
+document.advanceSetup.block[1].checked = true;
+document.advanceSetup.BlockEth2Wir[1].checked = true;
+document.advanceSetup.mc2uc[0].checked = true;
+document.advanceSetup.aggregation[0].checked = true;
+											document.advanceSetup.shortGI[0].checked = true;
+
+ updateState();
+</script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wladvanced.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+</html>
+
+

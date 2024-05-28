@@ -1,0 +1,655 @@
+<html>
+<!-- Mirrored from 192.168.1.1/time.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>System Time Configuration </title>
+<SCRIPT>
+var ntp1='';
+
+var ntp2='';
+
+var ntpServers = new Array();
+ntpServers[0] = 'ntp1.dlink.com';
+ntpServers[1] = 'ntp.dlink.com.tw';
+function ntpStartFunc( form , ntpstart){
+form.elements[0].value=ntpstart;
+form.submit();
+}
+function checkTime()
+{
+var year=document.time.year;
+var day=document.time.day;
+var hour=document.time.hour;
+var min=document.time.min;
+var sec=document.time.sec;
+if (year.value=="") {
+alert("year cannot be empty!");
+year.value = year.defaultValue;
+year.focus();
+return false;
+}
+if ( validateKey( year.value ) == 0 ) {
+alert("Invalid year value. It should be the decimal number (0-9).");
+year.value = year.defaultValue;
+year.focus();
+return false;
+}
+if ( !checkDigitRange(year.value,1,0,9999) ) {
+alert("Invalid year . It should be 0-9999.");
+year.value = year.defaultValue;
+year.focus();
+return false;
+}
+if (day.value=="") {
+alert("day cannot be empty!");
+day.value = day.defaultValue;
+day.focus();
+return false;
+}
+if ( validateKey( day.value ) == 0 ) {
+alert("Invalid day value. It should be the decimal number (0-9).");
+day.value = day.defaultValue;
+day.focus();
+return false;
+}
+if ( !checkDigitRange(day.value,1,1,31) ) {
+alert("Invalid day . It should be 1-31.");
+day.value = day.defaultValue;
+day.focus();
+return false;
+}
+if (hour.value=="") {
+alert("hour cannot be empty!");
+hour.value = hour.defaultValue;
+hour.focus();
+return false;
+}
+if ( validateKey( hour.value ) == 0 ) {
+alert("Invalid hour value. It should be the decimal number (0-9).");
+hour.value = hour.defaultValue;
+hour.focus();
+return false;
+}
+if ( !checkDigitRange(hour.value,1,0,23) ) {
+alert("Invalid hour . It should be 0-23.");
+hour.value = hour.defaultValue;
+hour.focus();
+return false;
+}
+if (min.value=="") {
+alert("min cannot be empty!");
+min.value = min.defaultValue;
+min.focus();
+return false;
+}
+if ( validateKey( min.value ) == 0 ) {
+alert("Invalid min value. It should be the decimal number (0-9).");
+min.value = min.defaultValue;
+min.focus();
+return false;
+}
+if ( !checkDigitRange(min.value,1,0,59) ) {
+alert("Invalid min . It should be 0-59.");
+min.value = min.defaultValue;
+min.focus();
+return false;
+}
+if (sec.value=="") {
+alert("sec cannot be empty!");
+sec.value = sec.defaultValue;
+sec.focus();
+return false;
+}
+if ( validateKey( sec.value ) == 0 ) {
+alert("Invalid sec value. It should be the decimal number (0-9).");
+sec.value = sec.defaultValue;
+sec.focus();
+return false;
+}
+if ( !checkDigitRange(sec.value,1,0,59) ) {
+alert("Invalid sec . It should be 0-59.");
+sec.value = sec.defaultValue;
+sec.focus();
+return false;
+}
+return true;
+}
+function saveChanges()
+{
+if(checkTime() == false)
+return false;
+if(document.time.ntpstate[1].checked)
+{
+if(document.getElementById("ntp1Server").selectedIndex != 2)
+document.getElementById("ntpserver").value = document.getElementById("ntp1Server").value;
+else if (document.getElementById("ntpserver").value == "")
+document.getElementById("ntpserver").value=ntpServers[0];
+if(!checkSpecialChar(document.time.ntpserver.value,1))
+{
+var obj=document.getElementById("ntpMode");
+if (!obj || obj.value == 2) {
+alert("Invalid charaters or empty for First time server!");
+document.time.ntpserver.focus();
+return false;
+}
+}
+if(document.getElementById("ntp2Server").selectedIndex == 1 || document.getElementById("ntp2Server").selectedIndex == 2)
+document.getElementById("ntpserver2").value = document.getElementById("ntp2Server").value;
+if (document.getElementById("ntpserver2").value == "")
+document.getElementById("ntpserver2").value='';
+if(!checkSpecialChar(document.time.ntpserver2.value,1) && document.getElementById("ntpserver2").value != "")
+{
+var obj=document.getElementById("ntpMode");
+if (!obj || obj.value == 2) {
+alert("Invalid charaters or empty for Second time server!");
+document.time.ntpserver2.focus();
+return false;
+}
+}
+}
+var intetval=document.time.ntpinterval;
+if (intetval.value=="") {
+alert("Interval cannot be empty!");
+intetval.value = intetval.defaultValue;
+intetval.focus();
+return false;
+}
+if ( validateKey( intetval.value ) == 0 ) {
+alert("Invalid intetval value. It should be the decimal number (0-9).");
+intetval.value = intetval.defaultValue;
+intetval.focus();
+return false;
+}
+if ( !checkDigitRange(intetval.value,1,1,999) ) {
+alert("Invalid intetval . It should be 1-999.");
+intetval.value = intetval.defaultValue;
+intetval.focus();
+return false;
+}
+document.getElementById("year").disabled=false;
+document.getElementById("month").disabled=false;
+document.getElementById("day").disabled=false;
+document.getElementById("hour").disabled=false;
+document.getElementById("min").disabled=false;
+document.getElementById("sec").disabled=false;
+document.getElementById("ntptimezone").disabled=false;
+document.getElementById("daylightsaving").disabled=false;
+return true;
+}
+function writeNtpList(needed) {
+if (!needed)
+document.writeln("<option value=None>None</option>");
+for (var i = 0; i < ntpServers.length; i ++)
+document.writeln("<option value=" + ntpServers[i] + ">" + ntpServers[i] + "</option>");
+document.writeln("<option value=Other>Other</option>");
+}
+function updateNtpServer() {
+document.getElementById("ntpserver").value=ntp1;
+document.getElementById("ntpserver2").value=ntp2;
+for (i = 0; i < 2; i ++) {
+document.getElementById("ntpserver").style.display="none";
+if (ntp1 == ntpServers[i]) {
+document.getElementById("ntp1Server").selectedIndex = i;
+break;
+}
+else if (ntp1 == '') {
+document.getElementById("ntp1Server").selectedIndex = 0;
+ntp1=ntpServers[0];
+break;
+}
+else {
+document.getElementById("ntp1Server").selectedIndex = ntpServers.length;
+document.getElementById("ntpserver").style.display="";
+}
+}
+for (i = 0; i < ntpServers.length; i ++) {
+document.getElementById("ntpserver2").style.display="none";
+if (ntp2 == ntpServers[i]) {
+document.getElementById("ntp2Server").selectedIndex = i + 1 ;
+break;
+}
+else if (ntp2 == '') {
+document.getElementById("ntp2Server").selectedIndex = 0;
+break;
+}
+else {
+document.getElementById("ntp2Server").selectedIndex = ntpServers.length +1;
+document.getElementById("ntpserver2").style.display="";
+}
+}
+}
+function updateNtpMode()
+{
+if(document.getElementById("ntpMode").value == 0 ||document.getElementById("ntpMode").value == 1)
+{
+document.getElementById("ntpConfig").style.display="none";
+if(document.getElementById("ntpMode").value == 1)
+{
+var now = new Date();
+document.getElementById('year').value = now.getFullYear();
+document.getElementById('month').options[now.getMonth()].selected = true;
+document.getElementById('day').value = now.getUTCDate();
+document.getElementById('hour').value = now.getHours();
+document.getElementById('min').value = now.getMinutes();
+document.getElementById('sec').value = now.getSeconds();
+document.getElementsByName('ntptimezone')[0].value = -now.getTimezoneOffset();
+document.getElementById("year").disabled=true;
+document.getElementById("month").disabled=true;
+document.getElementById("day").disabled=true;
+document.getElementById("hour").disabled=true;
+document.getElementById("min").disabled=true;
+document.getElementById("sec").disabled=true;
+document.getElementById("ntptimezone").disabled=true;
+document.getElementById("daylightsaving").disabled=true;
+}
+else
+{
+document.getElementById("year").disabled=false;
+document.getElementById("month").disabled=false;
+document.getElementById("day").disabled=false;
+document.getElementById("hour").disabled=false;
+document.getElementById("min").disabled=false;
+document.getElementById("sec").disabled=false;
+document.getElementById("ntptimezone").disabled=false;
+document.getElementById("daylightsaving").disabled=false;
+}
+}
+else if(document.getElementById("ntpMode").value == 2)
+{
+document.getElementById("ntpConfig").style.display="";
+document.getElementById("year").disabled=false;
+document.getElementById("month").disabled=false;
+document.getElementById("day").disabled=false;
+document.getElementById("hour").disabled=false;
+document.getElementById("min").disabled=false;
+document.getElementById("sec").disabled=false;
+document.getElementById("ntptimezone").disabled=false;
+document.getElementById("daylightsaving").disabled=false;
+}
+if(document.getElementById("ntpstate1").checked == true)
+updateNtpServer();
+else if(document.getElementById("ntpstate0").checked == true)
+disableNtpClicked();
+}
+function changeNtpServer(serverno)
+{
+if (serverno == '1')
+{
+if(document.getElementById("ntp1Server").selectedIndex != 2)
+{
+ntp1 = document.getElementById("ntp1Server").value;
+document.getElementById("ntpserver").style.display="none";
+}
+else if (document.getElementById("ntp1Server").selectedIndex == 2)
+{
+document.getElementById("ntpserver").value = '';
+document.getElementById("ntpserver").style.display="";
+}
+}
+else if (serverno == '2')
+{
+if (document.getElementById("ntp2Server").selectedIndex == 0)
+{
+document.getElementById("ntpserver2").value = '';
+document.getElementById("ntpserver2").style.display="none";
+}
+else if (document.getElementById("ntp2Server").selectedIndex == 3)
+{
+document.getElementById("ntpserver2").value = '';
+document.getElementById("ntpserver2").style.display="";
+}
+else
+{
+ntp2 = document.getElementById("ntp2Server").value;
+document.getElementById("ntpserver2").style.display="none";
+}
+}
+}
+function disableNtpClicked()
+{
+document.getElementById("ntp1Server").disabled=true;
+document.getElementById("ntp2Server").disabled=true;
+document.getElementById("ntpinterval").disabled=true;
+document.getElementById("ntpserver").style.display="none";
+document.getElementById("ntpserver2").style.display="none";
+}
+function enableNtpClicked()
+{
+document.getElementById("ntp1Server").disabled=false;
+document.getElementById("ntp2Server").disabled=false;
+document.getElementById("ntpinterval").disabled=false;
+updateNtpServer();
+}
+function ntpConfigShow(isShow)
+{
+if(isShow == 0)
+{
+document.getElementById("ntpConfig").style.display="none";
+document.getElementById("year").disabled=false;
+document.getElementById("month").disabled=false;
+document.getElementById("day").disabled=false;
+document.getElementById("hour").disabled=false;
+document.getElementById("min").disabled=false;
+document.getElementById("sec").disabled=false;
+document.getElementById("ntptimezone").disabled=false;
+document.getElementById("daylightsaving").disabled=false;
+}
+else if(isShow == 1)
+{
+document.getElementById("ntpConfig").style.display="none";
+document.getElementById("year").disabled=true;
+document.getElementById("month").disabled=true;
+document.getElementById("day").disabled=true;
+document.getElementById("hour").disabled=true;
+document.getElementById("min").disabled=true;
+document.getElementById("sec").disabled=true;
+document.getElementById("ntptimezone").disabled=true;
+document.getElementById("daylightsaving").disabled=true;
+}
+else if(isShow == 2)
+{
+document.getElementById("ntpConfig").style.display="";
+document.getElementById("year").disabled=false;
+document.getElementById("month").disabled=false;
+document.getElementById("day").disabled=false;
+document.getElementById("hour").disabled=false;
+document.getElementById("min").disabled=false;
+document.getElementById("sec").disabled=false;
+document.getElementById("ntptimezone").disabled=false;
+document.getElementById("daylightsaving").disabled=false;
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="updateNtpMode();">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Time and Date";
+HelpItem="datetime";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">System Time Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the system time and Network Time Protocol(NTP) server. <br>
+Here you can change the settings or view some information on the system time and NTP parameters.</p>
+</td>
+</tr>
+</table>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2systime.cgi" name="time">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">System Time</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">System Time:</td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="year" NAME="year" SIZE="3" MAXLENGTH="4" VALUE="2012" >
+Year
+<SELECT ID="month" NAME="month" WIDTH=30 >
+<OPTION VALUE="1" SELECTED> Jan</OPTION>
+<OPTION VALUE="2" > Feb</OPTION>
+<OPTION VALUE="3" > Mar</OPTION>
+<OPTION VALUE="4" > Apr</OPTION>
+<OPTION VALUE="5" > May</OPTION>
+<OPTION VALUE="6" > Jun</OPTION>
+<OPTION VALUE="7" > Jul</OPTION>
+<OPTION VALUE="8" > Aug</OPTION>
+<OPTION VALUE="9" > Sep</OPTION>
+<OPTION VALUE="10" > Oct</OPTION>
+<OPTION VALUE="11" > Nov</OPTION>
+<OPTION VALUE="12" > Dec</OPTION>
+</SELECT>
+Month<INPUT TYPE="TEXT" ID="day" NAME="day" SIZE="2" MAXLENGTH="2" VALUE="11" >
+Day<INPUT TYPE="TEXT" ID="hour" NAME="hour" SIZE="2" MAXLENGTH="2" VALUE="7" >
+Hour<INPUT TYPE="TEXT" ID="min" NAME="min" SIZE="2" MAXLENGTH="2" VALUE="48" >
+min<INPUT TYPE="TEXT" ID="sec" NAME="sec" SIZE="2" MAXLENGTH="2" VALUE="30" >
+sec
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Time Zone:</td>
+<td class="form_label_right">
+
+<SELECT ID="ntptimezone" NAME="ntptimezone" WIDTH=80 >
+<OPTION VALUE="-720" SELECTED> (GMT-12:00) International Date Line West</OPTION>
+<OPTION VALUE="-660" > (GMT-11:00) Midway Island, Samoa</OPTION>
+<OPTION VALUE="-600" > (GMT-10:00) Hawaii</OPTION>
+<OPTION VALUE="-540" > (GMT-09:00) Alaska</OPTION>
+<OPTION VALUE="-480" > (GMT-08:00) Pacific Time, Tijuana</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Arizona, Mazatlan</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Chihuahua, La Paz</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Mountain Time</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Central America</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Central Time</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Guadalajara, Mexico City, Monterrey</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Saskatchewan</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Bogota, Lima, Quito</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Eastern Time</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Indiana</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Atlantic Time</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Caracas, La Paz</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Santiago</OPTION>
+<OPTION VALUE="-210" > (GMT-03:30) Newfoundland</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Brasilia</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Buenos Aires, Georgetown</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Greenland</OPTION>
+<OPTION VALUE="-120" > (GMT-02:00) Mid-Atlantic</OPTION>
+<OPTION VALUE="-60" > (GMT-01:00) Azores</OPTION>
+<OPTION VALUE="-60" > (GMT-01:00) Cape Verde Is.</OPTION>
+<OPTION VALUE="0" > (GMT-00:00) Casablanca, Monrovia</OPTION>
+<OPTION VALUE="0" > (GMT-00:00) Greenwich Mean Time: Dublin, Edinburgh, Lisbon, London</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Brussels, Copenhagen, Madrid, Paris</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) West Central Africa</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Athens, Istanbul, Minsk</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Bucharest</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Cairo</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Harare, Pretoria</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Jerusalem</OPTION>
+
+<OPTION VALUE="180" > (GMT+03:00) Baghdad</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Kuwait, Riyadh</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Moscow, St. Petersburg, Volgograd</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Nairobi</OPTION>
+<OPTION VALUE="210" > (GMT+03:30) Tehran</OPTION>
+<OPTION VALUE="240" > (GMT+04:00) Abu Dhabi, Muscat</OPTION>
+<OPTION VALUE="240" > (GMT+04:00) Baku, Tbilisi, Yerevan</OPTION>
+<OPTION VALUE="270" > (GMT+04:30) Kabul</OPTION>
+<OPTION VALUE="300" > (GMT+05:00) Ekaterinburg</OPTION>
+<OPTION VALUE="300" > (GMT+05:00) Islamabad, Karachi, Tashkent</OPTION>
+<OPTION VALUE="330" > (GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</OPTION>
+<OPTION VALUE="345" > (GMT+05:45) Kathmandu</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Almaty, Novosibirsk</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Astana, Dhaka</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Sri Jayawardenepura</OPTION>
+<OPTION VALUE="390" > (GMT+06:30) Rangoon</OPTION>
+<OPTION VALUE="420" > (GMT+07:00) Bangkok, Hanoi, Jakarta</OPTION>
+<OPTION VALUE="420" > (GMT+07:00) Krasnoyarsk</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Beijing, Chongquing, Hong Kong, Urumqi</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Irkutsk, Ulaan Bataar</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Kuala Lumpur, Singapore</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Perth</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Taipei</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Osaka, Sapporo, Tokyo</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Seoul</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Yakutsk</OPTION>
+<OPTION VALUE="570" > (GMT+09:30) Adelaide</OPTION>
+<OPTION VALUE="570" > (GMT+09:30) Darwin</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Brisbane</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Canberra, Melbourne, Sydney</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Guam, Port Moresby</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Hobart</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Vladivostok</OPTION>
+<OPTION VALUE="660" > (GMT+11:00) Magadan</OPTION>
+<OPTION VALUE="660" > (GMT+11:00) Solomon Is., New Caledonia</OPTION>
+<OPTION VALUE="720" > (GMT+12:00) Auckland, Wellington</OPTION>
+<OPTION VALUE="720" > (GMT+12:00) Fiji, Kamchatka, Marshall Is.</OPTION>
+</SELECT>
+<INPUT type="hidden" id="ntptimezone_index" name="ntptimezone_index" value="">
+
+ </td>
+</tr>
+<tr><td class="form_label_left">DayLight:</td>
+<td>
+<SELECT ID="daylightsaving" NAME="daylightsaving" WIDTH=30 >
+<OPTION VALUE="0" > (LocalTIME +6 hour)</OPTION>
+<OPTION VALUE="1" > (LocalTIME +5 hour)</OPTION>
+<OPTION VALUE="2" > (LocalTIME +4 hour)</OPTION>
+<OPTION VALUE="3" > (LocalTIME +3 hour)</OPTION>
+<OPTION VALUE="4" > (LocalTIME +2 hour)</OPTION>
+<OPTION VALUE="5" > (LocalTIME +1 hour)</OPTION>
+<OPTION VALUE="6" SELECTED> LocalTIME</OPTION>
+<OPTION VALUE="7" > (LocalTIME -1 hour)</OPTION>
+<OPTION VALUE="8" > (LocalTIME -2 hour)</OPTION>
+<OPTION VALUE="9" > (LocalTIME -3 hour)</OPTION>
+<OPTION VALUE="10" > (LocalTIME -4 hour)</OPTION>
+<OPTION VALUE="11" > (LocalTIME -5 hour)</OPTION>
+<OPTION VALUE="12" > (LocalTIME -6 hour)</OPTION>
+</SELECT>
+</td></tr>
+
+<tr><td class="form_label_left">Mode:</td><td class="form_label_right">
+<select name="ntpMode" id="ntpMode" onChange="updateNtpMode();"><option value="0"  onclick = "ntpConfigShow(0);">Set Time Manually</option><option value="1" selected onclick = "ntpConfigShow(1);">Copy Computer time</option><option value="2"  onclick = "ntpConfigShow(2);">Set NTP Server Manually</option></select></td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<div id="ntpConfig" style="display:none;">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">NTP Configuration:</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">State:</td>
+<td class="form_label_right" style="text-align: left;">
+<input type="radio" value="Disable" id="ntpstate0" name="ntpstate" onclick="disableNtpClicked()"
+checked
+ >Disable&nbsp;&nbsp;
+<input type="radio" value="Enable" id="ntpstate1" name="ntpstate" onclick="enableNtpClicked()"
+
+ >Enable
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Server:</td>
+<td class="form_label_right"><select name='ntp1Server' id=ntp1Server size="1" onChange="changeNtpServer(1);">
+<script language="javascript">writeNtpList(true);
+</script>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="ntpserver" NAME="ntpserver" SIZE="64" MAXLENGTH="255" VALUE="" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Server2:</td>
+<td class="form_label_right"><select name='ntp2Server' id=ntp2Server size="1" onChange="changeNtpServer(2);">
+<script language="javascript">writeNtpList(false);
+</script>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="ntpserver2" NAME="ntpserver2" SIZE="64" MAXLENGTH="255" VALUE="" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Interval:</td>
+<td class="form_label_right">
+Every<INPUT TYPE="TEXT" ID="ntpinterval" NAME="ntpinterval" SIZE="5" MAXLENGTH="3" VALUE="1" >
+hours
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">GMT time:</td>
+<td class="form_label_right">
+Wed Jan 11 4:48:30 2012
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<br>
+<input type="submit" id="applyChanges"value="Apply Changes" name="save" onClick="return saveChanges()">
+<INPUT TYPE="RESET" id="reset" NAME="reset" VALUE="Reset">
+<INPUT TYPE="hidden" NAME="submit.htm?time.htm" VALUE="Send">
+</form>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2ntpstart.cgi">
+<input type="hidden" name="ntpstart" value="">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Start NTP:</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">NTP Start:</td>
+<td class="form_label_right">
+<INPUT TYPE="BUTTON" VALUE="Get GMT Time" onClick="ntpStartFunc( this.form, '1');">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<INPUT TYPE="hidden" NAME="submit.htm?time.htm" VALUE="Send">
+</form>
+<script>
+document.time.onsubmit = function(){
+document.time.ntptimezone_index.value=document.getElementById("ntptimezone").selectedIndex;
+};
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/time.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:48 GMT -->
+</html>
+
+

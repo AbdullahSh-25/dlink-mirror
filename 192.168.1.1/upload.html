@@ -1,0 +1,120 @@
+<html>
+<!-- Mirrored from 192.168.1.1/upload.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Firmware Update</title>
+<script>
+var uploadClick=0;
+function sendClicked()
+{
+var str = document.getElementById("uploadfilename").value;
+if(str.length==0) {
+alert("Please select file to upload");
+return false;
+}
+if (!confirm('Do you really want to upgrade the firmware?'))
+return false;
+else
+{
+if(uploadClick==0)
+{
+uploadClick=1;
+}
+else
+{
+alert("The request is in process, please wait a few seconds!");
+return false;
+}
+return true;
+}
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<BODY>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Maintenance";
+SideItem="Firmware Update";
+HelpItem="firmwareupdate";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<form action="http://admin:admin@192.168.1.1/form2file.htm" method=POST enctype="multipart/form-data" name="password">
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Upgrade Firmware</td>
+</tr>
+<tr>
+<td class=content>
+<p><b>Step 1:</b> Obtain an updated firmware image file from your ISP.<br><br>
+<b>Step 2:</b> Enter the path to the image file location in the box below or click the "Browse" button to locate the image file.
+<br><br>
+<b>Step 3:</b> Click the "Update Firmware" button once to upload the new image file.
+<br><br>
+<b>NOTE:</b> The update process takes about 2 minutes to complete, and your DSL Router will reboot. Please DO NOT power off your router before the update is complete.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Select File</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Current Firmware Version:</td>
+<td class="form_label_right">
+ME_1.03
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Current Firmware Date:</td>
+<td class="form_label_right">
+May 25 2016 11:24:18
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Firmware File Name:</td>
+<td class="form_label_right">
+<input type="file" id="uploadfilename" name="download image file" size=30>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Update Firmware" name="send" onClick="return sendClicked()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">
+<INPUT TYPE="hidden" NAME="submit" VALUE="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/upload.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

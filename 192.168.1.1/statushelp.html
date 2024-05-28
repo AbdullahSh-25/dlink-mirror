@@ -1,0 +1,37 @@
+if (HelpItem=='deviceinfo'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page displays a summary overview of your router, ' +
+'including system information,DSL information,LAN Configuration,DNS information,WAN Configuration and so on ' +
+'<a href="helpstatusinfo.html#DeviceInfo">More...</a>';
+} else if (HelpItem=='wirelessclient'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Displays the list of all wireless clients that are currently connected to your wireless router.<br><br>' +
+'<a href="helpstatusinfo.html#Wireless">More...</a>';
+} else if (HelpItem=='dhcpclient'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Displays the list of all LAN clients that are assigned IP addresses by DHCP service and currently connected to your router.<br><br>' +
+'<a href="helpstatusinfo.html#DHCP">More...</a>';
+} else if (HelpItem=='logs'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'The system log will keep a record of your router activity. Depending on ' +
+'the amount of detail you include in the log, your router can only keep ' +
+'a limited number of log entries due to router memory constraints.<br><br>' +
+'You can configure the details you want to include in ' +
+'<a href="syslog.html">Maintenance -> System Log</a>.<br><br>' +
+'<a href="helpstatusinfo.html#Logs">More...</a>';
+} else if (HelpItem=='statistic'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This is a summary of the number of packets that have passed between ' +
+'the WAN and the LAN since the router was last initialized.<br><br>' +
+'<a href="helpstatusinfo.html#AdslStats">More...</a>';
+} else if (HelpItem=='routeinfo'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Displays the list of the ADSL router\'s routing table.<br><br>' +
+'<a href="helpstatusinfo.html#Route">More...</a>';
+}else if (HelpItem=='ADSLconfig'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Displays ADSL setting.<br><br>' +
+'<a href="helpstatusinfo.html#AdslDriver">More...</a>';
+}
+
+

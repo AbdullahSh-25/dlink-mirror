@@ -1,0 +1,206 @@
+<html>
+<!-- Mirrored from 192.168.1.1/dhcpvendortbl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Vendor IP Range Set </title>
+<SCRIPT>
+var pool_ipprefix;
+function postsetting(devname, startip, endip, gwip, option)
+{
+document.ipRange.name.value = devname;
+document.ipRange.sIp.value = startip;
+document.ipRange.dIp.value = endip;
+document.ipRange.gwIp.value = gwip;
+while(1){
+var option=option.replace("+"," ");
+for (var i=0; i<option.length; i++) {
+if ( option.charAt(i) == "+")
+break;
+}
+if(i>=option.length)
+break;
+}
+document.ipRange.Opt60.value = option;
+}
+function checkInputIP(client)
+{
+var pool_ip, mask,ipstart,ipend;
+var i, mask_d, ip_d, pool_d,ipstart_d,ipend_d;
+var pool_ip_d, client_d;
+pool_ip = document.ipRange.lan_ip.value;
+mask = document.ipRange.lan_mask.value;
+ipstart = document.ipRange.lan_dhcpRangeStart.value;
+ipend = document.ipRange.lan_dhcpRangeEnd.value;
+for( i=1;i<5;i++ ) {
+mask_d = getDigit(mask, i);
+pool_ip_d = getDigit(pool_ip, i);
+client_d = getDigit(client, i);
+ipstart_d = getDigit(ipstart, i);
+ipend_d = getDigit(ipend, i);
+if( (pool_ip_d & mask_d) != (client_d & mask_d ) ) {
+return false;
+}
+}
+if( (ipstart_d > client_d) || (ipend_d < client_d) ) {
+return false;
+}
+return true;
+}
+function addClick()
+{
+if (document.ipRange.name.value=="") {
+alert("device name cannot be NULL!");
+document.ipRange.name.focus();
+return false;
+}
+if (!checkIP(document.ipRange.sIp)) {
+document.ipRange.sIp.focus();
+return false;
+}
+if (!checkIP(document.ipRange.dIp)) {
+document.ipRange.dIp.focus();
+return false;
+}
+if (document.ipRange.gwIp.value=="") {
+alert("Please input DHCP IP pool default gateway.");
+document.ipRange.dfgw.focus();
+return false;
+}
+if (!checkIP( document.ipRange.gwIp)) {
+document.ipRange.dfgw.focus();
+return false;
+}
+if (document.ipRange.Opt60.value=="") {
+alert("option60 cannot be NULL!");
+document.ipRange.Opt60.focus();
+return false;
+}
+if (!checkInputIP(document.ipRange.sIp.value)) {
+alert('Invalid Source range of IP Address. It should be in IP pool range.');
+document.ipRange.sIp.focus();
+return false;
+}
+if (!checkInputIP(document.ipRange.dIp.value)) {
+alert('Invalid Destination range of IP Address. It should be in IP pool range.');
+document.ipRange.dIp.focus();
+return false;
+}
+return true;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<div id=maincontent style="width:500">
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Device IP Range Configure</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the IP address range based on device type.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/formIpRange.cgi" method=POST name="ipRange">
+<input type="hidden" name="lan_ip" value=
+192.168.1.1
+>
+<input type="hidden" name="lan_mask" value=
+255.255.255.0
+>
+<input type="hidden" name="lan_dhcpRangeStart" value=
+192.168.1.2
+>
+<input type="hidden" name="lan_dhcpRangeEnd" value=
+192.168.1.254
+>
+<input type="hidden" name="lan_dhcpSubnetMask" value=
+255.255.255.0
+>
+<input type="hidden" name="ltime" value=
+1440
+>
+<input type="hidden" name="dname" value=
+domain.name
+>
+<input type="hidden" name="dhcpdSubnetMask60" value=
+255.255.255.0
+>
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Device IP Range Setup</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="form_label_left">device name:&nbsp;&nbsp;</td>
+<td class="form_label_right"><input type="text" name="name" size="20" maxlength="20"></td>
+</tr>
+<tr>
+<td class="form_label_left">start address:&nbsp;&nbsp;</td>
+<td class="form_label_right"><input type="text" name="sIp" size="20" maxlength="15"></td>
+</tr>
+<tr>
+<td class="form_label_left">end address:&nbsp;&nbsp;</td>
+<td class="form_label_right"><input type="text" name="dIp" size="20" maxlength="15"></td>
+</tr>
+<input type="hidden" name="gwIp" size="20" maxlength="15">
+ <tr>
+<td class="form_label_left">option60:&nbsp;&nbsp;</td>
+<td class="form_label_right"><input type="text" name="Opt60" size="20" maxlength="20"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value=" add " name="add" onClick="return addClick()">&nbsp;&nbsp;
+<input type="submit" value=" delete " name="del">&nbsp;&nbsp;
+<input type="submit" value=" modify " name="mod" onClick="return modifyClick()">&nbsp;&nbsp
+<input type="button" value=" Close " name="close" onClick="javascript: window.close();">
+<p>
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">IP Range Table:</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">Select</td>
+<td class="form_label_col">device name</td>
+<td class="form_label_col">start address</td>
+<td class="form_label_col">end address</td>
+<td class="form_label_col">default gateway</td>
+<td class="form_label_col">option60</td>
+</tr>
+</TABLE>
+
+<script language="JavaScript">
+<!--
+//-->
+</script>
+
+ </table>
+</td>
+</tr>
+</table>
+<INPUT TYPE="hidden" NAME="submit.htm?dhcpvendortbl.htm" VALUE="Send">
+</form>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/dhcpvendortbl.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:52 GMT -->
+</html>
+
+

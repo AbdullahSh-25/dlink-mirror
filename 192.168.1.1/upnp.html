@@ -1,0 +1,101 @@
+<html>
+<!-- Mirrored from 192.168.1.1/upnp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>UPnP Configuration </title>
+<SCRIPT>
+function proxySelection()
+{
+if (document.upnp.daemon[0].checked) {
+document.upnp.ext_if.disabled = true;
+}
+else {
+document.upnp.ext_if.disabled = false;
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="UPnP";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">UPnP Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure UPnP. The system acts as a daemon when you enable UPnP.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Upnp.cgi" method=POST name="upnp">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">UPnP Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">UPnP:</td>
+<td class="form_label_right">
+<input type="radio" value="0" name="daemon"
+
+>Disable&nbsp;&nbsp;
+<input type="radio" value="1" name="daemon"
+checked
+>Enable
+</td>
+</tr>
+<tr>
+<td class="form_label_left">WAN Interface:</td>
+<td class="form_label_right">
+
+<SELECT ID="ext_if" NAME="ext_if" WIDTH=30 >
+<OPTION VALUE="" SELECTED> </OPTION>
+<OPTION VALUE="pppoe 2" > pppoe2</OPTION>
+</SELECT>
+
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes">&nbsp;&nbsp;
+<input type="hidden" value="Send" name="submit.htm?upnp.htm">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/upnp.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

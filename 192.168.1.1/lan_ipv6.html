@@ -1,0 +1,762 @@
+<html>
+<!-- Mirrored from 192.168.1.1/lan_ipv6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>LAN IPv6 Setup</title>
+<SCRIPT>
+function ramodechange(obj)
+{
+with ( document.forms[0] )
+{
+if(obj.value == "0")
+{
+document.getElementById('raSetup').style.display = "none";
+}
+else
+{
+document.getElementById('raSetup').style.display = "";
+}
+}
+}
+function dhcp6modechang() {
+var idx = $('dhcp6mode').selectedIndex;
+if (idx == 1) {
+$('dhcp6server_block').style.display="block";
+$('dhcp6Autoserver_block').style.display="none";
+$('lan_dhcp_dns').style.display="block";
+dhcp6manualmodechang();
+dns_mode_selection();
+}else if (idx == 2) {
+$('dhcp6server_block').style.display="none";
+$('dhcp6Autoserver_block').style.display="block";
+$('lan_dhcp_dns').style.display="block";
+dns_mode_selection();
+}
+else{
+$('dhcp6server_block').style.display="none";
+$('dhcp6Autoserver_block').style.display="none";
+$('lan_dhcp_dns').style.display="none";
+}
+}
+function dhcp6manualmodechang() {
+var idx = $('manualmode').selectedIndex;
+if (idx == 1)
+$('dhcp6manual_block').style.display="inline";
+else
+$('dhcp6manual_block').style.display="none";
+}
+function dns_mode_selection()
+{
+if (document.dhcp6d.dhcp_dns_mode.value == 0)
+{
+document.getElementById('lan_dhcp_dns_setting').style.display = 'none';
+}
+else
+{
+document.getElementById('lan_dhcp_dns_setting').style.display = '';
+}
+}
+function dhcpv6saveChanges() {
+var idx = $('dhcp6mode').selectedIndex;
+if (idx == 1)
+{
+var ipv6s = new Array;
+ipv6s = [
+['dhcp6dPoolS', 'DHCPV6 Pool Start Address', 1],
+['dhcp6dPoolE', 'DHCPV6 Pool End Address', 0],
+['dns1', 'DNS Server 1', 0],
+['dns2', 'DNS Server 2', 0],
+['dns3', 'DNS Server 3', 0]
+];
+for (var i = 0; i < ipv6s.length; i++) {
+if ($(ipv6s[i][0]).value == '' && ipv6s[i][2]) {
+alert(ipv6s[i][1] + ' can not be empty!');
+return false;
+}
+if ($(ipv6s[i][0]).value != '' && !isIpv6Address($(ipv6s[i][0]).value)) {
+alert(ipv6s[i][1] + ' is invalid!');
+$(ipv6s[i][0]).focus();
+return false;
+}
+}
+var nums = new Array;
+nums = [
+['pltime', 'Preferred Time ', 1],
+['vltime', 'Valid Time', 1],
+['prefixlength', 'Prefix Length', 1]
+];
+for (var i = 0; i < nums.length; i++) {
+if (!isNumber($(nums[i][0]).value)) {
+alert('Please input a valid number for ' + nums[i][1]);
+$(nums[i][0]).focus();
+return false;
+}
+}
+if (parseInt($('vltime').value) < parseInt($('pltime').value)) {
+alert("Valid Time must be larger than Preferred Time!");
+return false;
+}
+if (parseInt($('prefixlength').value) < 16 || parseInt($('prefixlength').value) > 64) {
+alert("Prefix Length should be between 16 and 64!");
+return false;
+}
+return true;
+}else if(idx == 2)
+{
+var ipv6a = new Array;
+ipv6a = [
+['dhcp6dSuffixPoolS', 'DHCPV6 Auto Suffix Pool Start Address', 1],
+['dhcp6dSuffixPoolE', 'DHCPV6 Auto Suffix Pool End Address', 1]
+];
+for (var i = 0; i < ipv6a.length; i++) {
+if ($(ipv6a[i][0]).value == '' && ipv6a[i][2]) {
+alert(ipv6a[i][1] + ' can not be empty!');
+return false;
+}
+if ($(ipv6a[i][0]).value != '' && !isIpv6Address('2001:FFFF:FFFF:FFFF'+$(ipv6a[i][0]).value)) {
+alert(ipv6a[i][1] + ' is invalid!');
+$(ipv6a[i][0]).focus();
+return false;
+}
+}
+var ipv6s = new Array;
+ipv6s = [
+['dns1', 'DNS Server 1', 0],
+['dns2', 'DNS Server 2', 0],
+['dns3', 'DNS Server 3', 0]
+];
+for (var i = 0; i < ipv6s.length; i++) {
+if ($(ipv6s[i][0]).value == '' && ipv6s[i][2]) {
+alert(ipv6s[i][1] + ' can not be empty!');
+return false;
+}
+if ($(ipv6s[i][0]).value != '' && !isIpv6Address($(ipv6s[i][0]).value)) {
+alert(ipv6s[i][1] + ' is invalid!');
+$(ipv6s[i][0]).focus();
+return false;
+}
+}
+}else
+return true;
+}
+function lansaveChangesv6() {
+if (document.tcpip6.ip6.value == "") {
+alert("Please input address!");
+document.tcpip6.ip6.focus();
+return false;
+}
+if (!isIpv6Address(document.tcpip6.ip6.value)) {
+alert("Invalid address.");
+document.tcpip6.ip6.focus();
+return false;
+}
+if (!isLinkLocalIpv6Address(document.tcpip6.ip6.value)) {
+alert("Please input link-local address!");
+document.tcpip6.ip6.focus();
+return false;
+}
+return true;
+}
+function RATypeClick() {
+if(document.ra.raEnable.checked == true) {
+document.getElementById('raParameter').style.display = 'block';
+document.getElementById('raMode').style.display = 'block';
+document.getElementById('raSetup').style.display = 'block';
+if($("prefixmode").selectedIndex==0)
+document.getElementById('raSetup').style.display = 'none';
+else
+document.getElementById('raSetup').style.display = 'block';
+document.getElementById('ULA').style.display = 'block';
+document.getElementById('RADNS').style.display = 'block';
+}else{
+document.getElementById('raParameter').style.display = 'none';
+document.getElementById('raMode').style.display = 'none';
+document.getElementById('raSetup').style.display = 'none';
+document.getElementById('ULA').style.display = 'none';
+document.getElementById('RADNS').style.display = 'none';
+}
+}
+function ULARATypeClick(){
+if(document.ra.ULAEnable.checked == true)
+document.getElementById('ulaSetup').style.display = 'block';
+else
+document.getElementById('ulaSetup').style.display = 'none';
+}
+function rasaveChangesv6() {
+if (document.ra.raEnable.checked == true) {
+var max = getDigit(document.ra.radvdMaxInter.value, 1);
+var min = getDigit(document.ra.radvdMinInter.value, 1);
+if (max < 4 || max > 1800) {
+alert("Max Interval should be between 4 and 1800!");
+document.ra.radvdMaxInter.focus();
+return false;
+}
+if (min < 3 || min > (max * 3 / 4)) {
+alert("Min Interval should be between 3 and 3/4*(Max Interval)!");
+document.ra.radvdMinInter.focus();
+return false;
+}
+if (document.ra.prefixmode.value == "1") {
+if (document.ra.radvdPrefix.value == "") {
+alert("Please input Prefix Address!");
+document.ra.radvdPrefix.focus();
+return false;
+}
+if (!isIpv6Address(document.ra.radvdPrefix.value)) {
+alert("Invalid Prefix Address.");
+document.ra.radvdPrefix.focus();
+return false;
+}
+if (!isGlobalIpv6Address(document.ra.radvdPrefix.value)) {
+alert("Invalid Prefix Address.");
+document.ra.radvdPrefix.focus();
+return false;
+}
+var prefixlen = getDigit(document.ra.RAPrefixLen.value, 1);
+if (prefixlen > 64 || prefixlen < 16) {
+alert("Wrong Prefix Length!");
+document.ra.RAPrefixLen.focus();
+return false;
+}
+var rat1 = getDigit(document.ra.RAt1.value, 1);
+if (rat1 > 2147483647 || rat1 < 600) {
+if(rat1!=-1)
+{
+alert("Wrong Preferred Time!");
+document.ra.RAt1.focus();
+return false;
+}
+}
+var rat2 = getDigit(document.ra.RAt2.value, 1);
+if (rat2 > 2147483647 || rat2 < 600) {
+if(rat2!=-1)
+{
+alert("Wrong Valid Time!");
+document.ra.RAt2.focus();
+return false;
+}
+}
+if(rat1==-1){
+rat1=4294967295;
+}
+if(rat2==-1){
+rat2=4294967295;
+}
+if (rat2 < rat1) {
+alert("Valid Time should be larger than Preferred Time!");
+document.ra.RAt2.focus();
+return false;
+}
+}
+if(document.ra.RADNSEnable.checked == true)
+{
+if(document.ra.ra_dns_mode.value == "1")
+{
+var ipv6s = new Array;
+ipv6s = [
+['ra_dns1', 'DNS Server 1', 0],
+['ra_dns2', 'DNS Server 2', 0],
+['ra_dns3', 'DNS Server 3', 0]
+];
+for (var i = 0; i < ipv6s.length; i++)
+{
+if ($(ipv6s[i][0]).value == '' && ipv6s[i][2])
+{
+alert(ipv6s[i][1] + ' can not be empty!');
+return false;
+}
+if ($(ipv6s[i][0]).value != '' && !isIpv6Address($(ipv6s[i][0]).value))
+{
+alert(ipv6s[i][1] + ' is invalid!');
+$(ipv6s[i][0]).focus();
+return false;
+}
+}
+}
+}
+}
+if(document.ra.ULAEnable.checked == true) {
+if ($('ula_radvdPrefix').value == "") {
+alert("Please input Prefix Address!");
+$('ula_radvdPrefix').focus();
+return false;
+}
+if (!isIpv6Address($('ula_radvdPrefix').value)) {
+alert("Invalid Prefix Address.");
+$('ula_radvdPrefix').focus();
+return false;
+}
+var prefixlen = getDigit($('ula_RAPrefixLen').value, 1);
+if (prefixlen > 64 || prefixlen < 16) {
+alert("Wrong Prefix Length!");
+$('ula_RAPrefixLen').focus();
+return false;
+}
+var rat1 = getDigit($('ula_RAt1').value, 1);
+if (rat1 > 2147483647 || rat1 < 600) {
+if(rat1!=-1)
+{
+alert("Wrong Preferred Time!");
+$('ula_RAt1').focus();
+return false;
+}
+}
+var rat2 = getDigit($('ula_RAt2').value, 1);
+if (rat2 > 2147483647 || rat2 < 600) {
+if(rat2!=-1)
+{
+alert("Wrong Valid Time!");
+$('ula_RAt2').focus();
+return false;
+}
+}
+if(rat1==-1){
+rat1=4294967295;
+}
+if(rat2==-1){
+rat2=4294967295;
+}
+if (rat2 < rat1) {
+alert("Valid Time should be larger than Preferred Time!");
+$('ula_RAt2').focus();
+return false;
+}
+}
+return true;
+}
+function lansaveChangesv6() {
+if (document.lanv6addr.ipaddr.value != "") {
+if (!isIpv6Address(document.lanv6addr.ipaddr.value)) {
+alert("Invalid address.");
+document.lanv6addr.ipaddr.focus();
+return false;
+}
+if (isLinkLocalIpv6Address(document.lanv6addr.ipaddr.value)) {
+alert("Please input global address!");
+document.lanv6addr.ipaddr.focus();
+return false;
+}
+if (document.lanv6addr.prefixlen.value == "") {
+alert("Prefixlen can't be empty!");
+document.lanv6addr.prefixlen.focus();
+return false;
+}
+var rat1 = getDigit(document.lanv6addr.prefixlen.value, 1);
+if (rat1 >= 128 || rat1 <= 0) {
+alert("Wrong Prefix Length!");
+document.lanv6addr.prefixlen.focus();
+return false;
+}
+}
+return true;
+}
+function radns_enable()
+{
+if(document.ra.RADNSEnable.checked == true)
+{
+document.getElementById('ramode_setting').style.display = "";
+radns_mode_selection();
+}
+else
+{
+document.getElementById('ramode_setting').style.display = "none";
+document.getElementById('ra_dns_setting').style.display = "none";
+}
+}
+function radns_mode_selection()
+{
+if(document.ra.ra_dns_mode.value == "0")
+{
+document.getElementById('ra_dns_setting').style.display = "none";
+}
+else
+{
+document.getElementById('ra_dns_setting').style.display = "";
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Setup";
+SideItem="Local Network";
+HelpItem="IPV6Set";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">LAN IPv6 Setting</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configurate ipv6 lan setting.
+User can set lan RA server work mode and lan DHCPv6
+server work mode.</p>
+</td>
+</tr>
+</table>
+<br >
+<form action="http://admin:admin@192.168.1.1/form2Lanv6.cgi" method=POST name="lanv6addr">
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">Lan Global Address Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">Global Address:</td>
+<td class="form_label_right" width="300"><INPUT TYPE="TEXT" NAME="ipaddr" SIZE="32" MAXLENGTH="64"
+
+ > / <input type="text" size="5" name="prefixlen"
+
+ ></td>
+<tr>
+</table>
+</td>
+</tr>
+</table>
+</br>
+<input type="submit" value="Apply Changes" onClick="return lansaveChangesv6()">
+<input type="hidden" value="Send" name="submit.htm?lan_ipv6.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2RAsetupv6.cgi" method=POST name="ra">
+<table id="body_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">RA Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">Enable:</td>
+<td class="form_label_right"><input type="checkbox" onclick="RATypeClick()" name="raEnable"
+checked
+ ></td>
+</tr>
+</table>
+<table id='raParameter' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">M Flag:</td>
+<td class="form_label_right"><input type="checkbox" name="MEnable"
+
+ >
+</td>
+</tr>
+<tr>
+<td class="form_label_left">O Flag:</td>
+<td class="form_label_right"><input type="checkbox" name="OEnable"
+checked
+ >
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Max Interval:</td>
+<td class="form_label_right">
+<input type="text" maxlength="39" name="radvdMaxInter" value=
+600
+ > Secs
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Min Interval:</td>
+<td class="form_label_right"><input type="text" maxlength="39" name="radvdMinInter" value=
+200
+ > Secs
+</td>
+</tr>
+</table>
+<table id='raMode' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">Prefix Mode:</td>
+<td class="form_label_right">
+<select onchange="ramodechange(this)" id="prefixmode" name="prefixmode" size="1">
+<OPTION VALUE="0" SELECTED> Auto</OPTION>
+<OPTION VALUE="1" > Manual</OPTION>
+
+ </select>
+</td>
+</tr>
+</table>
+<table id='raSetup' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr id='NamePrefix'>
+<td class="form_label_left">Prefix Address:</td>
+<td class="form_label_right">
+<input type="text" name="radvdPrefix" maxlength="39" value=
+
+ >
+</td>
+</tr>
+<tr id='NamePrefixLen'>
+<td class="form_label_left">Prefix Length:</td>
+<td class="form_label_right">
+<input type="text" name="RAPrefixLen" maxlength="2" value=
+64
+ >
+[16 - 64]
+</td>
+</tr>
+<tr id='NameRAt1'>
+<td class="form_label_left">Preferred Time:</td>
+<td class="form_label_right">
+<input type="text" name="RAt1" maxlength="10" value=
+-1
+ >
+[600 - 2147483647 S] or [-1 S]
+</td>
+</tr>
+<tr id='NameRAt2'>
+<td class="form_label_left">Valid Time:</td>
+<td class="form_label_right">
+<input type="text" name="RAt2" maxlength="10" value=
+-1
+ >
+[600 - 2147483647 S] or [-1 S]
+</td>
+</tr>
+</table>
+<br>
+<div id="ULA">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">ULA Enable:</td>
+<td class="form_label_right"><input type="checkbox" onclick="ULARATypeClick()" id="ULAEnable" name="ULAEnable"></td>
+</tr>
+</table>
+<table id='ulaSetup' class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr id='ula_NamePrefix'>
+<td class="form_label_left">Prefix Address:</td>
+<td class="form_label_right">
+<input type="text" name="ula_radvdPrefix" id="ula_radvdPrefix" maxlength="39">
+</td>
+</tr>
+<tr id='ula_NamePrefixLen'>
+<td class="form_label_left">Prefix Length:</td>
+<td class="form_label_right">
+<input type="text" name="ula_RAPrefixLen" id="ula_RAPrefixLen" maxlength="2">
+[16 - 64]
+</td>
+</tr>
+<tr id='ula_NameRAt1'>
+<td class="form_label_left">Preferred Time:</td>
+<td class="form_label_right">
+<input type="text" name="ula_RAt1" id="ula_RAt1" maxlength="10">
+[600 - 2147483647 S] or [-1 S]
+</td>
+</tr>
+<tr id='ula_NameRAt2'>
+<td class="form_label_left">Valid Time:</td>
+<td class="form_label_right">
+<input type="text" name="ula_RAt2" id="ula_RAt2" maxlength="10">
+[600 - 2147483647 S] or [-1 S]
+</td>
+</tr>
+</table>
+</div>
+<div id="RADNS">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">RA DNS Enable:</td>
+<td class="form_label_right"><input type="checkbox" onclick="radns_enable()" id="RADNSEnable" name="RADNSEnable"
+
+ >
+</td>
+</tr>
+</table>
+<table id='ra_setting' class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr id='ramode_setting'>
+<td class="form_label_left">RA DNS Mode:</td>
+<td class="form_label_right">
+<select name="ra_dns_mode" id="ra_dns_mode" size="1" onChange="radns_mode_selection()">
+<OPTION VALUE="0" SELECTED> Auto</OPTION>
+<OPTION VALUE="1" > Manual</OPTION>
+
+ </select>
+</td>
+</tr>
+<tr id="ra_dns_setting">
+<td class="form_label_left">DNS Servers:</td>
+<td class="form_label_right">
+<input type="text" name="ra_dns1" id="ra_dns1" size=22 maxlength=64 value=
+
+ >
+<input type="text" name="ra_dns2" id="ra_dns2" size=22 maxlength=64 value=
+
+ >
+<input type="text" name="ra_dns3" id="ra_dns3" size=22 maxlength=64 value=
+
+ >
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" onClick="return rasaveChangesv6()" value="Apply Changes">
+<input type="hidden" value="Send" name="submit.htm?lan_ipv6.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2Dhcp6d.cgi" method=POST name="dhcp6d">
+<table id="body_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">DHCPv6 Setting</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">DHCPv6 Mode:</td>
+<td class="form_label_right">
+<select onchange="dhcp6modechang()" id="dhcp6mode" name="dhcp6mode" size="1">
+<OPTION VALUE="0" > None</OPTION>
+<OPTION VALUE="1" > Manual Mode</OPTION>
+<OPTION VALUE="2" SELECTED> Auto Mode</OPTION>
+
+ </select>
+</td>
+</tr>
+</table>
+<table id='dhcp6server_block' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">Address Mode:</td>
+<td class="form_label_right">
+<select size="1" name="manualmode" id="manualmode"
+onChange="dhcp6manualmodechang()">
+<OPTION VALUE="0" SELECTED> Prefix Mode</OPTION>
+<OPTION VALUE="1" > Pool Mode</OPTION>
+
+ </select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left">IPv6 Address Pool:</td>
+<td class="form_label_right">
+<input type="text" name="dhcp6dPoolS" id="dhcp6dPoolS" value=
+
+ >
+<div id="dhcp6manual_block" style="display:inline;">
+-
+<input type="text" name="dhcp6dPoolE" id="dhcp6dPoolE" value=
+
+ >&nbsp;
+</div>
+</td>
+</tr>
+<tr id="Basic14">
+<td class="form_label_left">Prefix Length:</td>
+<td class="form_label_right">
+<input type="text" name="prefixlength" id="prefixlength" size=10 maxlength=3 value=
+64
+ >
+</td>
+</tr>
+<tr id="Basic12">
+<td class="form_label_left">Preferred Time:</td>
+<td class="form_label_right">
+<input type="text" name="pltime" id="pltime" size=10 maxlength=9 value=
+120
+ > Secs
+</td>
+</tr>
+<tr id="Basic13">
+<td class="form_label_left">Valid Time:</td>
+<td class="form_label_right">
+<input type="text" name="vltime" id="vltime" size=10 maxlength=9 value=
+120
+ > Secs
+</td>
+</tr>
+</table>
+<table id='dhcp6Autoserver_block' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">IPv6 Address Suffix Pool:</td>
+<td class="form_label_right">
+<input type="text" name="dhcp6dSuffixPoolS" id="dhcp6dSuffixPoolS" value=
+::1
+ >
+-
+<input type="text" name="dhcp6dSuffixPoolE" id="dhcp6dSuffixPoolE" value=
+::ffff
+ >&nbsp;
+(ex. :1:1:1:1 or ::1)
+</td>
+</tr>
+</table>
+<table id='lan_dhcp_dns' style="display:none" class="formarea" border="0" cellpadding="0" cellspacing="0" width="450">
+<tr>
+<td class="form_label_left">IPv6 DNS Mode:</td>
+<td class="form_label_right">
+<select size="1" name="dhcp_dns_mode" onChange="dns_mode_selection()">
+<OPTION VALUE="0" > Auto</OPTION>
+<OPTION VALUE="1" > Manual</OPTION>
+</select>
+</td>
+</tr>
+<tr id="lan_dhcp_dns_setting">
+<td class="form_label_left">DNS Servers:</td>
+<td class="form_label_right">
+<input type="text" name="dns1" id="dns1" size=22 maxlength=64 value=
+
+ >
+<input type="text" name="dns2" id="dns2" size=22 maxlength=64 value=
+
+ >
+<input type="text" name="dns3" id="dns3" size=22 maxlength=64 value=
+
+ >
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" name="save" onClick="return dhcpv6saveChanges()" value="Apply Changes">
+<INPUT TYPE="hidden" NAME="submit.htm?lan_ipv6.htm" VALUE="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+<script>
+document.dhcp6d.dhcp_dns_mode.value=0;
+ dhcp6modechang();
+RATypeClick();
+document.ra.ULAEnable.checked = false;
+
+ ULARATypeClick();
+radns_enable();
+radns_mode_selection();
+if (document.ra.RAPrefixLen.value == '0')
+document.ra.RAPrefixLen.value = '';
+if (document.ra.RAt1.value == '0')
+document.ra.RAt1.value = '';
+if (document.ra.RAt2.value == '0')
+document.ra.RAt2.value = '';
+</script>
+
+<!-- Mirrored from 192.168.1.1/lan_ipv6.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

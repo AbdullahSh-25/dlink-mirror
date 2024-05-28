@@ -1,0 +1,109 @@
+<html>
+<!-- Mirrored from 192.168.1.1/nat_ftpalg.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+ <SCRIPT>
+function ftpalgportCheckClick()
+{
+var dport;
+dport = getDigit(document.ftpalg.ftpdport.value, 1);
+if ( validateKey(document.ftpalg.ftpdport.value) == 0 ||
+(dport > 65535 || dport < 1) ) {
+alert("Invalid port value! You should set a value between 1-65535.");
+document.ftpalg.ftpdport.focus();
+return false;
+}
+return true;
+}
+</SCRIPT>
+</head>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="NAT";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>FTP ALG Configuration</td>
+</tr>
+<tr>
+<td class=content>
+<p>This page is used to configure FTP Server ALG and FTP Client ALG ports .
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2ftpalg.cgi" method=POST name="ftpalg">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Setting port</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">
+FTP ALG port
+</td>
+<td class='form_label_right'>
+<input type="text" name="ftpdport" size="15" maxlength="125">
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add Dest Ports" name="adddport" onClick="return ftpalgportCheckClick()">&nbsp;&nbsp;
+<input type="submit" value="Delete Selected DestPort" name="deldport">&nbsp;&nbsp;
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>FTP ALG ports Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row >
+<tr><font size=1><td align=center width="5%" bgcolor="#808080">Select</td>
+<td align=center width="35%" bgcolor="#808080">Ports</td></font></tr>
+<tr><td align=center width="5%" bgcolor="#C0C0C0"><input type="radio" name="select" value="s0"></td>
+<td align=center width="35%" bgcolor="#C0C0C0"><font size="2"><b>21</b></font></td></tr>
+<input type="hidden" value=1 name="dportlistnumber">
+ </tr>
+</table>
+</td>
+</tr>
+</table>
+<input type="hidden" NAME="submit.htm?nat_ftpalg.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/nat_ftpalg.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

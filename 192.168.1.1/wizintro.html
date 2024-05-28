@@ -1,0 +1,1627 @@
+<html>
+<!-- Mirrored from 192.168.1.1/wizintro.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:46 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Internet Setup Wizard</title>
+<script language="javascript" src="internetlist.js"></script>
+<script language="javascript">
+var ntp1='';
+
+var ntp2='';
+
+var ntpServers = new Array();
+ntpServers[0] = 'ntp1.dlink.com';
+ntpServers[1] = 'ntp.dlink.com.tw';
+var timeZones = new Array();
+timeZones[0] = '(GMT-12:00) International Date Line West';
+timeZones[1] = '(GMT-11:00) Midway Island, Samoa';
+timeZones[2] = '(GMT-10:00) Hawaii';
+timeZones[3] = '(GMT-09:00) Alaska';
+timeZones[4] = '(GMT-08:00) Pacific Time, Tijuana';
+timeZones[5] = '(GMT-07:00) Arizona, Mazatlan';
+timeZones[6] = '(GMT-07:00) Chihuahua, La Paz';
+timeZones[7] = '(GMT-07:00) Mountain Time';
+timeZones[8] = '(GMT-06:00) Central America';
+timeZones[9] = '(GMT-06:00) Central Time';
+timeZones[10] = '(GMT-06:00) Guadalajara, Mexico City, Monterrey';
+timeZones[11] = '(GMT-06:00) Saskatchewan';
+timeZones[12] = '(GMT-05:00) Bogota, Lima, Quito';
+timeZones[13] = '(GMT-05:00) Eastern Time';
+timeZones[14] = '(GMT-05:00) Indiana';
+timeZones[15] = '(GMT-04:00) Atlantic Time';
+timeZones[16] = '(GMT-04:00) Caracas, La Paz';
+timeZones[17] = '(GMT-04:00) Santiago';
+timeZones[18] = '(GMT-03:30) Newfoundland';
+timeZones[19] = '(GMT-03:00) Brasilia';
+timeZones[20] = '(GMT-03:00) Buenos Aires, Georgetown';
+timeZones[21] = '(GMT-03:00) Greenland';
+timeZones[22] = '(GMT-02:00) Mid-Atlantic';
+timeZones[23] = '(GMT-01:00) Azores';
+timeZones[24] = '(GMT-01:00) Cape Verde Is.';
+timeZones[25] = '(GMT-00:00) Casablanca, Monrovia';
+timeZones[26] = '(GMT-00:00) Greenwich Mean Time: Dublin, Edinburgh, Lisbon, London';
+timeZones[27] = '(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna';
+timeZones[28] = '(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague';
+timeZones[29] = '(GMT+01:00) Brussels, Copenhagen, Madrid, Paris';
+timeZones[30] = '(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb';
+timeZones[31] = '(GMT+01:00) West Central Africa';
+timeZones[32] = '(GMT+02:00) Athens, Istanbul, Minsk';
+timeZones[33] = '(GMT+02:00) Bucharest';
+timeZones[34] = '(GMT+02:00) Cairo';
+timeZones[35] = '(GMT+02:00) Harare, Pretoria';
+timeZones[36] = '(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius';
+timeZones[37] = '(GMT+02:00) Jerusalem';
+
+timeZones[38] = '(GMT+03:00) Baghdad';
+timeZones[39] = '(GMT+03:00) Kuwait, Riyadh';
+timeZones[40] = '(GMT+03:00) Moscow, St. Petersburg, Volgograd';
+timeZones[41] = '(GMT+03:00) Nairobi';
+timeZones[42] = '(GMT+03:30) Tehran';
+timeZones[43] = '(GMT+04:00) Abu Dhabi, Muscat';
+timeZones[44] = '(GMT+04:00) Baku, Tbilisi, Yerevan';
+timeZones[45] = '(GMT+04:30) Kabul';
+timeZones[46] = '(GMT+05:00) Ekaterinburg';
+timeZones[47] = '(GMT+05:00) Islamabad, Karachi, Tashkent';
+timeZones[48] = '(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi';
+timeZones[49] = '(GMT+05:45) Kathmandu';
+timeZones[50] = '(GMT+06:00) Almaty, Novosibirsk';
+timeZones[51] = '(GMT+06:00) Astana, Dhaka';
+timeZones[52] = '(GMT+06:00) Sri Jayawardenepura';
+timeZones[53] = '(GMT+06:30) Rangoon';
+timeZones[54] = '(GMT+07:00) Bangkok, Hanoi, Jakarta';
+timeZones[55] = '(GMT+07:00) Krasnoyarsk';
+timeZones[56] = '(GMT+08:00) Beijing, Chongquing, Hong Kong, Urumqi';
+timeZones[57] = '(GMT+08:00) Irkutsk, Ulaan Bataar';
+timeZones[58] = '(GMT+08:00) Kuala Lumpur, Singapore';
+timeZones[59] = '(GMT+08:00) Perth';
+timeZones[60] = '(GMT+08:00) Taipei';
+timeZones[61] = '(GMT+09:00) Osaka, Sapporo, Tokyo';
+timeZones[62] = '(GMT+09:00) Seoul';
+timeZones[63] = '(GMT+09:00) Yakutsk';
+timeZones[64] = '(GMT+09:30) Adelaide';
+timeZones[65] = '(GMT+09:30) Darwin';
+timeZones[66] = '(GMT+10:00) Brisbane';
+timeZones[67] = '(GMT+10:00) Canberra, Melbourne, Sydney';
+timeZones[68] = '(GMT+10:00) Guam, Port Moresby';
+timeZones[69] = '(GMT+10:00) Hobart';
+timeZones[70] = '(GMT+10:00) Vladivostok';
+timeZones[71] = '(GMT+11:00) Magadan';
+timeZones[72] = '(GMT+11:00) Solomon Is., New Caledonia';
+timeZones[73] = '(GMT+12:00) Auckland, Wellington';
+timeZones[74] = '(GMT+12:00) Fiji, Kamchatka, Marshall Is.';
+
+ var dayLights = new Array();
+dayLights[0] = '(LocalTIME +6 hour)';
+dayLights[1] = '(LocalTIME +5 hour)';
+dayLights[2] = '(LocalTIME +4 hour)';
+dayLights[3] = '(LocalTIME +3 hour)';
+dayLights[4] = '(LocalTIME +2 hour)';
+dayLights[5] = '(LocalTIME +1 hour)';
+dayLights[6] = 'LocalTIME';
+dayLights[7] = '(LocalTIME -1 hour)';
+dayLights[8] = '(LocalTIME -2 hour)';
+dayLights[9] = '(LocalTIME -3 hour)';
+dayLights[10] = '(LocalTIME -4 hour)';
+dayLights[11] = '(LocalTIME -5 hour)';
+dayLights[12] = '(LocalTIME -6 hour)';
+
+var addr = '0.0.0.0';
+var mask = '0.0.0.0';
+var gtwy = '';
+var dns1 = '&nbsp';
+if (dns1 == '&nbsp')
+dns1 = '';
+var wlssid = '';
+var wanphytype = 0;
+
+ function includeSpecialKey(str)
+{
+for (var i=0; i<str.length; i++) {
+if ((str.charAt(i)== ' ') || (str.charAt(i)== '%')
+|| (str.charAt(i)== '?')
+|| (str.charAt(i)== '&') || (str.charAt(i)== '"')) {
+return true;
+}
+}
+return false;
+}
+function checkPasswd()
+{
+if (document.getElementById("pwdNew").value.length <5)
+{
+alert('Password should be at least 5 characters. Please try it again.');
+document.getElementById("pwdNew").focus();
+return false;
+}
+if (document.getElementById("pwdNew").value != document.getElementById("pwdCfm").value) {
+document.getElementById("pwdNew").focus();
+alert("The passwords do not match.");
+return false;
+}
+var str = new String();
+str = document.getElementById("pwdNew").value;
+if (str.length > 16) {
+alert('Password should not be longer than 16 characters.');
+return false;
+}
+if (str.length == 0) {
+alert('Password should not be empty.');
+return false;
+}
+if (str.indexOf(' ') != -1) {
+alert('Password cannot contain a space.');
+return false;
+}
+if (encodeUrl(str, "New Password") == ERROR_ENCODE_URL) {
+alert('Password cannot contain irregular char.');
+return false;
+}
+if (includeSpecialKey(str)) {
+alert('Invalid password,Please try it again.');
+return false;
+}
+document.getElementById("sumpasswd").style.display="";
+document.getElementById("tdpasswd").innerHTML=document.getElementById("pwdNew").value;
+return true;
+}
+function checksntp()
+{
+document.getElementById("trntpstate").style.display="none";
+document.getElementById("trntpmode").style.display="none";
+document.getElementById("trntpone").style.display="none";
+document.getElementById("trntptwo").style.display="none";
+document.getElementById("trntpint").style.display="none";
+document.getElementById("trtimezone").style.display="none";
+document.getElementById("trdststat").style.display="none";
+var intetval = document.getElementById("ntpinterval");
+if (intetval.value=="") {
+alert("Interval cannot be empty!");
+intetval.value = intetval.defaultValue;
+return false;
+}
+if (validateKey(intetval.value) == 0) {
+alert("Invalid intetval value. It should be the decimal number (0-9).");
+intetval.value = intetval.defaultValue;
+return false;
+}
+if (!checkDigitRange(intetval.value, 1, 1, 999)) {
+alert("Invalid intetval . It should be 1-999.");
+intetval.value = intetval.defaultValue;
+return false;
+}
+if(document.getElementById("ntpMode").selectedIndex==0) {
+document.getElementById("tdtimestate").innerHTML="Copy from Computer";
+return true;
+}else {
+document.getElementById("tdtimestate").innerHTML="Copy from NTP Server";
+document.getElementById("trntpstate").style.display="";
+}
+if (document.getElementById("ntpstate1").checked)
+{
+if (document.getElementById("ntp1Server").selectedIndex != 2)
+document.getElementById("ntpserver").value=ntp1;
+if (document.getElementById("ntpserver").value == "")
+document.getElementById("ntpserver").value=ntpServers[0];
+if (!checkSpecialChar(document.getElementById("ntpserver").value, 1)) {
+var obj = document.getElementById("ntpMode");
+if (!obj || obj.selectedIndex == 1) {
+alert("Invalid charaters or empty for First time server!");
+return false;
+}
+}
+if (document.getElementById("ntp2Server").selectedIndex == 1 || document.getElementById("ntp2Server").selectedIndex == 2)
+document.getElementById("ntpserver2").value=ntp2;
+if (document.getElementById("ntpserver2").value == "")
+document.getElementById("ntpserver2").value='';
+if (!checkSpecialChar(document.getElementById("ntpserver2").value, 1) && document.getElementById("ntpserver2").value !="")
+{
+var obj = document.getElementById("ntpMode");
+if (!obj || obj.selectedIndex == 1) {
+alert("Invalid charaters or empty for Second time server!");
+return false;
+}
+}
+}
+if (document.getElementById("ntpstate0").checked) {
+document.getElementById("tdntpstate").innerHTML="Disable";
+return true;
+}
+document.getElementById("tdntpstate").innerHTML="Enable";
+document.getElementById("tdntpone").innerHTML=document.getElementById("ntpserver").value;
+document.getElementById("tdntptwo").innerHTML=document.getElementById("ntpserver2").value;
+if (document.getElementById("ntpserver2").value == "")
+document.getElementById("tdntptwo").innerHTML="None";
+document.getElementById("tdntpint").innerHTML=document.getElementById("ntpinterval").value;
+document.getElementById("tdtimezone").innerHTML=timeZones[document.getElementById("ntptimezone").selectedIndex];
+document.getElementById("ntptimezone_index").value=document.getElementById("ntptimezone").selectedIndex;
+if (document.getElementById("ntpMode").selectedIndex == 1) {
+document.getElementById("trntpone").style.display="";
+document.getElementById("trntptwo").style.display="";
+document.getElementById("trntpint").style.display="";
+}
+else {
+document.getElementById("tdntpmode").innerHTML="Copy Computer time";
+document.getElementById("trntpone").style.display="none";
+document.getElementById("trntptwo").style.display="none";
+document.getElementById("trntpint").style.display="none";
+}
+document.getElementById("trtimezone").style.display="";
+document.getElementById("trdststat").style.display="";
+document.getElementById("tddststat").innerHTML=dayLights[document.getElementById("daylightsaving").selectedIndex];
+return true;
+}
+function writeNtpList(needed) {
+if (!needed)
+document.writeln("<option value=None>None</option>");
+for (var i = 0; i < ntpServers.length; i ++)
+document.writeln("<option value=" + ntpServers[i] + ">" + ntpServers[i] + "</option>");
+document.writeln("<option value=Other>Other</option>");
+}
+function updateNtpServer()
+{
+document.getElementById("ntpserver").value=ntp1;
+document.getElementById("ntpserver2").value=ntp2;
+for (i = 0; i < ntpServers.length; i ++) {
+document.getElementById("ntpserver").style.display="none";
+if (ntp1 == ntpServers[i]) {
+document.getElementById("ntp1Server").selectedIndex = i;
+break;
+}
+else if (ntp1 == '') {
+document.getElementById("ntp1Server").selectedIndex = 0;
+break;
+}
+else {
+document.getElementById("ntp1Server").selectedIndex = ntpServers.length;
+document.getElementById("ntpserver").style.display="";
+}
+}
+for (i = 0; i < ntpServers.length; i ++) {
+document.getElementById("ntpserver2").style.display="none";
+if (ntp2 == ntpServers[i]) {
+document.getElementById("ntp2Server").selectedIndex = i + 1;
+break;
+}
+else if (ntp2 == '') {
+document.getElementById("ntp2Server").selectedIndex = 0;
+break;
+}
+else {
+document.getElementById("ntp2Server").selectedIndex = ntpServers.length + 1;
+document.getElementById("ntpserver2").style.display="";
+}
+}
+}
+function updateNtpMode()
+{
+if(document.getElementById("ntpMode").selectedIndex == 0 )
+document.getElementById("ntpConfig").style.display="none";
+else if(document.getElementById("ntpMode").selectedIndex == 1)
+document.getElementById("ntpConfig").style.display="";
+if (document.getElementById("ntpstate1").checked == true)
+updateNtpServer();
+else if(document.getElementById("ntpstate0").checked == true)
+disableNtpClicked();
+}
+function changeNtpServer(serverno)
+{
+if (serverno == '1')
+{
+if(document.getElementById("ntp1Server").selectedIndex != ntpServers.length)
+{
+ntp1 = document.getElementById("ntp1Server").value;
+document.getElementById("ntpserver").style.display="none";
+}
+else if (document.getElementById("ntp1Server").selectedIndex == ntpServers.length)
+{
+document.getElementById("ntpserver").value = '';
+document.getElementById("ntpserver").style.display="";
+}
+}
+else if (serverno == '2')
+{
+if (document.getElementById("ntp2Server").selectedIndex == 0)
+{
+document.getElementById("ntpserver2").value = '';
+document.getElementById("ntpserver2").style.display="none";
+}
+else if(document.getElementById("ntp2Server").selectedIndex == ntpServers.length + 1)
+{
+document.getElementById("ntpserver2").value = '';
+document.getElementById("ntpserver2").style.display="";
+}
+else
+{
+ntp2 = document.getElementById("ntp2Server").value;
+document.getElementById("ntpserver2").style.display="none";
+}
+}
+}
+function checkisp()
+{
+document.getElementById("trusername").style.display="none";
+document.getElementById("trpassword").style.display="none";
+document.getElementById("tripaddress").style.display="none";
+document.getElementById("trsubnet").style.display="none";
+document.getElementById("trgw").style.display="none";
+document.getElementById("trpridns").style.display="none";
+if(wanphytype == 0
+)
+{
+{
+if (!isInValidRange(document.getElementById("vpi").value,0,255,"VPI"))
+return false;
+if (!isInValidRange(document.getElementById("vci").value,32,65535,"VCI"))
+return false;
+document.getElementById("tdvpivci").innerHTML=document.getElementById("vpi").value+"/"+document.getElementById("vci").value;
+}
+if (document.getElementById("contype").selectedIndex == 0) {
+alert('Please select a "Connection Type".');
+return false;
+}
+document.getElementById("tdencapmode").innerHTML=document.getElementById("contype").value;
+}
+if (document.getElementById("prtcltype").selectedIndex == 0) {
+alert('Please select a "Protocol".');
+return false;
+}
+document.getElementById("tdprotocol").innerHTML=document.getElementById("prtcltype").value;
+if ((ispPrtcl == "PPPoA") || (ispPrtcl == "PPPoE")) {
+if(document.getElementById("username").value == "")
+{
+alert("username can't be empty!");
+return false;
+}
+if ((document.getElementById("username").value != "") && (encodeUrl(document.getElementById("username").value,"Username") == ERROR_ENCODE_URL)) {
+return false;
+}
+if ((document.getElementById("password").value != "") && (encodeUrl(document.getElementById("password").value,"Password")==ERROR_ENCODE_URL)) {
+return false;
+}
+if (document.getElementById("conPass").value != document.getElementById("password").value) {
+alert("The passwords do not match.");
+return false;
+}
+document.getElementById("trusername").style.display="";
+document.getElementById("trpassword").style.display="";
+document.getElementById("tdusername").innerHTML=document.getElementById("username").value;
+document.getElementById("tdpassword").innerHTML=document.getElementById("password").value;
+}
+else if (ispPrtcl == "Static IP") {
+if (isValidIpAddress(document.getElementById("statdns").value,"Primary DNS server") == false)
+return false;
+if (isValidIpAddress(document.getElementById("statgw").value,"Default Gateway") == false)
+return false;
+if (isValidIpAddress(document.getElementById("statip").value,"WAN IP address") == false)
+return false;
+if (isValidSubnetMask(document.getElementById("statmask").value) == false && document.getElementById("statmask").value != '255.255.255.255') {
+alert('WAN subnet mask "' + document.getElementById("statmask").value + '" is invalid.');
+return false;
+}
+var reIP, reSubnetMask;
+reIP = reencodeIP(document.getElementById("statip").value);
+reSubnetMask = reencodeIP(document.getElementById("statmask").value);
+if (document.getElementById("statip").value != "" && document.getElementById("statmask").value != "") {
+if (!DoValidateNetworkIP(reIP, reSubnetMask))
+return false;
+if (!DoValidateIpRange(reIP,reSubnetMask))
+return false;
+}
+document.getElementById("tripaddress").style.display="";
+document.getElementById("trsubnet").style.display="";
+document.getElementById("trgw").style.display="";
+document.getElementById("trpridns").style.display="";
+document.getElementById("tdipaddress").innerHTML=document.getElementById("statip").value;
+document.getElementById("tdsubnet").innerHTML=document.getElementById("statmask").value;
+document.getElementById("tdgw").innerHTML=document.getElementById("statgw").value;
+document.getElementById("tdpridns").innerHTML=document.getElementById("statdns").value;
+}
+else if (ispPrtcl == "Dynamic IP") {
+}
+return true;
+}
+function onChangeCountry()
+{
+changeISP(document.getElementById("country"), document.getElementById("isplist"));
+onChangeISP();
+}
+function onChangeISP()
+{
+var status = false;
+document.getElementById("cmdNxt").disabled = false;
+if (document.getElementById("isplist").selectedIndex == 0) {
+status = true;
+document.getElementById("cmdNxt").disabled = true;
+changeBlockState('id_wanopt', DISABLED);
+}
+else
+changeBlockState('id_wanopt', ENABLED);
+getISPDetails(document.getElementById("isplist"));
+if (ispPrtcl == "PPPoE") {
+document.getElementById("prtcltype").selectedIndex = 1;
+} else if (ispPrtcl == "PPPoA") {
+document.getElementById("prtcltype").selectedIndex = 2;
+} else if (ispPrtcl == "Dynamic IP") {
+document.getElementById("prtcltype").selectedIndex = 3;
+} else if (ispPrtcl == "Static IP") {
+document.getElementById("prtcltype").selectedIndex = 4;
+} else if (ispPrtcl == "Bridge") {
+document.getElementById("prtcltype").selectedIndex = 5;
+} else
+document.getElementById("prtcltype").selectedIndex = 0;
+if (ispContype == "VC-Mux") {
+document.getElementById("contype").selectedIndex = 1;
+} else if (ispContype == "LLC") {
+document.getElementById("contype").selectedIndex = 2;
+} else
+document.getElementById("contype").selectedIndex = 0;
+onChangeProtocol();
+document.getElementById("vpi").value = ispVPI;
+document.getElementById("vci").value = ispVCI;
+if ((document.getElementById("isplist").selectedIndex == (document.getElementById("isplist").length - 1)) || (document.getElementById("isplist").selectedIndex == 0)) {
+document.getElementById("vpi").value = "(Enter a number)";
+document.getElementById("vci").value = "(Enter a number)";
+}
+}
+function onChangeProtocol()
+{
+ispPrtcl = document.getElementById("prtcltype").value;
+document.getElementById("staticInfo").style.display = "none";
+document.getElementById("pppoeInfo").style.display = "none";
+if (ispPrtcl == "PPPoA") {
+document.getElementById("lblProtName").innerHTML = "PPPoA";
+document.getElementById("pppoeInfo").style.display = "block";
+} else if (ispPrtcl == "PPPoE") {
+document.getElementById("lblProtName").innerHTML = "PPPoE";
+document.getElementById("pppoeInfo").style.display = "block";
+} else if (ispPrtcl == "Static IP") {
+document.getElementById("staticInfo").style.display = "block";
+}
+}
+function isValidASCIIKey(str)
+{
+var patrn=/^[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~\x20]*[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}$/;   
+if (!patrn.exec(str)) {
+alert("Invalid characters!please check your input! ");
+return 0 ;
+}
+if (str.indexOf("  ",0) != -1) {
+alert("There should not be more than one consecutive space in the key!");
+return 0;
+}
+return 1;
+}
+function isValidHexKey(str)
+{
+for (var i=0; i<str.length; i++)
+{
+if ((str.charAt(i) >= '0' && str.charAt(i) <= '9') ||
+(str.charAt(i) >= 'a' && str.charAt(i) <= 'f') ||
+(str.charAt(i) >= 'A' && str.charAt(i) <= 'F') )
+continue;
+alert("Invalid key value. It should be in hex number (0-9 or a-f).");
+return 0;
+}
+return 1;
+}
+function isValidWPAPskKey(val) {
+var ret = false;
+var len = val.length;
+var maxSize = 64;
+var minSize = 8;
+if (len >= minSize && len < maxSize)
+ret = true;
+else if (len == maxSize) {
+for (i = 0; i < maxSize; i++)
+if (i == maxSize)
+ret = true;
+}
+else
+ret = false;
+var patrn=/^[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~\x20]*[a-zA-Z0-9!#$%&\'()*+,-./:;=?@[\\^_`{|}~]{1}$/;   
+if (!patrn.exec(val)) {
+alert("Invalid characters!please check your input! ");
+return false;
+}
+if (val.indexOf("  ",0) != -1) {
+alert("There should not be more than one consecutive space in the key!");
+return false;
+}
+return ret;
+}
+function checkwl()
+{
+document.getElementById("trwlssid").style.display="none";
+document.getElementById("trwlvisibility").style.display="none";
+document.getElementById("trwlEncryption").style.display="none";
+document.getElementById("trwlkey").style.display="none";
+if (!document.getElementById("wlEnable").checked) {
+document.getElementById("tdwlstate").innerHTML='Disabled';
+return true;
+}
+document.getElementById("tdwlstate").innerHTML='Enabled';
+var ssidvar = document.getElementById("SSID").value
+if (ssidvar == '') {
+alert('Wireless Network Name (SSID) should not be empty.');
+return false;
+}
+if (ssidvar.charAt(0) == ' ') {
+alert('Wireless Network Name (SSID) should not start with a <space>.');
+return false;
+}
+if(!checkSpecialCharExcludeSpace(ssidvar, 1)){
+alert('Invalid SSID.');
+return false;
+}
+if (ssidvar.length > 32) {
+alert('Wireless Network Name (SSID) "' + ssidvar + '" should not be longer than 32 characters.');
+return false;
+}
+document.getElementById("trwlssid").style.display="";
+document.getElementById("tdwlssid").innerHTML=ssidvar;
+document.getElementById("trwlvisibility").style.display="";
+if (document.getElementById("wlVisiblility").checked)
+document.getElementById("tdwlvisibility").innerHTML='Visible';
+else
+document.getElementById("tdwlvisibility").innerHTML='Invisible';
+document.getElementById("trwlEncryption").style.display="";
+if (document.getElementById("encryptType0").checked) {
+document.getElementById("tdwlEncryption").innerHTML='None';
+}
+else if (document.getElementById("encryptType1").checked) {
+if (document.getElementById("encryptkey").value == '') {
+alert('Key cannot have an empty value.');
+document.setupWizard.encryptkey.focus();
+return false;
+}
+var wepkeystr = document.getElementById("encryptkey").value;
+if(wepkeystr.length ==5 || wepkeystr.length == 13)
+{
+if(!isValidASCIIKey(wepkeystr))
+return false;
+}
+else if(wepkeystr.length ==10 || wepkeystr.length == 26)
+{
+if(!isValidHexKey(wepkeystr))
+return false;
+}
+else
+{
+alert('Key should be 5/13 ASCII characters or 10/26 hex digits.');
+return false;
+}
+document.getElementById("trwlkey").style.display="";
+document.getElementById("tdwlEncryption").innerHTML='WEP';
+document.getElementById("tdkeyname").innerHTML='WEP Key :';
+document.getElementById("tdkeyval").innerHTML=document.getElementById("encryptkey").value;
+}
+else if ((document.getElementById("encryptType2").checked)||(document.getElementById("encryptType3").checked)) {
+if (isValidWPAPskKey(document.getElementById("encryptkey").value) == false) {
+alert('Key should be between 8 and 63 ASCII characters.');
+return false;
+}
+document.getElementById("trwlkey").style.display="";
+document.getElementById("tdwlEncryption").innerHTML='WPA-PSK/TKIP (also known as WPA Personal)';
+if (document.getElementById("encryptType3").checked)
+document.getElementById("tdwlEncryption").innerHTML='WPA2-PSK/AES (also known as WPA2 Personal)';
+document.getElementById("tdkeyname").innerHTML='Pre-Shared Key :';
+document.getElementById("tdkeyval").innerHTML=document.getElementById("encryptkey").value;
+}
+return true;
+}
+function doLabelChange()
+{
+document.getElementById("encryptkey").disabled = false;
+if (document.getElementById("encryptType1").checked == true) {
+document.getElementById("lblkey").innerHTML="WEP";
+document.getElementById("lbllength").innerHTML="(5 or 13 characters, such as a~z, A~Z, or 0~9, or 10 or 26 hex digits, such as 0~9, a~f, or A~F, i.e. <b>@1xyz</b> or <b>@11xyzABC1234</b> or <b>A12B34C56D</b> or <b>A12B34C56D78E90Fabcdef1250</b>)";
+document.getElementById("keySecInfo").style.display = 'block';
+document.getElementById("encryptkey").value = '@11xyzABC1234';
+} else if (document.getElementById("encryptType2").checked == true) {
+document.getElementById("lblkey").innerHTML="WPA Pre-Shared";
+document.getElementById("lbllength").innerHTML="(8-63 characters, such as a~z, A~Z, or 0~9, i.e. <b>'%Fortress123&'</b>)";
+document.getElementById("keySecInfo").style.display = 'block';
+document.getElementById("encryptkey").value = '%Fortress123&';
+} else if (document.getElementById("encryptType3").checked == true) {
+document.getElementById("lblkey").innerHTML="WPA2 Pre-Shared";
+document.getElementById("lbllength").innerHTML="(8-63 characters, such as a~z, A~Z, or 0~9, i.e. <b>'%Fortress123&'</b>)";
+document.getElementById("keySecInfo").style.display = 'block';
+document.getElementById("encryptkey").value = '%Fortress123&';
+} else {
+document.getElementById("lblkey").innerHTML="";
+document.getElementById("lbllength").innerHTML="";
+document.getElementById("encryptkey").disabled = true;
+document.getElementById("keySecInfo").style.display = 'none';
+}
+}
+function doChangeWlInfo(value) {
+switch (value) {
+case 0:
+document.getElementById("wlLevelInfo").innerHTML = '&nbsp;<b>Security Mode:</b> None<br>&nbsp;Select this option if you do not want to activate any security features.';
+break;
+case 1:
+document.getElementById("wlLevelInfo").innerHTML = '&nbsp;<b>Security Mode:</b> WEP<br>&nbsp;Select this option if your wireless adapters only support WEP but do NOT support WPA.';
+break;
+case 2:
+document.getElementById("wlLevelInfo").innerHTML = '&nbsp;<b>Security Mode:</b> WPA-PSK<br>&nbsp;Select this option if your wireless adapters support WPA-PSK.';
+break;
+case 3:
+document.getElementById("wlLevelInfo").innerHTML = '&nbsp;<b>Security Mode:</b> WPA2-PSK<br>&nbsp;Select this option if your wireless adapters support WPA2-PSK.';
+break;
+}
+doLabelChange();
+}
+function dowlEnable()
+{
+if (document.getElementById("wlEnable").checked != true) {
+changeBlockState('wlSSISInfo',DISABLED);
+changeBlockState('wlVisibleInfo',DISABLED);
+changeBlockState('wlSecurityInfo',DISABLED);
+changeBlockState('keySecInfo',DISABLED);
+}
+else {
+changeBlockState('wlSSISInfo',ENABLED);
+changeBlockState('wlVisibleInfo',ENABLED);
+changeBlockState('wlSecurityInfo',ENABLED);
+changeBlockState('keySecInfo',ENABLED);
+}
+}
+function frmLoad() {
+document.getElementById("div_intro").style.display = "";
+document.getElementById("div_wantype").style.display = "none";
+document.getElementById("div_passwd").style.display = "none";
+document.getElementById("div_sntp").style.display = "none";
+document.getElementById("div_isp").style.display = "none";
+document.getElementById("div_wl").style.display = "none";
+document.getElementById("div_sum").style.display = "none";
+document.getElementById("statip").value = addr;
+document.getElementById("statmask").value = mask;
+document.getElementById("statgw").value = gtwy;
+document.getElementById("statdns").value = dns1;
+createCountry(document.getElementById("country"));
+onChangeCountry();
+document.getElementById("encryptType3").checked = true;
+doChangeWlInfo(2);
+document.getElementById("wlEnable").checked = true;
+document.getElementById("wlVisiblility").checked = true;
+updateNtpMode();
+}
+function vcSetEnable()
+{
+if(wanphytype==0
+)
+{
+document.getElementById("id_country").style.display="";
+document.getElementById("id_contype").style.display="";
+document.getElementById("id_vpi").style.display="";
+document.getElementById("id_vci").style.display="";
+}
+else
+{
+changeBlockState('id_wanopt', ENABLED);
+document.getElementById("cmdNxt").disabled = false;
+}
+}
+var curDiv = "div_intro";
+function btnBack()
+{
+switch(curDiv) {
+case "div_wantype":
+curDiv = "div_intro";
+document.getElementById("div_intro").style.display = "";
+document.getElementById("div_wantype").style.display = "none";
+break;
+case "div_passwd":
+curDiv = "div_wantype";
+document.getElementById("div_wantype").style.display = "";
+document.getElementById("div_passwd").style.display = "none";
+break;
+case "div_sntp":
+curDiv = "div_passwd";
+document.getElementById("div_passwd").style.display = "";
+document.getElementById("div_sntp").style.display = "none";
+break;
+case "div_isp":
+curDiv = "div_sntp";
+document.getElementById("div_sntp").style.display = "";
+document.getElementById("div_isp").style.display = "none";
+break;
+case "div_wl":
+curDiv = "div_isp";
+document.getElementById("div_isp").style.display = "";
+document.getElementById("div_wl").style.display = "none";
+vcSetEnable();
+break;
+case "div_sum":
+curDiv = "div_wl";
+document.getElementById("div_wl").style.display = "";
+document.getElementById("div_sum").style.display = "none";
+break;
+}
+}
+function btnSkip()
+{
+if (curDiv == "div_passwd") {
+curDiv = "div_sntp";
+document.getElementById("pwdNew").value="";
+document.getElementById("pwdCfm").value="";
+document.getElementById("div_passwd").style.display = "none";
+document.getElementById("div_sntp").style.display = "";
+document.getElementById("sumpasswd").style.display = "none";
+}
+}
+function btnCancel()
+{
+var code = 'location="internet.htm"';
+var response = confirm('Are you sure you want to quit Setup Wizard and discard settings?');
+if (response == 1) {
+eval(code);
+}
+}
+function ChechWanType()
+{
+if(wanphytype==0)
+{
+if(document.getElementById('rdoadsl').checked)
+{
+btnNext();
+}
+else if(document.getElementById('ethadsl').checked)
+{
+if (!confirm('WAN physical type will be changed and system will be reboot to effect automatically, are you sure to switch?'))
+return false;
+else
+document.getElementById("actionadsl").submit();
+}
+}
+else if(wanphytype==1)
+{
+if(document.getElementById('rdoadsl').checked)
+{
+if (!confirm('WAN physical type will be changed and system will be reboot to effect automatically, are you sure to switch?'))
+return false;
+else
+document.getElementById("actionadsl").submit();
+}
+else if(document.getElementById('ethadsl').checked)
+{
+btnNext();
+}
+}
+}
+function btnNext()
+{
+switch(curDiv) {
+case "div_intro":
+curDiv = "div_wantype";
+document.getElementById("div_intro").style.display = "none";
+document.getElementById("div_wantype").style.display = "";
+break;
+case "div_wantype":
+curDiv = "div_passwd";
+document.getElementById("div_wantype").style.display = "none";
+document.getElementById("div_passwd").style.display = "";
+break;
+case "div_passwd":
+if (!checkPasswd())
+return;
+curDiv = "div_sntp";
+document.getElementById("div_passwd").style.display = "none";
+document.getElementById("div_sntp").style.display = "";
+break;
+case "div_sntp":
+if (!checksntp())
+return;
+curDiv = "div_isp";
+document.getElementById("div_sntp").style.display = "none";
+document.getElementById("div_isp").style.display = "";
+vcSetEnable();
+break;
+case "div_isp":
+if (!checkisp())
+return;
+curDiv = "div_wl";
+document.getElementById("div_isp").style.display = "none";
+document.getElementById("div_wl").style.display = "";
+break;
+case "div_wl":
+if (!checkwl())
+return;
+curDiv = "div_sum";
+document.getElementById("div_wl").style.display = "none";
+document.getElementById("div_sum").style.display = "";
+break;
+}
+}
+function disableNtpClicked()
+{
+document.getElementById("ntp1Server").disabled=true;
+document.getElementById("ntp2Server").disabled=true;
+document.getElementById("ntpinterval").disabled=true;
+document.getElementById("ntpserver").style.display="none";
+document.getElementById("ntpserver2").style.display="none";
+}
+function enableNtpClicked()
+{
+document.getElementById("ntp1Server").disabled=false;
+document.getElementById("ntp2Server").disabled=false;
+document.getElementById("ntpinterval").disabled=false;
+updateNtpServer();
+}
+function ntpConfigShow(isShow)
+{
+if(isShow == 0)
+document.getElementById("ntpConfig").style.display="none";
+else if(isShow == 1)
+document.getElementById("ntpConfig").style.display="";
+}
+</script>
+</head>
+<body OnLoad="frmLoad()">
+<blockquote>
+<div id=hidediv style="display:none">
+<IFRAME id=frmhide FRAMEBORDER=0 SCROLLING=no SRC="#"></IFRAME>
+</div>
+<script type='text/javascript'>
+wizardHead();
+</script>
+<div id=div_intro>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Welcome to D-Link Setup Wizard
+</td>
+</tr>
+<tr>
+<td class=content>
+<P>This wizard will guide you through a step-by-step process to configure your new D-Link
+router and connect to the Internet.</P>
+<div align=center ><UL>
+<table cellspacing=5 >
+<tr><td>
+<LI><b>Step 1&nbsp;:</b></td><td>&nbsp;&nbsp;Interface Type
+</td></tr>
+<tr><td>
+<LI><b>Step 2&nbsp;:</b></td><td>&nbsp;&nbsp;Change Device Login Password
+</td></tr>
+<tr><td>
+<LI><b>Step 3&nbsp;:</b></td><td>&nbsp;&nbsp;Set Time and Date
+</td></tr>
+<tr><td>
+<LI><b>Step 4&nbsp;:</b></td><td>&nbsp;&nbsp;Setup Internet Connection
+</td></tr>
+<tr><td>
+<LI><b>Step 5&nbsp;:</b></td><td>&nbsp;&nbsp;Configure Wireless Network
+</td></tr>
+<tr><td>
+<LI><b>Step 6&nbsp;:</b></td><td>&nbsp;&nbsp;Completed and Apply
+</td></tr>
+</table>
+</UL></div>
+<p align=center>
+<input type=button value='Next' onclick='btnNext()'>
+<input type=button value='Cancel' onclick='btnCancel()'>
+</p>
+</td>
+</tr>
+</table>
+</div>
+<div id=div_wantype>
+<form action="http://admin:admin@192.168.1.1/form2WanPhy.cgi" method=POST name="actionadsl" id="actionadsl">
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Step 1: Select Wan Interface Type <font color="#f1f1f1">
+&#8594; 2 &#8594; 3
+&#8594; 4
+&#8594; 5
+&#8594; 6
+</font>
+</td>
+</tr>
+<tr>
+<td class=content>
+<P>Please select which WAN interface to use: DSL or Ethernet WAN.</P>
+<p>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Select Interface Type: </td>
+<td class="form_label_right">
+<input type="radio" name="phyType" value="0" id="rdoadsl"
+checked
+ >DSL WAN
+<input type="radio" name="phyType" value="1" id="ethadsl"
+
+ >Ethernet WAN
+</td>
+</tr>
+</table>
+</p>
+<p><font color="red">Note: The router will restart if you change from DSL to ETH or ETH to DSL.
+Once done restarting, you can just continue where you left of.</font></p>
+<p align=center>
+<input type=button value='Next' onclick='return ChechWanType()'>
+<input type=button value='Cancel' onclick='btnCancel()'>
+</p>
+</td>
+</tr>
+<INPUT TYPE="hidden" NAME="submit.htm?wizintro.htm" VALUE="Send">
+</table>
+</form>
+</div>
+<form action="http://admin:admin@192.168.1.1/form2Wizard.cgi" method=POST name="setupWizard">
+<div id=div_passwd>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<font color="#f1f1f1">1 &#8594;</font>
+Step 2: Change Device Login Password <font color="#f1f1f1">
+&#8594; 3 &#8594; 4
+&#8594; 5
+&#8594; 6
+</font>
+</td>
+</tr>
+<tr>
+<td class=content>
+<P>To help secure your network, D-Link recommends that you should choose a new password. If you do not wish to choose a new password now, just click "Skip" to continue. Click "Next" to proceed to next step.</P>
+<p>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 align=center>
+<TR>
+<TD class=form_label_nowidth width=52%><LABEL for=radio_control>Current Password&nbsp;:</LABEL></TD>
+<TD><INPUT id=pwdOld name=pwdOld type=password maxlength="16"></TD>
+</TR>
+<TR>
+<TD class=form_label_nowidth width=52%><LABEL for=radio_control>New Password&nbsp;:</LABEL></TD>
+<TD><INPUT id=pwdNew name="pwdNew" type=password maxlength="16"></TD>
+</TR>
+<TR>
+<TD class=form_label_nowidth width=52%><LABEL for=radio_control>Confirm Password&nbsp;:</LABEL></TD>
+<TD><INPUT id=pwdCfm name="confirm" type=password maxlength="16"></TD>
+</TR>
+</TABLE>
+</p>
+<p align=center>
+<input type=button value='Back' onclick='btnBack()'>
+<input type=button value='Next' onclick='btnNext()'>
+<input type=button value='Skip' onclick='btnSkip()'>
+<input type=button value='Cancel' onclick='btnCancel()'>
+</p>
+</td>
+</tr>
+</table>
+</div>
+<div id=div_sntp>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">
+<font color="#f1f1f1">1 &#8594; 2 &#8594;</font>
+Step 3: Set Time and Date <font color="#f1f1f1">
+&#8594; 4
+&#8594; 5
+&#8594; 6
+</font>
+</td>
+</tr>
+<tr>
+<td class="content">
+<p>The Time Configuration option allows you to configure, update, and maintain the correct time on the internal system clock. From this section you can set the time zone that you are in and set the NTP (Network Time Protocol) Server. Daylight Saving can also be configured to automatically adjust the time when needed.</p>
+</td>
+</tr>
+</table>
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">System Time</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="650">
+<tr>
+<td class="form_label_left">System time:</td>
+<td class="form_label_right">
+Wed Jan 11 4:48:24 2012
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Time Zone:</td>
+<td class="form_label_right">
+
+<SELECT ID="ntptimezone" NAME="ntptimezone" WIDTH=80 >
+<OPTION VALUE="-720" SELECTED> (GMT-12:00) International Date Line West</OPTION>
+<OPTION VALUE="-660" > (GMT-11:00) Midway Island, Samoa</OPTION>
+<OPTION VALUE="-600" > (GMT-10:00) Hawaii</OPTION>
+<OPTION VALUE="-540" > (GMT-09:00) Alaska</OPTION>
+<OPTION VALUE="-480" > (GMT-08:00) Pacific Time, Tijuana</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Arizona, Mazatlan</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Chihuahua, La Paz</OPTION>
+<OPTION VALUE="-420" > (GMT-07:00) Mountain Time</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Central America</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Central Time</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Guadalajara, Mexico City, Monterrey</OPTION>
+<OPTION VALUE="-360" > (GMT-06:00) Saskatchewan</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Bogota, Lima, Quito</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Eastern Time</OPTION>
+<OPTION VALUE="-300" > (GMT-05:00) Indiana</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Atlantic Time</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Caracas, La Paz</OPTION>
+<OPTION VALUE="-240" > (GMT-04:00) Santiago</OPTION>
+<OPTION VALUE="-210" > (GMT-03:30) Newfoundland</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Brasilia</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Buenos Aires, Georgetown</OPTION>
+<OPTION VALUE="-180" > (GMT-03:00) Greenland</OPTION>
+<OPTION VALUE="-120" > (GMT-02:00) Mid-Atlantic</OPTION>
+<OPTION VALUE="-60" > (GMT-01:00) Azores</OPTION>
+<OPTION VALUE="-60" > (GMT-01:00) Cape Verde Is.</OPTION>
+<OPTION VALUE="0" > (GMT-00:00) Casablanca, Monrovia</OPTION>
+<OPTION VALUE="0" > (GMT-00:00) Greenwich Mean Time: Dublin, Edinburgh, Lisbon, London</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Brussels, Copenhagen, Madrid, Paris</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</OPTION>
+<OPTION VALUE="60" > (GMT+01:00) West Central Africa</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Athens, Istanbul, Minsk</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Bucharest</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Cairo</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Harare, Pretoria</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</OPTION>
+<OPTION VALUE="120" > (GMT+02:00) Jerusalem</OPTION>
+
+<OPTION VALUE="180" > (GMT+03:00) Baghdad</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Kuwait, Riyadh</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Moscow, St. Petersburg, Volgograd</OPTION>
+<OPTION VALUE="180" > (GMT+03:00) Nairobi</OPTION>
+<OPTION VALUE="210" > (GMT+03:30) Tehran</OPTION>
+<OPTION VALUE="240" > (GMT+04:00) Abu Dhabi, Muscat</OPTION>
+<OPTION VALUE="240" > (GMT+04:00) Baku, Tbilisi, Yerevan</OPTION>
+<OPTION VALUE="270" > (GMT+04:30) Kabul</OPTION>
+<OPTION VALUE="300" > (GMT+05:00) Ekaterinburg</OPTION>
+<OPTION VALUE="300" > (GMT+05:00) Islamabad, Karachi, Tashkent</OPTION>
+<OPTION VALUE="330" > (GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</OPTION>
+<OPTION VALUE="345" > (GMT+05:45) Kathmandu</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Almaty, Novosibirsk</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Astana, Dhaka</OPTION>
+<OPTION VALUE="360" > (GMT+06:00) Sri Jayawardenepura</OPTION>
+<OPTION VALUE="390" > (GMT+06:30) Rangoon</OPTION>
+<OPTION VALUE="420" > (GMT+07:00) Bangkok, Hanoi, Jakarta</OPTION>
+<OPTION VALUE="420" > (GMT+07:00) Krasnoyarsk</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Beijing, Chongquing, Hong Kong, Urumqi</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Irkutsk, Ulaan Bataar</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Kuala Lumpur, Singapore</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Perth</OPTION>
+<OPTION VALUE="480" > (GMT+08:00) Taipei</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Osaka, Sapporo, Tokyo</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Seoul</OPTION>
+<OPTION VALUE="540" > (GMT+09:00) Yakutsk</OPTION>
+<OPTION VALUE="570" > (GMT+09:30) Adelaide</OPTION>
+<OPTION VALUE="570" > (GMT+09:30) Darwin</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Brisbane</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Canberra, Melbourne, Sydney</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Guam, Port Moresby</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Hobart</OPTION>
+<OPTION VALUE="600" > (GMT+10:00) Vladivostok</OPTION>
+<OPTION VALUE="660" > (GMT+11:00) Magadan</OPTION>
+<OPTION VALUE="660" > (GMT+11:00) Solomon Is., New Caledonia</OPTION>
+<OPTION VALUE="720" > (GMT+12:00) Auckland, Wellington</OPTION>
+<OPTION VALUE="720" > (GMT+12:00) Fiji, Kamchatka, Marshall Is.</OPTION>
+</SELECT>
+<INPUT type="hidden" id="ntptimezone_index" name="ntptimezone_index" value="">
+
+ </td>
+</tr>
+<tr><td class="form_label_left">DayLight:</td>
+<td>
+<SELECT ID="daylightsaving" NAME="daylightsaving" WIDTH=30 >
+<OPTION VALUE="0" > (LocalTIME +6 hour)</OPTION>
+<OPTION VALUE="1" > (LocalTIME +5 hour)</OPTION>
+<OPTION VALUE="2" > (LocalTIME +4 hour)</OPTION>
+<OPTION VALUE="3" > (LocalTIME +3 hour)</OPTION>
+<OPTION VALUE="4" > (LocalTIME +2 hour)</OPTION>
+<OPTION VALUE="5" > (LocalTIME +1 hour)</OPTION>
+<OPTION VALUE="6" SELECTED> LocalTIME</OPTION>
+<OPTION VALUE="7" > (LocalTIME -1 hour)</OPTION>
+<OPTION VALUE="8" > (LocalTIME -2 hour)</OPTION>
+<OPTION VALUE="9" > (LocalTIME -3 hour)</OPTION>
+<OPTION VALUE="10" > (LocalTIME -4 hour)</OPTION>
+<OPTION VALUE="11" > (LocalTIME -5 hour)</OPTION>
+<OPTION VALUE="12" > (LocalTIME -6 hour)</OPTION>
+</SELECT>
+</td></tr>
+
+<tr><td class="form_label_left">Mode:</td><td class="form_label_right">
+<select name="ntpMode" id="ntpMode" onChange="updateNtpMode();"><option value="1" selected onclick = "ntpConfigShow(0);">Copy Computer time</option><option value="2"  onclick = "ntpConfigShow(1);">Set NTP Server Manually</option></select></td></tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<div id="ntpConfig">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">NTP Configuration:</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">State:</td>
+<td class="form_label_right" style="text-align: left;">
+<input type="radio" value="Disable" id="ntpstate0" name="ntpstate" onclick="disableNtpClicked()"
+checked
+ >Disable&nbsp;&nbsp;
+<input type="radio" value="Enable" id="ntpstate1" name="ntpstate" onclick="enableNtpClicked()"
+
+ >Enable
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Server:</td>
+<td class="form_label_right"><select name='ntp1Server' id=ntp1Server size="1" onChange="changeNtpServer(1);">
+<script language="javascript">writeNtpList(true);
+</script>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="ntpserver" NAME="ntpserver" SIZE="64" MAXLENGTH="255" VALUE="" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Server2:</td>
+<td class="form_label_right"><select name='ntp2Server' id=ntp2Server size="1" onChange="changeNtpServer(2);">
+<script language="javascript">writeNtpList(false);
+</script>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left"></td>
+<td class="form_label_right">
+<INPUT TYPE="TEXT" ID="ntpserver2" NAME="ntpserver2" SIZE="64" MAXLENGTH="255" VALUE="" >
+
+ </td>
+</tr>
+<tr>
+<td class="form_label_left">Interval:</td>
+<td class="form_label_right">
+Every<INPUT TYPE="TEXT" ID="ntpinterval" NAME="ntpinterval" SIZE="5" MAXLENGTH="3" VALUE="1" >
+hours
+ </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div>
+<br>
+<p align=center>
+<input type='button' value="Back" onClick='btnBack()' id='back'>
+<input id='next' type='button' value="Next" onClick='btnNext()'>
+<input type='button' onClick='btnCancel()' value='Cancel'>
+</p>
+</div>
+<div id=div_isp>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">
+<font color="#f1f1f1">1 &#8594; 2 &#8594; 3 &#8594;</font>
+Step 4: Setup Internet Connection <font color="#f1f1f1">
+&#8594; 5
+&#8594; 6
+</font>
+</td>
+</tr>
+<tr>
+<td class=content>
+<script language = "JavaScript">
+if(wanphytype==0)
+{
+document.writeln('<P>Please select your Country and ISP (Internet Service Provider) from the list below.  If your Country or ISP is not in the list, please select "Others". </P>');
+}
+</script>
+<p>
+<div id=ispSecInfo>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 align=center width=70%>
+<tbody id="id_country" style="display:none;">
+<TR>
+<TD class=form_label_nowidth width=51%><LABEL for=radio_control>Country&nbsp;:</LABEL></TD>
+<TD><select id=country onchange='onChangeCountry()'>
+<Option value=0>Select</Option>
+<Option value=Others>Others</Option>
+</select></TD>
+</TR>
+<TR>
+<TD class=form_label_nowidth width=51%><LABEL for=radio_control>Internet Service Provider&nbsp;:</LABEL></TD>
+<TD><select id=isplist onchange='onChangeISP()'>
+<Option value=0>Select</Option>
+<Option value=Others>Others</Option>
+</select></TD>
+</TR>
+</tbody>
+<tbody id='id_wanopt'>
+<tr>
+<td class=form_label_nowidth width=51% align=right>Protocol&nbsp;:</></td>
+<td><select id=prtcltype name=prtcltype onchange='onChangeProtocol()'>
+<option value="-1">(Click to Select)</option>
+<option value="PPPoE">PPPoE</option>
+<script language = "JavaScript">
+if(wanphytype==0)
+{
+document.writeln('<option value="PPPoA">PPPoA</option>');
+}
+</script>
+<option value="Dynamic IP">Dynamic IP</option>
+<option value="Static IP">Static IP</option>
+<option value="Bridge">Bridge</option>
+</select></td>
+</tr>
+<tr id="id_contype" style="display:none;">
+<td class=form_label_nowidth width=51% align=right>Connection Type&nbsp;:</></td>
+<td><select id=contype name=contype>
+<option value="-1">(Click to Select)</option>
+<option value="VC-Mux">VC-Mux</option>
+<option value="LLC">LLC</option>
+</select></td>
+</tr>
+<tr id="id_vpi" style="display:none;">
+<td class=form_label_nowidth width=51% align=right><label id=lblvpi>VPI&nbsp;:</label></td>
+<td><INPUT type=text id=vpi name=vpi maxlength='3' onFocus="this.value='';" onBlur="if(this.value==''){this.value='(Enter a number)';}">(0-255)</td>
+</tr>
+<tr id="id_vci" style="display:none;">
+<td class=form_label_nowidth width=51% align=right><label id=lblvci>VCI&nbsp;:</label></td>
+<td><INPUT type=text id=vci name=vci maxlength='5' onFocus="this.value='';" onBlur="if(this.value==''){this.value='(Enter a number)';}">(32-65535)</td>
+</tr>
+</tbody>
+<tr>
+<td>&nbsp;</td>
+<td></td>
+</tr>
+</TABLE>
+</div>
+</p>
+</td>
+</tr>
+</table>
+<BR>
+<div id=pppoeInfo style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader2><label id=lblProtName>PPPoE</label></td>
+</tr>
+<tr>
+<td class=content>
+<script language = "JavaScript">
+if(wanphytype==1)
+{
+document.writeln('<P>Please enter your Username and Password.  Please enter the information exactly as shown taking note of upper and lower cases.  Click "Next" to continue.</P>');
+}
+else
+{
+document.writeln('<P>Please enter your Username and Password as provided by your ISP (Internet Service Provider).  Please enter the information exactly as shown taking note of upper and lower cases.  Click "Next" to continue.</P>');
+}
+</script>
+<p>
+<TABLE class=formarea align=center>
+<tr>
+<td class=form_label_nowidth width=52%>Username&nbsp;:</></td>
+<td><INPUT type=text id=username name=username maxlength='256'></td>
+</tr>
+<tr>
+<td class=form_label_nowidth width=52%>Password&nbsp;:</></td>
+<td><INPUT type=password id=password name=password maxlength='30'></td>
+</tr>
+<tr>
+<td class=form_label_nowidth width=52%>Confirm Password&nbsp;:</></td>
+<td><INPUT type=password id=conPass name=conPass maxlength='30'></td>
+</tr>
+</table>
+</p>
+</td>
+</tr>
+</table>
+</div>
+<div id=staticInfo style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Static IP</td>
+</tr>
+<tr>
+<td class=content>
+<P>You have selected Static IP Internet connection. Please enter the appropriate information below as provided by your ISP.</P>
+<script language = "JavaScript">
+if(wanphytype==0)
+{
+document.writeln('<p>The Auto PVC Scan feature will not work in all cases so please enter the VPI/VCI numbers if provided by the ISP.</p>');
+}
+</script>
+<p>Click Next to continue.</p>
+<p>
+<TABLE class=formarea align=center width=100%>
+<tr>
+<td class=form_label_nowidth width=51%>IP Address&nbsp;:</></td>
+<td><INPUT type=text id=statip name=statip maxlength="15"></td>
+</tr>
+<tr>
+<td class=form_label_nowidth width=51%>Subnet Mask&nbsp;:</></td>
+<td><INPUT type=text id=statmask name=statmask maxlength="15"></td>
+</tr>
+<tr>
+<td class=form_label_nowidth width=51%>Default Gateway&nbsp;:</></td>
+<td><INPUT type=text id=statgw name=statgw maxlength="15"></td>
+</tr>
+<tr>
+<td class=form_label_nowidth width=51%>Primary DNS Server&nbsp;:</></td>
+<td><INPUT type=text id=statdns name=statdns maxlength="15"></td>
+</tr>
+</table>
+</p>
+</td>
+</tr>
+</table>
+</div>
+<br>
+<p align=center>
+<input type='button' value="Back" onClick='btnBack()' id='back'>
+<input id='cmdNxt' type='button' value="Next" onClick='btnNext()'>
+<input type='button' onClick='btnCancel()' value='Cancel'>
+</p>
+</div>
+<div id=div_wl>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">
+<font color="#f1f1f1">1 &#8594; 2 &#8594; 3 &#8594; 4 &#8594;</font>
+Step 5: Configure Wireless Network <font color="#f1f1f1">
+&#8594; 6</font>
+</td>
+</tr>
+<tr>
+<td class=content>
+<P>Your wireless network is enabled by default. You can simply uncheck it to disable it and
+click "Next" to skip configuration of wireless network.</P>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 width=100%>
+<TR>
+<td width=50px>&nbsp;</td>
+<TD class=form_label_left_noWidth>
+<INPUT type="checkbox" id=wlEnable name=wlEnable value="ON" onclick="dowlEnable()" class=INPUT_lefMinus4>&nbsp;&nbsp;
+<label for=wlEnable>Enable Your Wireless Network</label>
+</TD>
+</TR>
+</table>
+<div id=wlSSISInfo>
+<P>Your wireless network needs a name so it can be easily recognized by wireless clients.
+For security purposes, it is highly recommended to change the pre-configured network name.</p>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 width=100%>
+<TR>
+<td width=50px>&nbsp;</td>
+<TD class=form_label_left_noWidth>Wireless Network Name (SSID)&nbsp;:&nbsp;&nbsp;
+<INPUT type="text" id=SSID name=ssid maxLength=32 value=
+"123"
+ >&nbsp;
+<label style="FONT-WEIGHT:normal">(1~32 characters)</label>
+</TD>
+</TR>
+</TABLE>
+</div>
+<BR>
+<div id=wlVisibleInfo>
+<p>Select "Visible" to publish your wireless network and SSID can be found by wireless clients,
+or select "Invisible" to hide your wireless network so that users need to manually enter SSID in
+order to connect to your wireless network.</p>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 width=100%>
+<TR>
+<td width=50px>&nbsp;</td>
+<TD class=form_label_left_noWidth>Visibility Status&nbsp;:</TD>
+<TD class=left>
+<table cellSpacing=0 cellPadding=0>
+<tr><td>
+<INPUT type="radio" id=wlVisiblility name=wlVisiblility value="0">
+<label for=wlVisiblility>Visible</label>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<INPUT type="radio" id=wlInvisiblility name=wlVisiblility value="1">
+<label for=wlInvisiblility>Invisible</label>
+</td></tr>
+</table>
+</TD>
+</TR>
+</table>
+</div>
+<BR>
+<div id=wlSecurityInfo>
+<P>In order to protect your network from hackers and unauthorized users, it is highly recommended
+you choose one of the following wireless network security settings.</P>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 width=100%>
+<tr>
+<td width=50px>&nbsp;</td>
+<td class=form_label_left_noWidth>Security Level&nbsp;:</td>
+<td width=50px>&nbsp;</td>
+</tr>
+<tr>
+<td width=50px>&nbsp;</td>
+<td colspan=4>
+<table width=100% cellSpacing=0 cellPadding=0 border=0>
+<tr>
+<td align=left width=25%><input type="radio" id=encryptType0 name=encryptType value="0" onclick="doChangeWlInfo(0)">
+<label for=encryptType0>None</label>
+</td>
+<td align=left width=25%><input type="radio" id=encryptType1 name=encryptType value="1" onclick="doChangeWlInfo(1)">
+<label for=encryptType1>WEP</label>
+</td>
+<td align=center width=25%><input type="radio" id=encryptType2 name=encryptType value="2" onclick="doChangeWlInfo(2)">
+<label for=encryptType2>WPA-PSK</label>
+</td>
+<td align=right width=25%><input type="radio" id=encryptType3 name=encryptType value="3" onclick="doChangeWlInfo(3)">
+<label for=encryptType3>WPA2-PSK</label>
+</td>
+</tr>
+</table>
+</td>
+<td width=50px>&nbsp;</td>
+</tr>
+<tr>
+<td width=50px>&nbsp;</td>
+<td colspan=4>
+<table border=1 cellSpacing=0 cellPadding=0 width=100% style="border-color:black">
+<tr><td><label id=wlLevelInfo name=wlLevelInfo></label></td></tr>
+</table>
+</td>
+<td width=50px>&nbsp;</td>
+</tr>
+</TABLE>
+</div>
+<BR>
+<div id=keySecInfo>
+<p>Now, please enter your wireless security key.</p>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0 width=100%>
+<TR>
+<td width=50px>&nbsp;</td>
+<TD class=form_label_left_noWidth>
+<Label id=lblkey name=lblkey>WEP</label> Key&nbsp;:&nbsp;&nbsp;
+<INPUT type=text id="encryptkey" name="encryptkey" maxlength="63" size="80" onFocus="this.value='';" onBlur="if(this.value==''){this.value='%Fortress123&';}">
+</TD>
+</TR>
+<TR>
+<td width=50px>&nbsp;</td>
+<TD align=center><Label id=lbllength name=lbllength></label></TD>
+</TR>
+</table>
+<TABLE class=formarea cellSpacing=0 cellPadding=0 summary="" border=0>
+<tr>
+<td colspan=2>
+<p><b>Note:</b> You will need to enter the same key here into your wireless clients in order to enable proper wireless connection.</p>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+<br>
+<p align=center>
+<input type='button' value="Back" onClick='btnBack()' id='back'>
+<input id='next' type='button' value="Next" onClick='btnNext()'>
+<input type='button' onClick='btnCancel()' value='Cancel'>
+</p>
+</div>
+<div id=div_sum>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">
+<font color="#f1f1f1">1 &#8594; 2 &#8594; 3 &#8594; 4 &#8594; 5 &#8594;</font>
+Step 6: Completed and Apply
+</td>
+</tr>
+<tr>
+<td class="content">
+<P>Setup complete. Click "Back" to review or modify settings. Click "Apply" to apply current settings.</P>
+<p>If your Internet connection does not work after apply, you can try the Setup Wizard again with alternative settings or use Manual Setup instead if you have your Internet connection details as provided by your ISP.</p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+Setup Summary
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>Below is a detailed summary of your settings.
+Please print this page out, or write the information on a piece of paper, so you can configure the correct settings on your wireless client adapters.
+</p>
+<table id=sumpasswd class=formlisting style="width:590" align=center>
+<tr><td class='form_label_col' width='300px'>Modem Password&nbsp;:</td>
+<td id=tdpasswd></td></tr>
+</table>
+<table id=sumsntp class=formlisting style="width:590" align=center>
+<tr><td class=form_label_col width=300px>Time Settings&nbsp;:</td>
+<td id=tdtimestate>Enabled</td></tr>
+<tr id=trntpstate><td class=form_label_col width=300px>NTP State&nbsp;:</td>
+<td id=tdntpstate>Enabled</td></tr>
+<tr id=trntpmode><td class=form_label_col width=300px>Mode&nbsp;:</td>
+<td id=tdntpmode></td></tr>
+<tr id=trntpone><td class=form_label_col width=300px>NTP Server 1&nbsp;:</td>
+<td id=tdntpone></td></tr>
+<tr id=trntptwo><td class=form_label_col width=300px>NTP Server 2&nbsp;:</td>
+<td id=tdntptwo></td></tr>
+<tr id=trntpint><td class=form_label_col width=300px>Interval&nbsp;:</td>
+<td id=tdntpint></td></tr>
+<tr id=trtimezone><td class=form_label_col width=300px>Time Zone&nbsp;:</td>
+<td id=tdtimezone></td></tr>
+<tr id=trdststat><td class=form_label_col width=300px>Daylight&nbsp;:</td>
+<td id=tddststat></td></tr>
+</table>
+<table id=sumisp class=formlisting style="width:590" align=center>
+<script language = "JavaScript">
+if(wanphytype==0)
+{
+document.writeln('<tr><td class=form_label_col width=300px>VPI / VCI&nbsp;:</td><td id=tdvpivci></td></tr>');
+}
+</script>
+<tr><td class=form_label_col width=300px>Protocol&nbsp;:</td>
+<td id=tdprotocol>Bridge</td></tr>
+<script language = "JavaScript">
+if(wanphytype==0)
+{
+document.writeln('<tr><td class=form_label_col width=300px>Connection Type&nbsp;:</td><td id=tdencapmode>VC-Mux</td></tr>');
+}
+</script>
+<tr id=trusername><td class=form_label_col width=300px>Username&nbsp;:</td>
+<td id=tdusername></td></tr>
+<tr id=trpassword><td class=form_label_col width=300px>Password&nbsp;:</td>
+<td id=tdpassword></td></tr>
+<tr id=tripaddress><td class=form_label_col width=300px>IP Address&nbsp;:</td>
+<td id=tdipaddress></td></tr>
+<tr id=trsubnet><td class=form_label_col width=300px>Subnet Mask&nbsp;:</td>
+<td id=tdsubnet></td></tr>
+<tr id=trgw><td class=form_label_col width=300px>Default Gateway&nbsp;:</td>
+<td id=tdgw></td></tr>
+<tr id=trpridns><td class=form_label_col width=300px>Primary DNS Server&nbsp;:</td>
+<td id=tdpridns></td></tr>
+</table>
+<table id=tabwireless class=formlisting style="width:590" align=center>
+<tr><td class=form_label_col width=300px>Wireless Network&nbsp;:</td>
+<td id=tdwlstate>Disabled</td></tr>
+<tr id=trwlssid><td class=form_label_col width=300px>Wireless Network Name (SSID)&nbsp;:</td>
+<td id=tdwlssid></td></tr>
+<tr id=trwlvisibility><td class=form_label_col width=300px>Visibility Status&nbsp;:</td>
+<td id=tdwlvisibility></td></tr>
+<tr id=trwlEncryption><td class=form_label_col width=300px>Encryption&nbsp;:</td>
+<td id=tdwlEncryption>None</td></tr>
+<tr id=trwlkey><td id=tdkeyname class=form_label_col width=300px>WEP Key&nbsp;:</td>
+<td id=tdkeyval></td></tr>
+</table>
+<br>
+</td>
+</tr>
+</table>
+<br>
+<p align=center>
+<input type='button' value="Back" onClick='btnBack()' id='back'>
+<input type='submit' value="Apply" name="save">
+<input type='button' onClick='btnCancel()' value='Cancel'>
+<INPUT TYPE="hidden" NAME="submit.htm?status.htm" VALUE="Send">
+</p>
+</div>
+</form>
+<script type='text/javascript'>
+wizardFooter();
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/wizintro.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:46 GMT -->
+</html>
+
+

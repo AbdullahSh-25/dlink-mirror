@@ -1,0 +1,182 @@
+<html>
+<!-- Mirrored from 192.168.1.1/fw_excludeip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>NAT EXCLUDE IP</title>
+<script>
+function checkIpRange(startIp,endIp)
+{
+if(getDigit(startIp,1)!=getDigit(endIp,1))
+return false;
+if(getDigit(startIp,2)!=getDigit(endIp,2))
+return false;
+if(getDigit(startIp,3)!=getDigit(endIp,3))
+return false;
+if(getDigit(startIp,4)>getDigit(endIp,4))
+return false;
+return true;
+}
+function addClick()
+{
+with(document.formNatExcludeIp)
+{
+if (lowip.value=="" && highip.value=="" )
+return false;
+if(!checkIP(lowip)) {
+alert("please input a right low Ip address!");
+return false;
+}
+if (highip.value != "")
+{
+if ( !checkIP(highip)) {
+alert("please input a right high Ip address!");
+return false;
+}
+if(!checkIpRange(lowip.value,highip.value))
+{
+alert("The low Ip address in ip range must be lesser than high Ip address!");
+return false;
+}
+}
+var str = wanport.value;
+if(str.substring(0,5) == "pppoe")
+{
+auxname.value = str.replace("pppoe","ppp");
+}else{
+auxname.value = str;
+}
+}
+return true;
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="NAT";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>NAT EXCLUDE IP</td>
+</tr>
+<tr>
+<td class=content>
+<p>In the page ,you can config some source ip address which use the purge route mode
+when access internet through the specified interface.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2excludeip.cgi" method=POST name="formNatExcludeIp">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Config</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left'>
+interface
+</td>
+<td class='form_label_right' align=left>
+<SELECT NAME="wanport" WIDTH=30 >
+<OPTION VALUE="pppoe2" SELECTED> pppoe2</OPTION>
+
+ </SELECT>
+<input type="hidden" name="auxname" VALUE="">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' width="20%" align=left>
+IP Range
+</td>
+<td class='form_label_right' align=left>
+<INPUT TYPE="TEXT" NAME="lowip" SIZE="15" MAXLENGTH="15" VALUE="" >
+-
+<INPUT TYPE="TEXT" NAME="highip" SIZE="15" MAXLENGTH="15" VALUE="" >
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Apply Changes" onClick="return addClick()">&nbsp;&nbsp;
+<input type="reset" value="Reset" name="reset">&nbsp;&nbsp;
+<input type="hidden" name="submit.htm?fw_excludeip.htm" VALUE="Send">
+</form>
+<br>
+<form method=POST Action="http://admin:admin@192.168.1.1/form2excludeipdel.cgi">
+<INPUT TYPE="HIDDEN" NAME="actiontype" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="natcmd" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="state" VALUE="" >
+<INPUT TYPE="HIDDEN" NAME="waninterface" VALUE="" >
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Current NAT Exclude IP Table</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row >
+<td class='form_label_col'>
+WAN Interface
+</td>
+<td class='form_label_col'>
+Low IP
+</td>
+<td class='form_label_col'>
+High IP
+</td>
+<td class='form_label_col'>
+Action
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<INPUT TYPE="HIDDEN" NAME="submit.htm?fw_excludeip.htm" VALUE="Send" >
+</form>
+<script language="JavaScript">
+function natActionFunc( form , actiontype, natcmd, state,waninterface){
+form.elements[0].value=actiontype;
+form.elements[1].value=natcmd;
+form.elements[2].value=state;
+form.elements[3].value=waninterface;
+form.submit();
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/fw_excludeip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

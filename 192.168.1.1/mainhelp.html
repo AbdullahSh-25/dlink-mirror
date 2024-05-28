@@ -1,0 +1,81 @@
+if (HelpItem=='firmwareupdate'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'<b>Please Note:</b> This page displays your device firmware version and information that will be helpful'+
+'for D-Link technicians should you require any technical support<br>'+
+'If your router is working without issue, ' +
+'there should be no need to update your firmware. This information is just ' +
+'for your reference as it is often unnecessary to upload new firmware to ' +
+'your router.<br><br>' +
+'<a href="helpmain.html#Update">More...</a>';
+} else if (HelpItem=='system'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page allows you to reboot your router or save your router configuration to a file on ' +
+'your computer as a precaution in case you have to reset your router to factory default settings. ' +
+'You will be able to restore your router settings from a previously saved configuration file.<br>' +
+'There is also a function to allow you to reset your router to factory default settings.  ' +
+'Resetting your router to factory default settings will delete your current configuration.<br><br>' +
+'<a href="helpmain.html#System">More...</a>';
+} else if (HelpItem=='diagnostics'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page shows the result of your router\'s self diagnostic and ' +
+'connection test results. The Internet connectivity status will only ' +
+'show PASS if you have correctly configured your Internet connection ' +
+'and your router is currently online.<br><br>' +
+'<a href="helpmain.html#Diagnostics">More...</a>';
+} else if (HelpItem=='acservice'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'FTP - File transfer Protocol - often used to connect to ' +
+'FTP sites for file transfer.<br><br>' +
+'HTTP - Hyper Text Transfer Protocol - the principal protocol for web browsing.<br><br>' +
+'ICMP - Internet control Message Protocol - Work in conjunction with HTTP - this protocol ' +
+'is used in the generation of error messages and control.<br><br>' +
+'SNMP - Simple Network management Protocol - allows ' +
+'you to control and monitor your network devices.<br><br>' +
+'SSH - Secure Shell a protocol that allows you to log on to a remote server securely.<br><br>' +
+'Telnet - a common protocol used to access remote systems.<br><br>' +
+'TFTP - Trivial File Transfer Protocol - simplified and less secure protocol compared to FTP.<br><br>' +
+'If you wish to login and manage your Router from another Internet device than you can ' +
+'enable the router to accept such commands from the Internet port. This option may be useful ' +
+'if your network administrator is not onsite or Technical Support request such access<br><br>' +
+'<a href="helpmain.html#Access">More...</a>';
+} else if (HelpItem=='remoteaccess'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'If you wish to log in and manage your Router from another Internet device then you can ' +
+'enable the router to accept such commands from the Internet port. This option may be useful ' +
+'if your network administrator is not on-site or Technical Support requests such access.<br><br>' +
+'<a href="helpmain.html#Access">More...</a>';
+} else if (HelpItem=='password'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page allows you to modify your router password needed to access ' +
+'this Web management interface. For security reasons, it is ' +
+'recommended that you change your device\'s admin and user passwords from the factory ' +
+'default. The password you choose should be between 1 and 16 ' +
+'characters in length.<br><br> Please make sure to choose a password you can ' +
+'remember or write it down and keep in a safe and separate location ' +
+'for future reference. If you forget your device password, the only ' +
+'solution is to reset your router to factory default settings and you ' +
+'will lose all your device configuration settings.<br><br>' +
+'<a href="helpmain.html#Access">More...</a>';
+} else if (HelpItem=='acl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'You can restrict which users can access the local management using IP address.<br><br>' +
+'Note: Be sure to add your IP Address in the list before you enable the service.<br><br>' +
+'<a href="helpmain.html#Access">More...</a>';
+} else if (HelpItem=='logsettings'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page allows you to enable, configure and view your router system ' +
+'log. The system log will keep a record of your router activity.<br>' +
+'Depending on the amount of detail you include in the log, your router ' +
+'can only keep a limited number of log entries due to router memory ' +
+'constraints. If you have an external SYSLOG server, you may choose to '+
+'configure external logging and all log entries will be sent to your ' +
+'remote server.<br><br>' +
+'<a href="helpmain.html#Log">More...</a>';
+}else if (HelpItem=='ping'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'This page allows you to ping a Host to test whether your router can connect to netwrok.  ' +
+'<br><br>' +
+'<a href="helpmain.html#Diagnostics">More...</a>';
+}
+
+

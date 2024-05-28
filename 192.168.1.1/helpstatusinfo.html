@@ -1,0 +1,249 @@
+<html>
+<!-- Mirrored from 192.168.1.1/helpstatusinfo.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+</head>
+<body>
+<blockquote>
+<SCRIPT language="JavaScript">
+var wireless = '1';
+</SCRIPT>
+<script language="JavaScript">
+TabHeader="Help";
+SideItem="Status";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Status Help</td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<li><a href="helpstatusinfo.html#DeviceInfo">Device Info</a>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpstatusinfo.html#Wireless">Wireless Clients</a>');
+</script>
+<li><a href="helpstatusinfo.html#DHCP">DHCP Clients</a>
+<li><a href="helpstatusinfo.html#AdslDriver">ADSL Driver</a>
+<li><a href="helpstatusinfo.html#AdslStats">Statistics</a>
+<li><a href="helpstatusinfo.html#Route">Route Info</a>
+</ul>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=DeviceInfo>Device Info</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>Shows details of the router such as the version of the firmware, bootloader, LAN IP address, etc.</p>
+<dl>
+<dt>System Info
+<dd>
+<dl>
+<dt>Alias Name
+<dd>Model name of the adsl router.
+<dt>Uptime
+<dd>Total time since your router start up.
+<dt>Time and Date
+<dd>Internal Time of your router.
+<dt>Firmware Version
+<dd>Also known as the firmware version. It shows what is the current firmware version used.
+<dt>Built Date
+<dd>The date that firmware be built.
+<dt>Serial Number
+<dd>The Serial Number of your router.
+</dd>
+</dl>
+</dl>
+<BR>
+<dl>
+<dt>DSL
+<dd>
+<dl>
+<dt>Operational Status
+<dd>The mode of dsl line.
+<dt>Upstream Speed
+<dd>Displays how fast your upload is per second. Will only show if you are already connected to your ISP.
+<dt>Downstream Speed
+<dd>Displays how fast your download is per second. Will only show if you are already connected to your ISP.
+</dd>
+</dl>
+</dl>
+<BR>
+<dl>
+<dt>LAN Configuration
+<dd>Displays LAN setup details of your modem.
+<dl>
+<dt>IP Address
+<dd>Current IP Address of the ADSL router.
+<dt>Subnet Mask
+<dd>Your modem's current subnet.
+<dt>DHCP Server
+<dd>Shows if your unit's DHCP is enabled or not.
+<dt>Mac Address
+<dd>Your unit's MAC Address
+</dd>
+</dl>
+</dl>
+<BR>
+<dl>
+<dt>DNS STATUS
+<dd>Displays DNS details of your modem.
+<dl>
+<dt>DNS Mode
+<dd>You can manually configure
+the DNS or set it to auto by going to <a href="dns.html">Advanced -> DNS</a>
+<dt>DNS Servers
+<dd>Shows the current preferred(Primary) and alternate(Secondary) DNS used.
+</dd>
+</dl>
+</dl>
+<BR>
+<dl>
+<dt>WAN Configuration
+<dd>
+Displays WAN connections previously set up in the <a href="wanadsl_auto_droute.html">Setup -> Internet Setup</a> section.
+</dd>
+</dl>
+</dl>
+</td>
+</tr>
+</table><br>
+<div id="wirelessHelp" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=LanClients name=Wireless>Wireless Clients</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>Displays the stations (identified by their BSSID) that are associated with your wireless router.
+Click on Refresh to renew the page for new wireless stations.</p>
+</td>
+</tr>
+</table>
+</div>
+<div style="display:block">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=Statistics name=DHCP>DHCP Clients</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>This shows the computers, identified by the hostname and MAC address that have acquired IP addresses by the DHCP server with the time that the lease for the IP address is up</p>
+</td>
+</tr>
+</table><br>
+</div>
+<div style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=RouteInfo name=Logs>Logs</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>If the log is enabled, the system will log selected events including Emergency, Alert, Critical,
+Error, Warning, Notice, Informational, and Debugging.
+All events above or equal to the selected display level will be displayed.</p>
+<p>You can configure the system logs here: <a href="logging.html">Maintenance -> System Log</a>.</p>
+</td>
+</tr>
+</table>
+</div>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=AdslDriver name=AdslDriver>ADSL Driver</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>Displays all of ADSL statistics information, including link down or on, downstream and upstream, type, line coding and so on. </p>
+</td>
+</tr>
+</table>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=AdslStats>Statistics</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>The Statistics page displays all of the LAN, WAN, and Wireless
+packet transmit and receive statistics.</p>
+<dl>
+<dt>Tx pkt
+<dd>The number of packets sent from the router.
+<dt>Rx pkt
+<dd>The number of packets received by the router.
+<dt>Tx drop
+<dd>The number of packets that were dropped while being sent, due
+to errors, collisions, or router resource limitations.
+<dt>Rx drop
+<dd>The number of packets that were dropped while being received,
+due to errors, collisions, or router resource limitations.
+<dt>Tx/Tx err
+<dd>The number of transmission failures that cause loss of a
+packet. A
+noisy radio-frequency environment can cause a high error rate on
+the wireless LAN.
+</dd></dl>
+</td>
+</tr>
+</table><br>
+<div style="display:block">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a id=RouteInfo name=Route>Route Info</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>The Route Info section displays route information showing the IP addresses of the destination,
+gateway, and subnet mask as well as other route information.</p>
+</td>
+</tr>
+</table>
+</div>
+<script language="javascript">
+if(wireless == "1") {
+document.getElementById("wirelessHelp").style.display = 'block';
+}
+else {
+document.getElementById("wirelessHelp").style.display = 'none';
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/helpstatusinfo.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

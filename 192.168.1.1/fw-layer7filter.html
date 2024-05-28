@@ -1,0 +1,170 @@
+<html>
+<!-- Mirrored from 192.168.1.1/fw-layer7filter.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Software Forbidden</title>
+<script>
+function deleteCheck()
+{
+if(document.formDelLayer7.listnumber.value < 1)
+{
+alert("List is empty!");
+return false;
+}
+if(document.formDelLayer7.select.length)
+{
+for(i=0;i<document.formDelLayer7.select.length;i++)
+{
+if(document.formDelLayer7.select[i].checked)
+{return deleteClick();}
+}
+}else
+{
+if(document.formDelLayer7.select.checked)
+{return deleteClick();}
+}
+alert("Please select an item as the object to delete from the list !");
+return false;
+}
+function loadcheck()
+{
+if(document.formDelLayer7.listnumber.value < 1)
+{
+document.formDelLayer7.deleteSelFilterApp.disabled=true;
+document.formDelLayer7.deleteAllFilterApp.disabled=true;
+}
+}
+function checkIpRange(startIp,endIp)
+{
+if(getDigit(startIp,1)!=getDigit(endIp,1))
+return false;
+if(getDigit(startIp,2)!=getDigit(endIp,2))
+return false;
+if(getDigit(startIp,3)!=getDigit(endIp,3))
+return false;
+if(getDigit(startIp,4)>getDigit(endIp,4))
+return false;
+return true;
+}
+function checkIpMode()
+{
+if(document.getElementsByName("ipmode")[1].checked)
+{
+enableTextField(document.formAddLayer7.ipstart);
+enableTextField(document.formAddLayer7.ipend);
+}
+else if(document.getElementsByName("ipmode")[0].checked)
+{
+enableTextField(document.formAddLayer7.ipstart);
+disableTextField(document.formAddLayer7.ipend);
+}
+}
+function AddCheck()
+{
+return true;
+}
+</script>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body onLoad="loadcheck();">
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+HelpItem="layer7";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Software Forbidden</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to config some softwares to be forbidden.By it ,you can deny the ip packets from the specified software.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Layer7.cgi" method=POST name="formDelLayer7">
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">Current Forbidden Software List</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">Software</td>
+<td class="form_label_col">Select</td>
+</tr>
+<input type="hidden" value=0 name="listnumber">
+ </table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Delete" name="deleteSelFilterApp" onClick="return deleteCheck()">&nbsp;&nbsp;
+<input type="submit" value="Delete All" name="deleteAllFilterApp" onClick="return deleteAllClick()">&nbsp;&nbsp;&nbsp;
+<input type="hidden" value="Send" name="submit.htm?fw-layer7filter.htm">
+</form>
+<form action="http://admin:admin@192.168.1.1/form2Layer7.cgi" method=POST name="formAddLayer7">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">Add Forbidden Software</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">Add Forbidden Software:</td>
+<td class="form_label_right">
+<select size="1" name="appname" >
+<option select value="0">--</option>
+<option value="1">QQ&QQ Game</option>
+<option value="3">Yahoo Messenger</option>
+<option value="4">BT related software</option>
+<option value="5">Ourgame</option>
+<option value="6">GameABC</option>
+<option value="7">Chinagames</option>
+<option value="8">HF netgames</option>
+<option value="9">Mail Delievery</option>
+<option value="10">Receiving Mail</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" name="addLayer7" onclick="return AddCheck()">&nbsp;&nbsp;
+<input type="hidden" value="Send" name="submit.htm?fw-layer7filter.htm">
+</form>
+<SCRIPT language="javascript">
+</SCRIPT>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/fw-layer7filter.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

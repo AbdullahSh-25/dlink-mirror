@@ -1,0 +1,505 @@
+<html>
+<!-- Mirrored from 192.168.1.1/helpadv.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+</head>
+<body>
+<blockquote>
+<SCRIPT language="JavaScript">
+var LoginUser = 'admin';
+
+var wireless = '1';
+var buildPortmap = '1';
+var usb_printer = '0';
+var ShowTR069 = '1';
+</SCRIPT>
+<script language="JavaScript">
+TabHeader="Help";
+SideItem="Advanced";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Advanced Help</td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpadv.html#AdvWlan">Advanced Wireless</a>');
+if (LoginUser == "admin") {
+document.writeln('<li><a href="helpadv.html#ACL">Access Control List</a>');
+document.writeln('<li><a href="helpadv.html#PortTriggering">Port Triggering</a>');
+document.writeln('<li><a href="helpadv.html#PortForwarding">Port Forwarding</a>');
+document.writeln('<li><a href="helpadv.html#DMZ">DMZ</a>');
+document.writeln('<li><a href="helpadv.html#Parental">Parental Control</a>');
+document.writeln('<li><a href="helpadv.html#Filtering">Filtering Options</a>');
+document.writeln('<li><a href="helpadv.html#DOS">DOS Settings</a>');
+document.writeln('<li><a href="helpadv.html#DNS">DNS</a>');
+document.writeln('<li><a href="helpadv.html#DDNS">Dynamic DNS</a>');
+}
+</script>
+<li><a href="helpadv.html#Tools">Network Tools</a>
+<script language="javascript">
+if (LoginUser == "admin") {
+document.writeln('<li><a href="helpadv.html#Routing">Routing</a>');
+document.writeln('<li><a href="helpadv.html#NAT">NAT</a>');
+}
+if(usb_printer =="1")
+document.writeln('<li><a href="helpadv.html#CUPS">USB Printer</a>');
+</script>
+</ul>
+</td>
+</tr>
+</table><br>
+<div id="wirelessHelp" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=AdvWlan>Advanced Wireless</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>The Wireless section under Advanced contains four sections for further configurations.</p>
+<UL>
+<li>Wireless Advanced
+<li>Access Control
+<li>WPS
+<li>MBSSID
+</UL>
+<dl>
+<dt>Wireless Advanced
+<dd>Additional Settings for configuring you're wireless network.
+<dl>
+<dt>Beacon Interval
+<dd>A packet of information that is sent from a connected device to all other devices where it announces its availability and readiness. A beacon interval is a period of time (sent with the beacon) before sending the beacon again. The beacon interval may be adjusted in milliseconds (ms).
+<dt>RTS Threshold (Request to Send Threshold)
+<dd>Determines the packet size of a transmission through the use of the router to help control traffic flow.
+<dt>Fragment Threshold
+<dd>Used to fragment packets which help improve performance in the presence of radio frequency (RF) interference.
+<dt>DTIM Interval
+<dd>Sets the Wake-up interval for clients in power-saving mode.
+<dt>Preamble Type
+<dd>This is the length of the CRC (Cyclic Redundancy Check) block for communication between the router and wireless clients. High network traffic areas should select Short preamble type.
+<dt>Broadcast SSID
+<dd>With Disabled selected, no wireless clients will be able to see your wireless network when they scan to see what's available. 
+</dd>
+</dl>
+<br>
+<dt>Access Control
+<dd>Filters incoming connection on your wireless router based on their MAC address.
+<br>
+<dt>WPS
+<dd>Using this feature could let your wireless client automically syncronize its setting and connect to the Access Point in a minute without any hassle.
+<dt>MBSSID
+<dd>Settings to secure virutal access points(VAP)wireless network.
+</dd></dl>
+</td>
+</tr>
+</table><br>
+</div>
+<div id = "AdminAdvHelp">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=ACL>Access Control List</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dt>Access Control List
+<dd>
+<p>You can specify what services are accessable form LAN or WAN parts. Entries in this ACL table are
+used to permit certain types of data packets from your local network or Internet network to the Gateway.
+Using of such access control can be helpful in securing or restricting the Gateway managment.</p>
+<dt>Access Control List IPv6
+<dd>
+<p>You can specify which services are accessable form LAN or WAN side. Entries in this IPv6 ACL table are
+used to permit certain types of data packets from your local network or Internet network to the Gateway.
+Using of such access control can be helpful in securing or restricting the Gateway managment.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=PortTriggering>Port Triggering</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>Port Triggering is a special form of Port Forwarding in which it requires an outgoing connection
+before allowing incoming connections on a single or multiple port. Port Triggering is mostly used when
+your computer is behind a NAT router.</p> <p>For example, if a gaming application
+sends outgoing data on ports 5000-6000 but receives the incoming data on port 111, typically behind a NAT
+router the router simply drops the data because it does not know which computer it should send requests to.
+But with port triggering you can tell the router to allow incoming data on port 111 when an outgoing data sends
+it through ports 5000-6000. It gives more flexibility than static port forwarding because you don't need
+to set it up for a specific computer.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=PortForwarding>Port Forwarding</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>Multiple connections are required by some applications, such as internet games, video conferencing,
+Internet telephony, and others. These applications have difficulties working through NAT (Network Address
+Translation). This section is used to open multiple ports or a range of ports in your router and redirect
+data through those ports to a single PC on your network.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=DMZ>DMZ</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>DMZ Host
+<dd>
+<p>DMZ means "Demilitarized Zone." If an application has trouble
+working from behind the router, you can expose one computer to the
+Internet and run the application on that computer. </p>
+<p>When a LAN host is configured as a DMZ host, it becomes the
+destination for all incoming packets that do not match some other
+incoming session or rule. If any other ingress rule is in place,
+that will be used instead of sending packets to the DMZ host; so,
+an active session, virtual server, active port trigger, or port
+forwarding rule will take priority over sending a packet to the
+DMZ host. (The DMZ policy resembles a default port forwarding rule
+that forwards every port that is not specifically sent anywhere
+else.) </p>
+<dd>
+<p><B>Note:</B> Putting a computer in the DMZ may expose that
+computer to a variety of security risks. Use of this option is
+only recommended as a last resort. </p>
+<dl>
+<dt>DMZ Host IP Address
+<dd>Specify the LAN IP address of the LAN computer that you want to have unrestricted Internet communication. If this computer obtains its address Automatically using DHCP,
+then you may want to make a static reservation on the <a href="dhcpip_nocheck_lanip.html">Setup-->Local Network-->DHCP Reserved</a> page so that the IP address of the DMZ computer does not change.
+</dd>
+</dl>
+</dd>
+</dl>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=Parental>Parental Control</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>URL BLOCK
+<dd>Allows you to deny certain websites from being accessed. An example is that you might deny
+"www.blockthiswebsite.com" so that access to this site will be blocked during the "schedule" you specified.
+<dt>MAC BLOCK
+<dd><p>In a home setting, parents can also restrict the time and day of the week certain computers can access the Internet.</p>
+<div class=help_example>
+<dl>
+<dt>Example:
+<dd><p>You would only like to allow your child to access the Internet from Monday to Friday, and from
+19:00 to 21:00 only.</p>
+<ol>
+<li>You can then set the Username to "BeforeAccess", then enter the MAC address of your child\'s computer.
+<li>Check the checkbox Monday to Friday and set the Start time to 00:00 and the End Time to 19:00.
+<li>Now you have just denied Internet access of your child\'s computer from 00:00 to 19:00, 
+Monday to Friday.
+<li>Then repeat the steps above, but now enter "AfterAccess" in the Username field. Then enter 21:00 for the
+Start time and 23:59 for the End time.
+<li>Now you have just completed a rule that only allows your child's computer to access the Internet from 
+19:00 to 21:00 from Monday to Friday.
+</ol></dd></dl></div>
+</dd>
+<dt>Schedules
+<dd>In this section you can add/delete entries to the Schedule Rules Table.
+<dl>
+<dt>
+<dd>Rule Name : Give the schedule a name that is meaningful to you, such as "Weekday rule".</p>
+<dt>
+<dd>Day(s) : Place a checkmark in the boxes for the desired days or select the Everyday checkbox button to select all seven days of the week.</p>
+<dt>
+<dd>All Day : Select this option if you want this schedule in effect all day for the selected day(s).</p>
+<dt>
+<dd>Time :If you don't use the All Day option, then you enter the time here.
+The time is entered in two fields. The first box is for the hour and the second
+box is for the minute.</p>
+<dt><dd>Add Rules : Save the new Schedule Rule in the following list. </p>
+<dt><dd>RULES TABLE:This section shows the currently defined Schedule Rules.
+</dd>
+</dl>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=Filtering>Filtering Options</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>Filters can be configured to manage your incoming and outgoing traffic.</p>
+<dl>
+<dt>IP/Port Filter
+<dd>
+<p>When you use the Port Triggering or Port Forwarding features to open specific ports to traffic from the
+Internet, you could be increasing the exposure of your LAN to cyberattacks from the Internet.
+In these cases, you can limit that exposure by specifying the IP addresses of Internet
+hosts that you trust to access your LAN through the ports that you have opened. You might, for example, only
+allow access to a game server on your home LAN from the computers of friends whom you have invited to play
+the games on that server.</p>
+<p>Downstream filter can be used for limiting access to a server on your network to a system or group of systems.
+</p>
+<p>Upstream filter can be used to limit LAN computer from accessing the Internet.
+Upstream filter can be used in conjunction with the Downstream filter to allow incoming
+and restrict outgoing access when playing a game over the Internet or simply downloading a file.</p>
+<dt>IPv6/Port Filter
+<dd>Restrict certain types of ipv6 data packets between LAN-side and WAN-side.
+<dt>MAC Filter
+<dd>You can permit/deny incoming/outgoing traffic based on the source MAC address or the destination MAC address.
+</dd>
+</dl>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=DOS>DOS settings</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>This allows you to prevent your router from Denial of Service(DOS) attacks.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=DNS>DNS</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<p>Domain Name Server(DNS) is a server that translates URL/Domain Names to the corresponding IP address.
+Since URL/Domain Names are alphabetical, they are easier to remember. But the Internet is based on IP address.
+For example, the URL/Domain Name www.dlink.com is actually 192.168.0.123.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=DDNS>Dynamic DNS</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>DDNS provider
+<dd>Select a dynamic DNS service provider from the pull-down list.
+<dt>Hostname
+<dd>Enter your host name, fully qualified; for example: <b>myhost.mydomain.net.</b>
+<dt>Username
+<dd>Enter the username provided by your service provider.
+<dt>Password
+<dd>Enter the password provided by your service provider.
+</dl>
+</td>
+</tr>
+</table><br>
+</div>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=Tools>Network Tools</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<script language="javascript">
+if(buildPortmap=="1") {
+document.writeln('<dt>Port Mapping');
+document.writeln('<dd>Port Mapping supports single or multiple (LAN) ports to be formed as a group and mapped to a ');
+document.writeln('PVC(which is associated w/ a VLAN). As a result, each group of LAN ports will perform as an ');
+document.writeln('independent (logical) network (like a broadcast domain) among whom traffic broadcast would be ');
+document.writeln('prevented. This feature is useful while you would like to form multiple independent (logical) ');
+document.writeln('networks for multimedia applications at home. For instance, you can map PVC1 to port 1~3 to ');
+document.writeln('create a network (broadcast domain) for PCs for Internet, and map PVC2 to port 4 to create ');
+document.writeln('another network (broadcast domain) for IPTV service (devices). By using this feature ');
+document.writeln('(w/ multiple PVCs), data traffic and IPTV traffic would not affect each other. ');
+}
+</script>
+<dt>IGMP Proxy
+<dd>IGMP allows support for efficient multicasting -- transmission of identical content, such as multimedia, from a source to a number of recipients.
+<script language="javascript">
+if (LoginUser == "admin")
+{
+document.writeln('<dt>IP QoS');
+document.writeln('<dd>Quality of Service is a feature that allows you to allocate or guarantee the throughput or speed of');
+document.writeln('Internet for certain computers. ');
+}
+</script>
+<dt>UPnP
+<dd>UPnP is short for Universal Plug and Play, which is a networking architecture that provides compatibility among networking equipment, software, and peripherals. This router has optional UPnP capability, and can work with other UPnP devices and software.
+<script language="javascript">
+if (LoginUser == "admin")
+{
+document.writeln('<dt>SNMP');
+document.writeln('<dd>Simple Network Management Protocol (SNMP) provides a means to monitor status and performance as');
+document.writeln('well as set configuration parameters.  It enables a management station to configure, monitor and receive ');
+document.writeln('trap messages from network devices.');
+if(ShowTR069 == "1")
+{
+document.writeln('<dt>TR-069');
+document.writeln('<dd>TR-069 is a WAN management protocol. A bidirectional SOAP/HTTP based protocol it provides the');
+document.writeln('communication between the ADSL router and an Auto Configuration Server (ACS).');
+}
+document.writeln('<dt>ARP Binding');
+document.writeln('<dd>You can bind ip with corresponding mac to avoid arp spoof.');
+document.writeln('<dt>Client Limit');
+document.writeln('<dd>This allows you to configure the capability of force how many device can access to Internet! ');
+}
+</script>
+</dd>
+</dl>
+</td>
+</tr>
+</table><br>
+<div id="AdminRouteHelp">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=Routing>Routing</a>
+</td>
+</tr>
+<tr>
+<td class=content><p>Static route, default gateway, and RIP type routing configurations can be performed here.</p>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=NAT>NAT</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt>NAT ALG
+<dd>NAT ALG and Pass-Through configurations can be performed here.
+<dt>NAT Exclude IP
+<dd>You can config some source ip address which use the purge route mode when access internet through the specified interface here.
+<dt>NAT Forwarding
+<dd>
+<p>Entries in the NAT Forwarding table allow you to automatically redirect common
+network services to a specific machine behind the NAT firewall.</p>
+<dt>FTP ALG Config
+<dd>FTP Server ALG and FTP Client ALG ports can be configured here.
+<dt>NAT IP Mapping
+<dd>NAT IP Mapping configurations can be performed here.
+</dl>
+</td>
+</tr>
+</table><br>
+</div>
+<div id="IPv6FilterHelp" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=IPv6Filter>IPv6 Filter</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dd>You can create name for each rule and control the flow direction. You can either allow or deny a set of IP address,protocols and port ranges.
+</dd>
+</dl>
+</td>
+</tr>
+</table>
+<br>
+</div>
+<div id="IPv6RoutingHelp" style="display:none">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>
+<a name=IPv6Routing>IPv6 Routing</a>
+</td>
+</tr>
+<tr>
+<td class=content>
+<dl>
+<dt><strong>Destination/Prefix Length</strong></dt>
+<dd>Destination address of static route. The prefix length can be regarded as a part of the destination IP.</dd>
+<dt><strong>NextHop</strong></dt>
+<dd>Next-hop, if any, is used to forward IP packets to next hop address.</dd>
+<dt><strong>Interface</strong></dt>
+<dd>IP packets must be send out through this interface.</dd>
+</dl>
+</td>
+</tr>
+</table>
+<br>
+</div>
+<script language="javascript">
+if(wireless == "1") {
+document.getElementById("wirelessHelp").style.display = 'block';
+}
+else {
+document.getElementById("wirelessHelp").style.display = 'none';
+}
+if (LoginUser == "admin") {
+document.getElementById("AdminAdvHelp").style.display = 'block';
+document.getElementById("AdminRouteHelp").style.display = 'block';
+}
+else {
+document.getElementById("AdminAdvHelp").style.display = 'none';
+document.getElementById("AdminRouteHelp").style.display = 'none';
+}
+</script>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/helpadv.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

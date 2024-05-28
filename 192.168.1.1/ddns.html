@@ -1,0 +1,242 @@
+<html>
+<!-- Mirrored from 192.168.1.1/ddns.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Routing Configuration </title>
+<SCRIPT>
+function checkTextStr(str)
+{
+for (var i=0; i<str.length; i++)
+{
+if ( str.charAt(i) == '%' || str.charAt(i) =='&' ||str.charAt(i) =='\\' || str.charAt(i) =='?' || str.charAt(i)=='"')
+return false;
+}
+return true;
+}
+function addClick()
+{
+if (document.ddns.hostname.value=="") {
+alert("Please enter hostname for this account!");
+document.ddns.hostname.focus();
+return false;
+}
+if(!checkTextStr(document.ddns.hostname.value))
+{
+alert("Invalid value in hostname!");
+document.ddns.hostname.focus();
+return false;
+}
+if (document.ddns.ddnsProv.value!="4"
+)
+{
+if (document.ddns.username.value=="")
+{
+alert("Please enter username for this account!");
+document.ddns.username.focus();
+return false;
+}
+if(!checkTextStr(document.ddns.username.value))
+{
+alert("Invalid value in username!");
+document.ddns.username.focus();
+return false;
+}
+if (document.ddns.password.value=="") {
+alert("Please enter password for this account!");
+document.ddns.password.focus();
+return false;
+}
+if(!checkTextStr(document.ddns.password.value))
+{
+alert("Invalid value in password!");
+document.ddns.password.focus();
+return false;
+}
+}
+if (document.ddns.ddnsProv.value=="4")
+{
+if (document.ddns.email.value=="") {
+alert("Please enter email for this account!");
+document.ddns.email.focus();
+return false;
+}
+if(!checkTextStr(document.ddns.email.value))
+{
+alert("Invalid value in email!");
+document.ddns.email.focus();
+return false;
+}
+if (document.ddns.key.value=="") {
+alert("Please enter key for this account!");
+document.ddns.key.focus();
+return false;
+}
+if(!checkTextStr(document.ddns.key.value))
+{
+alert("Invalid value in key!");
+document.ddns.key.focus();
+return false;
+}
+}
+return true;
+}
+function updateState()
+{
+if (document.ddns.ddnsProv.value!="4"
+) {
+enableTextField(document.ddns.username);
+enableTextField(document.ddns.password);
+disableTextField(document.ddns.email)
+disableTextField(document.ddns.key)
+}
+else {
+enableTextField(document.ddns.email);
+enableTextField(document.ddns.key);
+disableTextField(document.ddns.username);
+disableTextField(document.ddns.password);
+}
+}
+function postDdns(provider,hostname,username,password,ifname)
+{
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Dynamic DNS";
+HelpItem="ddns";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">Dynamic DNS Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page is used to configure the Dynamic DNS address from DynDNS.org or TZO.
+Here you can Add/Remove to configure Dynamic DNS.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Ddns.cgi"method=POST name="ddns">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">DDNS Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">DDNS provider:</td>
+<td class="form_label_right">
+<select size="1" name="ddnsProv" onChange='updateState()'>
+<option selected value="0">dlinkddns.com(Free)</option>
+<option value="1">DynDNS.org(Custom)</option>
+<option value="2">DynDNS.org(Free)</option>
+<option value="3">DynDNS.org(Static)</option>
+<option value="4">TZO</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Hostname:</td>
+<td class="form_label_right"><input type="text" name="hostname" size="35" maxlength="35"></td>
+</tr>
+<tr>
+<td class="form_label_left">Interface:</td>
+<td class="form_label_right">
+<select name="interface" >
+<OPTION VALUE="16" SELECTED> pppoe2</OPTION>
+
+ <option value="100">----</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Enable:</td>
+<td class="form_label_right"><input type="checkbox" name="enable" checked></td>
+</tr>
+</table>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr><td colspan="2"><hr size=1 noshade align=top></td></tr>
+<tr><td colspan="2" class="form_label_left" style="text-align:left">DynDns Settings:</td></tr>
+<tr>
+<td class="form_label_left">Username:</td>
+<td class="form_label_right"><input type="text" name="username" size="35" maxlength="35"></td>
+</tr>
+<tr>
+<td class="form_label_left">Password:</td>
+<td class="form_label_right"><input type="text" name="password" size="35" maxlength="35"></td>
+</tr>
+</table>
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr><td colspan="2"><hr size=1 noshade align=top></td></tr>
+<tr><td colspan="2" class="form_label_left" style="text-align:left">TZO Settings:</td></tr>
+<tr>
+<td class="form_label_left">Email:</td>
+<td class="form_label_right"><input type="text" name="email" size="35" maxlength="35"></td>
+</tr>
+<tr>
+<td class="form_label_left">Key:</td>
+<td class="form_label_right"><input type="text" name="key" size="35" maxlength="35"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" name="addacc" onClick="return addClick()">&nbsp;&nbsp;
+<input type="submit" value="Remove" name="delacc">&nbsp;&nbsp;
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">Dynamic DDNS Table</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">Select</td>
+<td class="form_label_col">State</td>
+<td class="form_label_col">Service</td>
+<td class="form_label_col">Hostname</td>
+<td class="form_label_col">Username</td>
+<td class="form_label_col">Interface</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" NAME="submit.htm?ddns.htm" value="Send">
+<script> updateState(); </script>
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/ddns.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:49 GMT -->
+</html>
+
+

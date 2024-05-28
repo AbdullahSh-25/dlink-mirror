@@ -1,0 +1,156 @@
+<html>
+<!-- Mirrored from 192.168.1.1/arp_binding.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>ARP Binding </title>
+<SCRIPT>
+function resetClick()
+{
+document.arpbinding.reset;
+}
+function arpTable(ip,mac)
+{
+this.ip=ip;
+this.mac=mac.replace(/:/g,"");
+}
+function checkDuplicateArp(ipaddr,macaddr)
+{
+var PermanentArpTables=new Array();
+
+ for(var i=0; i<PermanentArpTables.length; i++)
+{
+if(PermanentArpTables[i].ip==ipaddr.value)
+{
+alert("The Ip address has been occupied!");
+ipaddr.focus();
+return false;
+}
+}
+return true;
+}
+function saveChanges()
+{
+if (!checkIP(document.arpbinding.ipaddr))
+{
+return false;
+}
+if(!checkMacWithoutColon(document.arpbinding.macaddr,1))
+{
+alert("Invalid mac address!please input one valid unicast mac address!");
+return false;
+}
+if(!checkDuplicateArp(document.arpbinding.ipaddr,document.arpbinding.macaddr))
+{
+return false;
+}
+return true;
+}
+var selectflag = 0;
+function postArpBinding( ipaddr, macaddr)
+{
+document.arpbinding.ipaddr.value = ipaddr;
+document.arpbinding.macaddr.value = macaddr.replace(/:/g,"");
+selectflag = 1;
+}
+function DelClick()
+{
+if(selectflag == 0)
+{
+alert('No select any entry to deleted !!');
+return false;
+}
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Network Tools";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id="box_header" border=0 cellSpacing=0>
+<tr>
+<td class="topheader">ARP Binding Configuration</td>
+</tr>
+<tr>
+<td class="content">
+<p>This page lists the permanent arp entry table.You can bind ip with corresponding mac to avoid arp spoof.</p>
+</td>
+</tr>
+</table>
+<form action="http://admin:admin@192.168.1.1/form2Arpbinding.cgi" method=POST name="arpbinding">
+<table id="body_header" border="0" cellSpacing="0">
+<tr>
+<td class="topheader">ARP Binding Configuration</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class="form_label_left">IP Address:</td>
+<td class="form_label_right">
+<input type="text" name="ipaddr" size="15" maxlength="15" value="0.0.0.0">
+</td>
+</tr>
+<tr>
+<td class="form_label_left">Mac Address:</td>
+<td class="form_label_right">
+<input type="text" name="macaddr" size="17" maxlength="17" value="000000000000">(ex. 00E086710502)
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" onClick="return saveChanges()">&nbsp;&nbsp;
+<input type="submit" value="Delete Selected" name="delete" onClick="return DelClick()">&nbsp;&nbsp;
+<input type="reset" value="Undo" name="reset" onClick="resetClick()">
+<table id="body_header" border="0" cellspacing="0">
+<tr>
+<td class="topheader">ARP Binding Table</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formlisting" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr class="form_label_row">
+<td class="form_label_col">Select</td>
+<td class="form_label_col">IP Address</td>
+<td class="form_label_col">MAC Address</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<input type="hidden" NAME="submit.htm?arp_binding.htm" value="Send">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/arp_binding.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

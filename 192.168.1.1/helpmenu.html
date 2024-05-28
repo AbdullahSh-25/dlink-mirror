@@ -1,0 +1,155 @@
+<html>
+<!-- Mirrored from 192.168.1.1/helpmenu.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+</head>
+<body>
+<blockquote>
+<SCRIPT language="JavaScript">
+var LoginUser = 'admin';
+
+var wireless = '1';
+</SCRIPT>
+<script language="JavaScript">
+TabHeader="Help";
+SideItem="Menu";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Help Menu</td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<li><a href="helpsetup.html">Setup</a>
+<li><a href="helpadv.html">Advanced</a>
+<li><a href="helpmain.html">Maintenance</a>
+<li><a href="helpstatusinfo.html">Status</a>
+</ul>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader><a name=Setup>Setup Help</a></td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<li><a href="helpsetup.html#LAN">Local Network</a>
+<li><a href="helpsetup.html#Internet">Internet Setup</a>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpsetup.html#Wireless">Wireless Setup</a>');
+if (LoginUser == "admin")
+document.writeln('<li><a href="helpsetup.html#Time">Time and Date</a>');
+</script>
+</ul>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader><a name=Advanced>Advanced Help</a></td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpadv.html#AdvWlan">Advanced Wireless</a>');
+if (LoginUser == "admin") {
+document.writeln('<li><a href="helpadv.html#ACL">Access Control List</a>');
+document.writeln('<li><a href="helpadv.html#PortTriggering">Port Triggering</a>');
+document.writeln('<li><a href="helpadv.html#PortForwarding">Port Forwarding</a>');
+document.writeln('<li><a href="helpadv.html#DMZ">DMZ</a> ');
+document.writeln('<li><a href="helpadv.html#Parental">Parental Control</a>');
+document.writeln('<li><a href="helpadv.html#Filtering">Filtering Options</a>');
+document.writeln('<li><a href="helpadv.html#DOS">DOS settings</a>');
+document.writeln('<li><a href="helpadv.html#DNS">DNS</a>');
+document.writeln('<li><a href="helpadv.html#DDNS">Dynamic DNS</a>');
+}
+</script>
+<li><a href="helpadv.html#Tools">Network Tools</a>
+<script language="javascript">
+if (LoginUser == "admin") {
+document.writeln('<li><a href="helpadv.html#Routing">Routing</a>');
+document.writeln('<li><a href="helpadv.html#NAT">NAT</a>');
+}
+if(usb_printer =="1")
+document.writeln('<li><a href="helpadv.html#CUPS">USB Printer</a>');
+</script>
+</ul>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader><a name=Maintenance>Maintenance Help</a></td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<script language="javascript">
+if (LoginUser == "admin")
+{
+document.writeln('<li><a href="helpmain.html#System">System</a>');
+document.writeln('<li><a href="helpmain.html#Update">Firmware Update</a>');
+document.writeln('<li><a href="helpmain.html#Access">Password</a>');
+}
+</script>
+<li><a href="helpmain.html#Diagnostics">Diagnostics</a>
+<li><a href="helpmain.html#Log">System Log</a>
+<li><a href="helpmain.html#Logout">Logout</a>
+</ul>
+</td>
+</tr>
+</table><br>
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader><a name=Status>Status Help</a></td>
+</tr>
+<tr>
+<td class=content>
+<ul>
+<li><a href="helpstatusinfo.html#DeviceInfo">Device Info</a>
+<script language="javascript">
+if(wireless=="1")
+document.writeln('<li><a href="helpstatusinfo.html#Wireless">Wireless Clients</a>');
+</script>
+<li><a href="helpstatusinfo.html#DHCP">DHCP Clients</a>
+<li><a href="helpstatusinfo.html#AdslDriver">ADSL Driver</a>
+<li><a href="helpstatusinfo.html#AdslStats">Statistics</a>
+<li><a href="helpstatusinfo.html#Route">Route Info</a>
+</ul>
+</td>
+</tr>
+</table>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/helpmenu.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:50 GMT -->
+</html>
+
+

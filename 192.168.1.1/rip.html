@@ -1,0 +1,173 @@
+<html>
+<!-- Mirrored from 192.168.1.1/rip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+<head>
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="stylemain.css">
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="share.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+
+<title>Routing Configuration </title>
+<SCRIPT>
+function postRip(ifname, recvVer, sendVer)
+{
+document.rip.rip_if.value = ifname;
+document.rip.recv_ver.selectedIndex = recvVer;
+document.rip.send_ver.selectedIndex = sendVer;
+}
+function delRuleCheck()
+{
+if(document.rip.select.length)
+{
+for(i=0;i<document.rip.select.length;i++)
+{
+if(document.rip.select[i].checked)
+return deleteClick();
+}
+}else
+{
+if(document.rip.select.checked)
+return deleteClick();
+}
+alert("please select an entry to delete!");
+return false;
+}
+</SCRIPT>
+<link href="stylemain.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<blockquote>
+<script language="JavaScript">
+TabHeader="Advanced";
+SideItem="Routing";
+HelpItem="rip";
+</script>
+<script type='text/javascript'>
+mainTableStart();
+logo();
+TopNav();
+ThirdRowStart();
+Write_Item_Images();
+mainBodyStart();
+</script>
+<table id=box_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>RIP Configuration</td>
+</tr>
+<tr>
+<td class=content>
+<p> Enable the RIP if you are using this device as a RIP-enabled router to
+communicate with others using the Routing Information Protocol.<br>
+attention: if you want to enable RIP, please make sure remote control is enabled.
+</p>
+</td>
+</tr>
+</table>
+<br>
+<form action="http://admin:admin@192.168.1.1/form2Rip.cgi" method=POST name="rip">
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>RIP</td>
+</tr>
+<tr>
+<td class="content" align="left">
+<table class="formarea" border="0" cellpadding="0" cellspacing="0" width="500">
+<tr>
+<td class='form_label_left' align=left>
+<input type="radio" value="0" name="rip_on"
+checked
+>Off&nbsp;&nbsp;
+<input type="radio" value="1" name="rip_on"
+
+>On
+</td>
+<td class='form_label_right' align=left>
+<input type="submit" value="Apply" name="ripApp">
+</td>
+</tr>
+<tr>
+<td class='form_label_left' align=left>
+interface
+</td>
+<td class='form_label_right' align=left>
+
+<SELECT ID="rip_if" NAME="rip_if" WIDTH=30 >
+<OPTION VALUE="br0" SELECTED> LAN</OPTION>
+<OPTION VALUE="pppoe 2" > pppoe2</OPTION>
+</SELECT>
+
+ </td>
+</tr>
+<tr>
+<td class='form_label_left' align=left>
+Recv Version
+</td>
+<td class='form_label_right' align=left>
+<select name="recv_ver" style="width:60">
+<option value="1">RIP1</option>
+<option value="2" >RIP2</option>
+<option value="3">Both</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class='form_label_left' align=left>
+Send Version
+</td>
+<td class='form_label_right' align=left>
+<select name="send_ver" style="width:60">
+<option value="1">RIP1</option>
+<option value="2" >RIP2</option>
+</select>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<input type="submit" value="Add" name="ripAdd">&nbsp;&nbsp;
+<input type="submit" value="Delete" name="ripDel" onClick="return delRuleCheck()">&nbsp;&nbsp;
+<table id=body_header border=0 cellSpacing=0>
+<tr>
+<td class=topheader>Rip Config List</td>
+</tr>
+<tr>
+<td class=content>
+<table class=formlisting border=0>
+<tr class=form_label_row >
+<td class='form_label_col' width="5%">
+Select
+</td>
+<td class='form_label_col' width="5%">
+interface
+</td>
+<td class='form_label_col' width="5%">
+Recv Version
+</td>
+<td class='form_label_col' width="5%">
+Send Version
+</td>
+</tr>
+
+ </table>
+</td>
+</tr>
+</table>
+<INPUT TYPE="hidden" VALUE="Send" NAME="submit.htm?rip.htm">
+</form>
+<script type='text/javascript'>
+mainBodyEnd();
+ThirdRowEnd();
+Footer()
+mainTableEnd()
+</script>
+</blockquote>
+</body>
+
+<!-- Mirrored from 192.168.1.1/rip.htm by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 13 Apr 2024 00:51:51 GMT -->
+</html>
+
+

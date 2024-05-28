@@ -1,0 +1,97 @@
+if (HelpItem=='wizard'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'First time users are recommended to run the <b>Setup Wizard</b>. ' +
+'Click the <b><font color="rgb(108,169,213)">Setup Wizard</font></b> button and you will be guided step by step ' +
+'through the process of setting up your ADSL connection. <br><br>' +
+'If you consider yourself an ' +
+'advanced user or have ' +
+'configured a router before, ' +
+'click <a href="wanadsl_auto_droute.html">Setup->Internet Setup</a> to ' +
+'input all the settings ' +
+'manually.<br><br>' +
+'<a href="helpsetup.html#Wizard">More...</a>';
+}else if (HelpItem=='wlbasic'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'Changing your <b><font color="rgb(108,169,213)">Wireless Network Name (SSID)</font></b> ' +
+'is the first step in securing your wireless network. ' +
+'Change it to a familiar name that does not contain any personal ' +
+'information.<br><br>' +
+'For your wireless devices to connect to your ' +
+'router, you will need to manually enter the ' +
+'<b><font color="rgb(108,169,213)">Wireless Network Name (SSID)</font></b> ' +
+'on each device. (Please take a note of your SSID ' +
+'and keep it to hand.)<br><br>' +
+'<a href="helpsetup.html#Wireless">More...</a>';
+}else if (HelpItem=='wlsecurity'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'If you enable Wireless Security, make sure you write down the ' +
+'<b><font color="rgb(108,169,213)">encryption key</font></b> ' +
+'that you have configured. You will need to enter this information ' +
+'on any wireless device that you connect to your wireless network. <br><br>' +
+'<a href="helpsetup.html#Wireless">More...</a>';
+}else if (HelpItem=='lancfg2'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'The IP address of your router is the same IP ' +
+'address you will use to access the web management interface of your router.<br><br>' +
+'<a href="helpsetup.html#LAN">More...</a>';
+}else if (HelpItem=='dhcp_server'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'If you already have a DHCP server on your network or are using static IP addresses ' +
+'on all the devices on your network, select <b><font color="rgb(108,169,213)">DHCP Mode:None</font></b> to disable this feature.<br><br>' +
+'<a href="helpsetup.html#LAN">More...</a>';
+}else if (HelpItem=='dhcp_reserved'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'If you have devices on your network that should always have ' +
+'fixed IP addresses, add a Static DHCP for each such device.<br><br>' +
+'<a href="helpsetup.html#LAN">More...</a>';
+}else if (HelpItem=='wanif'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'When configuring the router to access the Internet, be sure to choose the correct ' +
+'<b><font color="rgb(108,169,213)">Channel Mode</font></b> from the list below.<br><br>' +
+'Please take care when entering your ' +
+'<b><font color="rgb(108,169,213)">username</font></b> and ' +
+'<b><font color="rgb(108,169,213)">password</font></b> ' +
+'as these are case sensitive. The majority of connection ' +
+'issues are caused by incorrect ' +
+'<b><font color="rgb(108,169,213)">username</font></b> or ' +
+'<b><font color="rgb(108,169,213)">password</font></b> ' +
+'combinations.<br><br>' +
+'Note: Be sure to restart the router for the new Internet Setting to take effect.<BR><BR>' +
+'<a href="helpsetup.html#Internet">More...</a>';
+}else if (HelpItem=='datetime'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'Good timekeeping is important for accurate logs and related firewall rules.<br><br>' +
+'<a href="helpsetup.html#Time">More...</a>';
+}else if (HelpItem=='wancfghelp2'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'IGMP (Internet Group Management Protocol, join/leave) is a communications protocol used ' +
+'to manage the membership of Internet Protocol multicast groups. "IGMP proxy(multicast)" feature ' +
+'needs to be enabled for the device(L2 switch) to support multimedia ' +
+'applications(transmitter/media server & receivers/IPSTBs) w/ multicast ' +
+'capability, i.e. IPTV, on-line gaming etc.<BR><BR> '+
+'<a href="helpsetup.html#Time">More...</a>';
+}
+else if (HelpItem=='adsl'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br> ' +
+'Do not change these settings unless directed by your ISP.<br><br>' +
+'<a href="helpsetup.html#Internet">More...</a>';
+}
+else if (HelpItem=='autopvc'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'Click <b><font color="rgb(108,169,213)">Probe</font></b> button to search current available PVC(VPI/VCI)' +
+'from the following listed Current Auto-PVC Table which your ISP supports.<br><br>' +
+'<a href="helpsetup.html#Internet">More...</a>';
+}
+else if (HelpItem=='wanatm'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'The listed PVC(VPI/VCI) has configured in <a href="wanadsl_auto_droute.html">Setup->Internet Setup</a>.' +
+'Here you can config ATM QoS,PCR,CVDT etc...<br><br>' +
+'<a href="helpsetup.html#Internet">More...</a>';
+}else if (HelpItem=='IPV6Set'){
+document.getElementById('helpLabel').innerHTML = '<b>Helpful Hints...</b> <br><br>' +
+'When configuring the router to access the IPv6 Internet, be sure to choose the correct IPv6 Connection Type from the drop down menu. If you are unsure of which option to choose, contact your Internet Service Provider (ISP).' +
+'If you are having trouble accessing the IPv6 Internet through the router, double check any settings you have entered on this page and verify them with your ISP if needed.<br><br>' +
+'<a href="helpsetup.html#IPV6Set">More...</a>';
+}
+
+
